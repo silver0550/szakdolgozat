@@ -8,5 +8,6 @@
 </head>
 <body>
     <h1>HOME PAGE</h1>
+    <h1>Üdv: {{Auth::user()->name}}</h1>
 </body>
 </html>

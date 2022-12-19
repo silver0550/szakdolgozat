@@ -18,10 +18,12 @@ Route::get('/', function () {
     return redirect('home');
 });
 
-Route::middleware('auth:sanctum')->get('/home',function(){return view('home');})->name('home');
+Route::middleware('auth')->get('/home', function(){return view('home');})->name('home');
 
 Route::middleware('guest')->get('/login', function () {
     return view('login.login');
 });
 
 Route::post('/login', [Authcontroller::class, 'login'])->name('login');
+
+Route::get('/logout',[AuthController::class,'logout'])->name('logout');

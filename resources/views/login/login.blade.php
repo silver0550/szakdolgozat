@@ -19,13 +19,13 @@
       <input type="text" placeholder='Username' class='text' name="email" required><br>
       <input type="password" placeholder='••••••••••••••' class='password' name="password" required><br>
       <input type="submit" class='btn-login' value="Login">
-      
       <a href="#" class='forgot'>Forgot?</a>
+      @isset($massage)
+          <p class = 'error'>{{$massage}}</p>
+      @endisset
     </form>
   </div>
 </section>
-
-  <script  src="js/script.js"></script>
 
 </body>
 </html>

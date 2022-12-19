@@ -76,4 +76,10 @@ body {
     color: white;
     float: right;
   }
+  .login .error {
+    text-decoration: none;
+    text-align: center;
+    background-color: red;
+
+  }
   
