@@ -38,7 +38,8 @@ class User extends Authenticatable
 
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults()->logAll();
+        return LogOptions::defaults()->logAll()
+            ->dontLogIfAttributesChangedOnly(['remember_token']);
     }
 
     /**
