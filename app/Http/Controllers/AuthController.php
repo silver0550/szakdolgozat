@@ -14,6 +14,8 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)){
             $request->session()->regenerate();
 
+            activity()->log('login');
+            
             return redirect()->route('home');
         }
 
@@ -22,8 +24,10 @@ class AuthController extends Controller
 
     public function logout()
     {
+        activity()->log('logout');
+        
         Auth::logout();
-
+        
         return redirect()->route('login');
     }
 }
