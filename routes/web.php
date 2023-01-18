@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Livewire\Login\Login;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,16 +15,12 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/', function () {
-    return redirect('home');
-});
+Route::middleware('auth')->get('/', function (){return redirect()->route('index');});
 
-Route::middleware('auth')->get('/home', function(){return view('home');})->name('home');
+Route::middleware('auth')->get('/home', function(){return view('home');})->name('index');
 
-Route::middleware('guest')->get('/login', function () {
-    return view('login.login');
-});
+Route::middleware('guest')->get('/login', Login::class)->name('login');
 
-Route::post('/login', [Authcontroller::class, 'login'])->name('login');
+
 
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
