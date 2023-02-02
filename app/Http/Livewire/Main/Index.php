@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Index extends Component
 {
-    public $page = 'selfPage';
+    public $page = 'self-page';
     public $user;
 
     public $menuOptions = [
