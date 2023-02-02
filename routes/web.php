@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Livewire\Login\Login;
+use App\Http\Livewire\Main\Index;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +19,7 @@ use App\Http\Livewire\Login\Login;
 
 Route::middleware('auth')->get('/', function (){return redirect()->route('index');});
 
-Route::middleware('auth')->get('/home', function(){return view('home');})->name('index');
+Route::middleware('auth')->get('/home', Index::class)->name('index');
 
 Route::middleware('guest')->get('/login', Login::class)->name('login');
 

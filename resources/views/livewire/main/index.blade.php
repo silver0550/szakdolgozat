@@ -8,5 +8,9 @@
         </ul>
             
     </div>
-    <div class="middle">{{$page}}</div>
+    <div class="content">
+        @if($page ==='self-page') @livewire('main.self-page') @endif
+        @if($page ==='dash-board') @livewire('main.dash-board') @endif
+        @if($page ==='search') @livewire('main.search') @endif
+    </div>
 </div>

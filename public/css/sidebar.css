@@ -57,7 +57,6 @@
 }
 .sidebar ul a{
     display: block;
-    height: 100%;
     width: 100%;
     line-height: 65px;
     font-size: 20px;
@@ -75,4 +74,13 @@ ul li:hover a{
 
 .sidebar ul a i{
   margin-right: 16px;
+}
+
+.content{
+  position: absolute;
+  left: 260px;
+  top: 20px;
+  right: 20px;
+  bottom: 20px;
+  border: 2px solid red;
 }
