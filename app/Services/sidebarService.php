@@ -2,17 +2,20 @@
 
 namespace App\Services;
 
+use App\Enums\sidebarEnum;
+
 class sidebarService
 {
+
     public $menu = [
-        ['name' => 'Áttekintés', 'icon' => 'icon-home', 'function' => 'selfPage'],
-        ['name' => 'Kimutatás', 'icon' => 'icon-exit', 'function' => 'dashBoard'],
-        ['name' => 'Keresés', 'icon' => 'icon-search', 'function' => 'search'],
-        ['name' => 'Kilépés', 'icon' => 'icon-exit', 'function' => 'logout'],
+        ['name' => 'Áttekintés', 'icon' => 'icon-home', 'function' => sidebarEnum::SELF],
+        ['name' => 'Kimutatás', 'icon' => 'icon-exit', 'function' => sidebarEnum::SELF],
+        ['name' => 'Keresés', 'icon' => 'icon-search', 'function' => sidebarEnum::SEARCH],
+        ['name' => 'Kilépés', 'icon' => 'icon-exit', 'function' => sidebarEnum::LOGOUT],
     ];
 
     public $admin = [
-        'name' => 'Dashboard', 'icon' => 'icon-home', 'function' => 'dashBoard'
+        'name' => 'Dashboard', 'icon' => 'icon-home', 'function' => sidebarEnum::DASHBOARD
     ];
 
     public static function newSidebar(): self
@@ -20,11 +23,14 @@ class sidebarService
         return new sidebarService;
     }
 
-    public function checkAdmin(): self
+    public function withAdmin(): self
     {
+        
+        array_unshift($this->menu,$this->admin);
 
-        if (auth()->user()->isadmin) {array_unshift($this->menu,$this->admin);}
         return $this;
         
     }
+
+
 }

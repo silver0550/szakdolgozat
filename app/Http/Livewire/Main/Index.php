@@ -8,29 +8,28 @@ use Illuminate\Support\Facades\Auth;
 
 class Index extends Component
 {
-    public $page = 'self-page';
+    public $currentPage = 'selfpage';
     public $user;
-
     public $menu;
+
+    protected $listeners =[
+        'change',
+    ];
 
     public function mount(){
         $this->user = auth()->user();
 
-        $this->menu = sidebarService::newSidebar()->checkAdmin()->menu;
+        $this->menu = $this->user->isadmin ? sidebarService::newSidebar()->withAdmin()->menu : sidebarService::newSidebar()->menu;
 
     }
 
-    public function selfPage(){
-        $this->page = 'self-page';
+    public function change($page){
+
+        if ($page ==='logout'){ $this->logout();}
+        else {$this->currentPage = $page;}
+        
     }
 
-    public function dashBoard(){
-        $this->page = 'dash-board';
-    }
-
-    public function search(){
-        $this->page = 'search';
-    }
     public function logout(){
 
         activity()->log('logout');
