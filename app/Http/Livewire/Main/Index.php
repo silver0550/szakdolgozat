@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Main;
 
+use App\Services\sidebarService;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,15 +11,13 @@ class Index extends Component
     public $page = 'self-page';
     public $user;
 
-    public $menuOptions = [
-        ['name' => 'Áttekintés', 'icon' => 'icon-home', 'function' => 'selfPage'],
-        ['name' => 'Kimutatás', 'icon' => 'icon-exit', 'function' => 'dashBoard'],
-        ['name' => 'Keresés', 'icon' => 'icon-search', 'function' => 'search'],
-        ['name' => 'Kilépés', 'icon' => 'icon-exit', 'function' => 'logout'],
-    ];
+    public $menu;
 
     public function mount(){
         $this->user = auth()->user();
+
+        $this->menu = sidebarService::newSidebar()->checkAdmin()->menu;
+
     }
 
     public function selfPage(){
