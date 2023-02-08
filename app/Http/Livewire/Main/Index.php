@@ -12,6 +12,8 @@ class Index extends Component
     public $user;
     public $menu;
 
+    public $dashboard;
+
     protected $listeners =[
         'change',
     ];
@@ -19,8 +21,12 @@ class Index extends Component
     public function mount(){
         $this->user = auth()->user();
 
-        $this->menu = $this->user->isadmin ? sidebarService::newSidebar()->withAdmin()->menu : sidebarService::newSidebar()->menu;
+        $this->menu = $this->user->isadmin ? collect(sidebarService::newSidebar()->withAdmin()->menu)->map(fn($i) => collect($i)) : collect(sidebarService::newSidebar()->menu)->map(fn($i) => collect($i));
+        
+    }
 
+    public function hydrate(){
+        $this->menu = $this->user->isadmin ? collect(sidebarService::newSidebar()->withAdmin()->menu)->map(fn($i) => collect($i)) : collect(sidebarService::newSidebar()->menu)->map(fn($i) => collect($i));
     }
 
     public function change($page){
