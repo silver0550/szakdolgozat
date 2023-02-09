@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Main;
 
-use App\Services\sidebarService;
+use App\Http\Livewire\DTO\sidebarDTO;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,10 +10,10 @@ class Index extends Component
 {
     public $currentPage = 'selfpage';
     public $user;
-    public $menu;
+    
+    public sidebarDTO $menu;
 
-    public $dashboard;
-
+    
     protected $listeners =[
         'change',
     ];
@@ -21,12 +21,12 @@ class Index extends Component
     public function mount(){
         $this->user = auth()->user();
 
-        $this->menu = $this->user->isadmin ? collect(sidebarService::newSidebar()->withAdmin()->menu)->map(fn($i) => collect($i)) : collect(sidebarService::newSidebar()->menu)->map(fn($i) => collect($i));
+        $this->menu = $this->user->isadmin ? sidebarDTO::get()->asAdmin(): sidebarDTO::get();
         
     }
 
     public function hydrate(){
-        $this->menu = $this->user->isadmin ? collect(sidebarService::newSidebar()->withAdmin()->menu)->map(fn($i) => collect($i)) : collect(sidebarService::newSidebar()->menu)->map(fn($i) => collect($i));
+        $this->menu = $this->user->isadmin ? sidebarDTO::get()->asAdmin(): sidebarDTO::get();
     }
 
     public function change($page){
