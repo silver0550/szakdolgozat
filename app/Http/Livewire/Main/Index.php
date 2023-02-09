@@ -2,36 +2,40 @@
 
 namespace App\Http\Livewire\Main;
 
+use App\Http\Livewire\DTO\sidebarDTO;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 
 class Index extends Component
 {
-    public $page = 'self-page';
+    public $currentPage = 'selfpage';
     public $user;
+    
+    public sidebarDTO $menu;
 
-    public $menuOptions = [
-        ['name' => 'Áttekintés', 'icon' => 'icon-home', 'function' => 'selfPage'],
-        ['name' => 'Kimutatás', 'icon' => 'icon-exit', 'function' => 'dashBoard'],
-        ['name' => 'Keresés', 'icon' => 'icon-search', 'function' => 'search'],
-        ['name' => 'Kilépés', 'icon' => 'icon-exit', 'function' => 'logout'],
+    
+    protected $listeners =[
+        'change',
     ];
 
     public function mount(){
         $this->user = auth()->user();
+
+        $this->menu = $this->user->isadmin ? sidebarDTO::get()->asAdmin(): sidebarDTO::get();
+        
     }
 
-    public function selfPage(){
-        $this->page = 'self-page';
+    public function hydrate(){
+        $this->menu = $this->user->isadmin ? sidebarDTO::get()->asAdmin(): sidebarDTO::get();
     }
 
-    public function dashBoard(){
-        $this->page = 'dash-board';
+    public function change($page){
+
+        if ($page ==='logout'){ $this->logout();}
+        else {$this->currentPage = $page;}
+        
     }
 
-    public function search(){
-        $this->page = 'search';
-    }
     public function logout(){
 
         activity()->log('logout');
