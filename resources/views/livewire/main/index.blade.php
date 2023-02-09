@@ -22,12 +22,12 @@
 
     <ul class="menu bg-base-100 w-64 px-5">
         <header class="my-3 text-center ">{{$user->name}}</header>
-       
-        @foreach ($menu as $item)
-          
+        
+        @foreach ($menu->options as $item)
+            
             <li><a wire:click.prevent="$emit('change','{{$item['page']}}')"><i class= {{$item['icon']}}></i>{{$item['name']}}</a>
-           
-            @if ($item->has('sub'))
+            
+            @if (array_key_exists('sub',$item))
                 <ul class="bg-base-100">
                 @foreach ($item['sub'] as $sub)
                     <li ><a wire:click.prevent="$emit('change','{{$sub['page']}}')">{{$sub['name']}}</a></li>
