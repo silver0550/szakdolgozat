@@ -6,17 +6,14 @@ use Livewire\Wireable;
 
 class UserDTO implements Wireable
 {
-    public $assignments = [];
-    
-    public function __construct()
-    {
-        $this->assignments = [
-            'Fejlesztő',
-            'Tesztelő',
-            'Project Manager',
-            'csak egy teszt'
-        ];
-    }
+    public $assignments = [
+        'Fejlesztő',
+        'Tesztelő',
+        'Project Manager',
+        'csak egy teszt'
+    ];
+
+    public $successful;
 
     public function toLivewire()
     {

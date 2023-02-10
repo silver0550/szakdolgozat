@@ -12,7 +12,7 @@
                 @livewire('main.search')
                 @break
             @case('addUser')
-                @livewire('main.dash-board')
+                @livewire('main.create-user')
                 @break
             @default
 
