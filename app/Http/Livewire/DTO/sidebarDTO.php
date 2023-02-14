@@ -35,6 +35,10 @@ class sidebarDTO implements Wireable
             'name' => 'Eszköz kiosztása',
             'page' => 'useItem'
             ],
+            [
+            'name' => 'Felhasználók',
+            'page' =>'',
+            ],
         ]
     ];
 

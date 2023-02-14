@@ -6,7 +6,7 @@
             <div class="flex flex-row mt-11 justify-center">
                 <input wire:model.lazy="name" type="text" placeholder="Név" class= "input input-bordered input-primary @error('name')input-error @enderror w-full max-w-xs inline-block mr-20"/> 
                 <input wire:model.lazy='email' type="text" placeholder="E-mai cím" class="input input-bordered input-primary @error('email')input-error @enderror w-full max-w-xs inline-block mr-20 " /> 
-                <select wire:model= 'post' class="select select-primary @error('post')select-error @enderror w-full max-w-xs inline-block"> 3
+                <select wire:model= 'post' class="select select-primary @error('post')select-error @enderror w-full max-w-xs inline-block">
                     <option selected>Beosztás</option>
                     @foreach ($dto->assignments as $assignment)
                         <option>{{$assignment}}</option>
@@ -20,7 +20,7 @@
                     <div class="form-control float-right">
                         <label class="label cursor-pointer w-28">
                           <span class="label-text">Admin</span> 
-                          <input type="checkbox" class="toggle toggle-primary"  />
+                          <input wire:model='isAdmin' type="checkbox" class="toggle toggle-primary"  />
                         </label>
                     </div>
                 </div>
@@ -46,6 +46,6 @@
           </div>
         @endif
 
-        
+    
     </div>
 </div>

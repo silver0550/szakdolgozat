@@ -21,12 +21,12 @@ class Index extends Component
     public function mount(){
         $this->user = auth()->user();
 
-        $this->menu = $this->user->isadmin ? sidebarDTO::get()->asAdmin(): sidebarDTO::get();
-        
+
+        $this->menu = $this->user->admin ? sidebarDTO::get()->asAdmin(): sidebarDTO::get();
     }
 
     public function hydrate(){
-        $this->menu = $this->user->isadmin ? sidebarDTO::get()->asAdmin(): sidebarDTO::get();
+        $this->menu = $this->user->admin ? sidebarDTO::get()->asAdmin(): sidebarDTO::get();
     }
 
     public function change($page){
