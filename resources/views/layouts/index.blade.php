@@ -1,4 +1,4 @@
-<html>
+<html data-theme="dark">
     <head>
         @livewireStyles
         <link rel="stylesheet" href="/css/sidebar.css">
