@@ -29,11 +29,19 @@ class sidebarDTO implements Wireable
             ],
             [
             'name' => 'Eszköz felvétel',
-            'page' => 'addItem'
+            'page' => 'addTool'
             ],
             [
             'name' => 'Eszköz kiosztása',
-            'page' => 'useItem'
+            'page' => 'toolHandOver'
+            ],
+            [
+            'name' => 'Felhasználók',
+            'page' => 'usersList',
+            ],
+            [
+            'name' => 'Eszközök',
+            'page' => 'toolsList',
             ],
         ]
     ];

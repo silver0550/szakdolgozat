@@ -2,17 +2,29 @@
     <div class="absolute left-60 top-3 right-2 bottom-10 card bg-base-300 rounded-box place-items-center">
      
         @switch($currentPage)
-            @case('selfpage')
-                @livewire('main.self-page')
-                @break
             @case('dashboard')
                 @livewire('main.dash-board')
+                @break
+            @case('selfpage')
+                @livewire('main.self-page')
                 @break
             @case('search')
                 @livewire('main.search')
                 @break
             @case('addUser')
-                @livewire('main.dash-board')
+                @livewire('dashboard.create-user')
+                @break
+            @case('addTool')
+                @livewire('dashboard.create-tool')
+                @break
+            @case('toolHandOver')
+                @livewire('dashboard.hand-over')
+                @break
+            @case('usersList')
+                @livewire('dashboard.users')
+                @break
+            @case('toolsList')
+                @livewire('dashboard.tools')
                 @break
             @default
 
