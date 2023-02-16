@@ -25,4 +25,4 @@ Route::middleware('guest')->get('/login', Login::class)->name('login');
 
 
 
-Route::get('/logout',[AuthController::class,'logout'])->name('logout');
+// Route::get('/logout',[AuthController::class,'logout'])->name('logout');
