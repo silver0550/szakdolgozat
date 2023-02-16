@@ -1,18 +1,25 @@
-<div class='login'>
-    <div class='head'>
-        <h1 class='company'>Corporation Name/logo</h1>
-        </div>
-        <p class='msg'>Welcome back</p>
-        <div class='form'>
-          <form wire:submit.prevent='login'>
-            @csrf
-            <input wire:model.lazy='email' type="text" placeholder='Email' class='text' /><br>
-            <input wire:model.lazy='password' type="password" placeholder='••••••••••••••' class='password' /><br>
-            <input type="submit" class='btn-login' value="Login">
-            <a href="#" class='forgot'>Forgot?</a>
-            @if ($errors->any())
-                <div class='error-msg'>{{$errors->first()}}</div>
-            @endif
-          </form>
-        </div>
+<div>
+    <div class="text-center">
+        <h1>Corporation Name/logo</h1>
+        <p>Welcome back</p>
+    </div>        
+    <div>   
+        <form wire:submit.prevent='login' class="flex flex-col gap-4">
+            <x-input.form-control label="Email cím" for="emil" :error="$errors->first('email')">
+                <x-input.text wire:model.defer='email' name="email" id="email"/>  
+            </x-input.form-control>
+            <x-input.form-control label="Jelszó" for="password" :error="$errors->first('password')">
+                <x-input.text wire:model.defer='password' password for="email"/>  
+            </x-input.form-control>
+            <div class="mt-5" >
+                <x-button.primary>Login</x-button>
+                <a class="float-right mt-3" href="#">Forgot?</a>
+            </div>
+        </form>
+        @error('auth')
+            <div class="text-center">
+                <span class="text-error text-center">{{$message}}</span>
+            </div>
+        @enderror
+    </div>
 </div>

@@ -20,7 +20,7 @@ class Login extends Component
 
     protected $messages =[
         'email.required' => 'Az e-mail mező kitöltése kötelező!',
-        'email.email' => 'Hibás e-mail formátum!',
+        'email.email' => 'Hibás formátum!',
         'password.required' => 'Jelszó mező kitöltése kötelező!',
     ];
 
@@ -49,6 +49,6 @@ class Login extends Component
 
     public function render()
     {
-        return view('livewire.login.login')->layout('layouts.login');
+        return view('livewire.login.login')->layout('components.layouts.login');
     }
 }

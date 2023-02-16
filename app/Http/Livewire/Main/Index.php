@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Index extends Component
 {
-    public $currentPage = 'selfpage';
+    public $currentPage = 'usersList';
     public $user;
     
     public sidebarDTO $menu;
@@ -20,7 +20,6 @@ class Index extends Component
 
     public function mount(){
         $this->user = auth()->user();
-
 
         $this->menu = $this->user->admin ? sidebarDTO::get()->asAdmin(): sidebarDTO::get();
     }
@@ -47,6 +46,6 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.main.index')->layout('layouts.index');
+        return view('livewire.main.index')->layout('components.layouts.index');
     }
 }
