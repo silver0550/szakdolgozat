@@ -39,14 +39,6 @@ class Login extends Component
         
     }
 
-    public function updatedEmail(){
-        $this->validate();
-    }
-
-    public function updatedPassword(){
-        $this->validate();
-    }
-
     public function render()
     {
         return view('livewire.login.login')->layout('components.layouts.login');
