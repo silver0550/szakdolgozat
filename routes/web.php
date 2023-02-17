@@ -1,9 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
+
 use App\Http\Livewire\Login\Login;
-use App\Http\Livewire\Main\Index;
+use App\Http\Livewire\Main\Home;
+use App\Http\Livewire\Main\DashBoard;
+
+use App\Http\Controllers\AuthController;
 
 
 /*
@@ -17,12 +20,12 @@ use App\Http\Livewire\Main\Index;
 |
 */
 
-Route::middleware('auth')->get('/', function (){return redirect()->route('index');});
+Route::middleware('auth')->get('/', function (){return redirect()->route('home');});
 
-Route::middleware('auth')->get('/home', Index::class)->name('index');
+Route::middleware('auth')->get('/home', Home::class)->name('home');
 
 Route::middleware('guest')->get('/login', Login::class)->name('login');
 
+Route::middleware('auth')->get('/dashboard',DashBoard::class)->name('dashboard');
 
-
-// Route::get('/logout',[AuthController::class,'logout'])->name('logout');
+Route::get('/logout',[AuthController::class,'logout'])->name('logout');
