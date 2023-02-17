@@ -28,7 +28,11 @@ Route::middleware('guest')->get('/login', Login::class)->name('login');
 
 
 Route::middleware('auth')->get('/home', Home::class)->name('home');
-Route::middleware('auth')->get('/user', Users::class)->name('users');
+Route::middleware('auth')->get('/users', Users::class)->name('users');
+Route::middleware('auth')->get('/tools', Users::class)->name('tools');
+Route::middleware('auth')->get('/search', Users::class)->name('search');
+//TODO: Routing rendszerezése
+
 
 
 
