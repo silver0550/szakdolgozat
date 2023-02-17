@@ -32,19 +32,11 @@ class Login extends Component
 
             activity()->log('login');
             
-            return redirect()->route('index');
+            return redirect()->route('home');
         }
         $this->addError('auth','Hibás felhasználónév, vagy jelszó');
         $this->reset('password');
         
-    }
-
-    public function updatedEmail(){
-        $this->validate();
-    }
-
-    public function updatedPassword(){
-        $this->validate();
     }
 
     public function render()

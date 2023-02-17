@@ -1,6 +1,7 @@
 @props([
-'password' => false,
-'key' => null,
+    'password' => false,
+    'key' => null,
+    'error' => false,
 ])
 
 @php
@@ -9,6 +10,9 @@
 
 <input
     type="{{ $password ? 'password' : 'text' }}"
+    @if ($error)
+        {{ $attributes->whereDoesntStartWith('wire:key')->merge(['class' => 'input input-bordered  input-error w-full']) }}   
+    @endif
     {{ $attributes->whereDoesntStartWith('wire:key')->merge(['class' => 'input input-bordered w-full']) }}
     wire:key="{{ $key }}"
 />
