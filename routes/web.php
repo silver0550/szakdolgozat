@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Livewire\Login\Login;
 use App\Http\Livewire\Main\Home;
+use App\Http\Livewire\Dashboard\Users;
 use App\Http\Livewire\Main\DashBoard;
 
 use App\Http\Controllers\AuthController;
@@ -22,9 +23,14 @@ use App\Http\Controllers\AuthController;
 
 Route::middleware('auth')->get('/', function (){return redirect()->route('home');});
 
-Route::middleware('auth')->get('/home', Home::class)->name('home');
-
 Route::middleware('guest')->get('/login', Login::class)->name('login');
+
+
+
+Route::middleware('auth')->get('/home', Home::class)->name('home');
+Route::middleware('auth')->get('/user', Users::class)->name('users');
+
+
 
 Route::middleware('auth')->get('/dashboard',DashBoard::class)->name('dashboard');
 

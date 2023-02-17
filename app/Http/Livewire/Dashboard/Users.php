@@ -16,7 +16,8 @@ class Users extends Component
         'beosztás',
         'admin',
         '',
-        ''
+        '',
+        '',
     ];
 
     protected $listeners = [
@@ -29,6 +30,6 @@ class Users extends Component
 
     public function render()
     {
-        return view('livewire.dashboard.users');
+        return view('livewire.dashboard.users')->layout('components.layouts.index');
     }
 }

@@ -16,8 +16,8 @@
 
         @livewireStyles
     </head>
-    <body>
-    {{-- <body class="antialiased"> --}}
+    <body class="antialiased">
+        
         {{ $slot }}
 
         @stack('scripts')
