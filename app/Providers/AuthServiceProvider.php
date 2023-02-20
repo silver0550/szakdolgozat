@@ -2,10 +2,13 @@
 
 namespace App\Providers;
 
+use App\Http\Enums\PasswordEnum;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use App\Models\User;
 use App\Policies\UserPolicy;
+
+use function Symfony\Component\String\b;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -27,6 +30,18 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('asSuperAdmin', function(User $user){
+            return $user->email === PasswordEnum::SUPER_ADMIN->value;
+        });
+
+        Gate::define('asAdmin', function(User $user){
+            return $user->admin;
+        });
+
+        Gate::define('isSuperAdmin', function (User $user, User $model){
+
+            return $model->email === PasswordEnum::SUPER_ADMIN->value;
+        });
+        
     }
 }

@@ -4,13 +4,22 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    @foreach ($columns as $column)
-                        <th>{{$column}}</th>
-                    @endforeach
+                    <th>Név</th>
+                    <th>Email</th>
+                    <th>Beosztás</th>
+                    @can('asSuperAdmin')
+                        <th>Admin</th>    
+                    @endcan
+                    @can('asAdmin')
+                        <th>Törlés</th>
+                        <th>Infó</th>
+                    @endcan
                 </tr>
               </thead>
             @foreach ($users as $user)
-                @livewire('dashboard.users-list', ['user' => $user], key($user->id))
+                @cannot('isSuperAdmin', $user)
+                    @livewire('dashboard.users-list', ['user' => $user, 'index' => $loop->index], key($user->id))    
+                @endcannot
             @endforeach
             <tr><td class="">Pagination</td></tr>
         </table>

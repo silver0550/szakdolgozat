@@ -10,16 +10,6 @@ class Users extends Component
 
     public $users;
 
-    public $columns = [
-        'név',
-        'email',
-        'beosztás',
-        'admin',
-        '',
-        '',
-        '',
-    ];
-
     protected $listeners = [
         'refresh' => '$refresh',
     ];

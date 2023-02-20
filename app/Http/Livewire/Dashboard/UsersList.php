@@ -10,24 +10,25 @@ class UsersList extends Component
 {
 
     public User $user;
+    public $index;
 
     protected $rules = [
         'user.admin' => ['required'],
     ];
 
-    public function mount(User $user){
-        $this->user = $user;
+    public function mount(User $user, Int $index){
+        //        
     }
 
     public function update(){
-        if(Gate::authorize('update',[auth()->user()])){
+        if(Gate::authorize('update', $this->user)){
 
             $this->user->save();
         }   
     }
 
     public function delete(){
-        if(Gate::authorize('delete',[auth()->user()])){
+        if(Gate::authorize('delete',$this->user)){
 
             $this->user->delete();
             $this->emitUp('refresh');            
