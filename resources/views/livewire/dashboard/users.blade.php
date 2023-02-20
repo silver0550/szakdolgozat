@@ -1,27 +1,19 @@
 <div>
-    <div class="overflow-x-auto w-full">
-        <table class="table table-zebra w-full text-center">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Név</th>
-                    <th>Email</th>
-                    <th>Beosztás</th>
-                    @can('asSuperAdmin')
-                        <th>Admin</th>    
-                    @endcan
-                    @can('asAdmin')
-                        <th>Törlés</th>
-                        <th>Infó</th>
-                    @endcan
-                </tr>
-              </thead>
+
+    <x-table>
+        <x-slot name="head">
+            <x-table.head wire:click="$emitSelf('sort','id')" style="cursor: pointer">#</x-table.head>
+            <x-table.head wire:click="$emitSelf('sort','name')" style="cursor: pointer">Név</x-table.head>
+            <x-table.head wire:click="$emitSelf('sort','email')" style="cursor: pointer">Email</x-table.head>
+            <x-table.head wire:click="$emitSelf('sort','id')" style="cursor: pointer">Beosztás</x-table.head>
+            @can('SuperAdmin')<x-table.head>admin</x-table.head>@endcan
+        </x-slot>
+        <x-slot name='body'>
             @foreach ($users as $user)
-                @cannot('isSuperAdmin', $user)
-                    @livewire('dashboard.users-list', ['user' => $user, 'index' => $loop->index], key($user->id))    
-                @endcannot
+                @livewire('dashboard.users-list', ['user' => $user, 'index' => $loop->index + 1], key($user->id))    
             @endforeach
-            <tr><td class="">Pagination</td></tr>
-        </table>
-    </div>
+        </x-slot>
+
+    </x-table>
+    @livewire('pagination', ['pageSize' => 10])
 </div>

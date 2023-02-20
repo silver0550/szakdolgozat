@@ -1,0 +1,1 @@
+<th {{ $attributes->merge([ 'class' => 'text-base'])}}>{{$slot}}</th>
