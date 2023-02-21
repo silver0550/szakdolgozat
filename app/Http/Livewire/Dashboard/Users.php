@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Dashboard;
 
 use Livewire\Component;
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 
 
 class Users extends Component
@@ -18,6 +19,7 @@ class Users extends Component
     protected $listeners = [
         'refresh' => '$refresh',
         'sort',
+        'create'
     ];
 
 
@@ -31,6 +33,15 @@ class Users extends Component
 
     public function updatedPageSize(){
         $this->reset('currentPage');
+    }
+
+    public function create(){
+        dd('create');
+
+        if(Gate::authorize('update')){
+
+            $this->user->save();
+        }   
     }
 
     public function render()

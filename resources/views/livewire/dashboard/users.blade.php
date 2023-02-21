@@ -4,7 +4,9 @@
         <div class="flex w-3/5">
             @can('Admin')
                 <x-button.tooltip side='right' tooltip="Hozzáad" class="ml-5">
-                    <x-button.primary class="btn-circle">+</x-button.primary>
+                    <x-modal for="create-user" label='+' class='btn-circle'>
+                        <x-modal.create-user-content wire:click='create' for='create-user'></x-modal-content>
+                    </x-modal>
                 </x-button.tooltip>
             @endcan
             <x-input.text class="w-80 ml-40" placeholder="Keresés..."/>
@@ -44,7 +46,5 @@
         </x-slot>
     </x-table>
     {{-- RESULT TABLE END --}}
-    <x-input.form-control-together label="Email">
-        <x-input.text placeholder='e-mail'></x-input.text>
-    </x-input.form-control-together>
+    
 </div>
