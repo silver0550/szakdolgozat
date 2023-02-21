@@ -1,6 +1,7 @@
 @props([
     'password' => false,
     'key' => null,
+    'placeholder' => '',
     'error' => false,
 ])
 
@@ -9,7 +10,8 @@
 @endphp
 
 <input
-    type="{{ $password ? 'password' : 'text' }}"
+    type = "{{ $password ? 'password' : 'text' }}"
+    placeholder = "{{$placeholder}}"
     @if ($error)
         {{ $attributes->whereDoesntStartWith('wire:key')->merge(['class' => 'input input-bordered  input-error w-full']) }}   
     @endif

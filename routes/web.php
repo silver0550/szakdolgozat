@@ -25,17 +25,15 @@ Route::middleware('auth')->get('/', function (){return redirect()->route('home')
 
 Route::middleware('guest')->get('/login', Login::class)->name('login');
 
-
-
-Route::middleware('auth')->get('/home', Home::class)->name('home');
-Route::middleware('auth')->get('/users', Users::class)->name('users');
-Route::middleware('auth')->get('/tools', Users::class)->name('tools');
-Route::middleware('auth')->get('/search', Users::class)->name('search');
-//TODO: Routing rendszerezése
-
+Route::middleware('auth')->group(function(){
+    Route::get('/home', Home::class)->name('home');
+    Route::get('/users', Users::class)->name('users');
+    Route::get('/tools', Users::class)->name('tools');
+    Route::get('/search', Users::class)->name('search');
+});
 
 
 
-Route::middleware('auth')->get('/dashboard',DashBoard::class)->name('dashboard');
+Route::middleware('auth')->get('/dashboard',DashBoard::class)->name('dashboard'); //TODO: dashboard törlése
 
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');

@@ -1,0 +1,1 @@
+<tr {{ $attributes->merge(['class' => 'hover']) }} >{{ $slot }}</tr>
