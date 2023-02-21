@@ -1,5 +1,5 @@
-<div class="overflow-x-auto w-full" >
-    <table class="table table-zebra w-full">
+<div {{ $attributes->merge(['class' =>'overflow-x-auto w-full'])}} >
+    <table class="table table-zebra table-compact w-full">
         <thead>
             <tr class="text-center">
                 {{ $head }}

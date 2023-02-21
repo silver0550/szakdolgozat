@@ -1,19 +1,45 @@
 <div>
+    {{-- CONTROLL BLOCK BEGIN --}}
+    <div class ='flex justify-between w-full my-6 p-2 bg-base-200 rounded-md'>
+        <div class="flex w-3/5">
+            @can('Admin')
+                <x-button.primary>+</x-button.primary>
+            @endcan
+            <x-input.text class="w-80 ml-40" placeholder="Keresés..."/>
+            <x-button.primary class=" inline-block ml-2 float-right">
+                <x-icon.search class=" w-6 h-6"/>
+            </x-button.primary>
+        </div>
+        <x-pagination.body class="float-right ">
+            <x-select wire:model='pageSize' class="mx-4">
+                <option>10</option>
+                <option selected >15</option>
+                <option>20</option>
+                <option>50</option>
+            </x-select>
+            @foreach ($users as $page)
+                <x-pagination.button wire:click="$set('currentPage','{{$loop->index}}')" @class(['btn-active' => $loop->index == $currentPage])>
+                    {{$loop->index+1}}
+                </x-pagination.button>
+            @endforeach
+        </x-pagination.body>
+    </div>
+    {{-- CONTROLL BLOCK END --}}
 
-    <x-table>
+    {{-- RESULT TABLE BEGIN --}}
+    <x-table class="p-2 bg-base-200 rounded-md">
         <x-slot name="head">
-            <x-table.head wire:click="$emitSelf('sort','id')" style="cursor: pointer">#</x-table.head>
-            <x-table.head wire:click="$emitSelf('sort','name')" style="cursor: pointer">Név</x-table.head>
-            <x-table.head wire:click="$emitSelf('sort','email')" style="cursor: pointer">Email</x-table.head>
-            <x-table.head wire:click="$emitSelf('sort','id')" style="cursor: pointer">Beosztás</x-table.head>
-            @can('SuperAdmin')<x-table.head>admin</x-table.head>@endcan
+            <x-table.head class="cursor-default">#</x-table.head>
+            <x-table.head wire:click="$emitSelf('sort','name')" class="cursor-pointer">Név</x-table.head>
+            <x-table.head wire:click="$emitSelf('sort','email')" class="cursor-pointer">Email</x-table.head>
+            <x-table.head wire:click="$emitSelf('sort','id')" class="cursor-pointer">Beosztás</x-table.head>
+            @can('SuperAdmin')<x-table.head class="cursor-default">admin</x-table.head>@endcan
         </x-slot>
         <x-slot name='body'>
-            @foreach ($users as $user)
-                @livewire('dashboard.users-list', ['user' => $user, 'index' => $loop->index + 1], key($user->id))    
+            @foreach ($users[$currentPage] as $user)
+                @livewire('dashboard.users-list', ['user' => $user, 'index' => $loop->index + ($currentPage * $pageSize ) + 1], key($user->id))    
             @endforeach
         </x-slot>
-
     </x-table>
-    @livewire('pagination', ['pageSize' => 10])
+    {{-- RESULT TABLE END --}}
 </div>

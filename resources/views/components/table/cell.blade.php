@@ -1,1 +1,1 @@
-<td {{ $attributes }}>{{ $slot }}</td>
+<td {{ $attributes->merge(['class' => 'cursor-default']) }}>{{ $slot }}</td>

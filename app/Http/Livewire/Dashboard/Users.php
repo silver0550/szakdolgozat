@@ -12,7 +12,9 @@ class Users extends Component
     public $sortColumnName = 'id';
     public $sortDirection = 'asc';
 
-    public $paginate = 10;
+    public $pageSize = 15;
+    public $currentPage = 0;
+
 
     protected $listeners = [
         'refresh' => '$refresh',
@@ -28,11 +30,16 @@ class Users extends Component
         $this->sortColumnName = $type;
     }
 
+    public function updatedPageSize(){
+        $this->reset('currentPage');
+    }
+
     public function render()
     {
         $users = User::where('email', '!=', PasswordEnum::SUPER_ADMIN->value)
             ->orderBy($this->sortColumnName,  $this->sortDirection)
-            ->paginate($this->paginate); 
+            ->get()
+            ->chunk($this->pageSize);
 
         return view('livewire.dashboard.users',['users' => $users,])->layout('components.layouts.index');
     }

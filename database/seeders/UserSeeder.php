@@ -27,6 +27,6 @@ class UserSeeder extends Seeder
             'admin' => 1,
         ]);
 
-        User::factory(20)->create();
+        User::factory(100)->create();
     }
 }
