@@ -1,6 +1,6 @@
 <div>
     {{-- CONTROLL BLOCK BEGIN --}}
-    <div class ='flex justify-between w-full my-6 p-2 bg-base-200 rounded-md'>
+    <div class ='flex justify-between w-full p-2 bg-base-200 rounded-md mb-2'>
         <div class="flex w-3/5">
             @can('Admin')
                 <x-button.primary>+</x-button.primary>
@@ -12,8 +12,8 @@
         </div>
         <x-pagination.body class="float-right ">
             <x-select wire:model='pageSize' class="mx-4">
-                <option>10</option>
-                <option selected >15</option>
+                <option selected >10</option>
+                <option>15</option>
                 <option>20</option>
                 <option>50</option>
             </x-select>
