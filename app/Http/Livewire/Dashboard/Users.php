@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Dashboard;
 
 use Livewire\Component;
 use App\Models\User;
-use App\Http\Enums\PasswordEnum;
 
 
 class Users extends Component
@@ -36,7 +35,7 @@ class Users extends Component
 
     public function render()
     {
-        $users = User::where('email', '!=', PasswordEnum::SUPER_ADMIN->value)
+        $users = User::where('email', '!=', env('SUPER_ADMIN'))
             ->orderBy($this->sortColumnName,  $this->sortDirection)
             ->get()
             ->chunk($this->pageSize);

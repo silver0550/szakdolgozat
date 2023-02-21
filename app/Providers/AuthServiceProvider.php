@@ -31,7 +31,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('SuperAdmin', function(User $user){
-            return $user->email === PasswordEnum::SUPER_ADMIN->value;
+            return $user->email === env('SUPER_ADMIN');
         });
 
         Gate::define('Admin', function(User $user){

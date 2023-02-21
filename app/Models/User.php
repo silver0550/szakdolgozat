@@ -10,7 +10,6 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
-use App\Http\Enums\PasswordEnum;
 
 class User extends Authenticatable
 {
@@ -39,9 +38,14 @@ class User extends Authenticatable
     ];
 
     protected $attributes = [
-        'password' => PasswordEnum::DEFAULT_PASSWORD,
+        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', //password
         'admin' => false,
     ];
+
+    public function resetPassword() :void
+    {
+        dd('reset password');
+    }
 
     public function getActivitylogOptions(): LogOptions
     {
