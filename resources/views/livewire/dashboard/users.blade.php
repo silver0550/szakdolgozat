@@ -16,8 +16,8 @@
         </div>
         <x-pagination.body class="float-right ">
             <x-select wire:model='pageSize' class="mx-4">
-                <option selected >10</option>
-                <option>15</option>
+                <option>10</option>
+                <option selected >15</option>
                 <option>20</option>
                 <option>50</option>
             </x-select>

@@ -12,7 +12,7 @@ class Users extends Component
     public $sortColumnName = 'id';
     public $sortDirection = 'asc';
 
-    public $pageSize = 10;
+    public $pageSize = 15;
     public $currentPage = 0;
 
 
