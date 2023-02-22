@@ -8,15 +8,12 @@ use Livewire\Component;
 
 class CreateUser extends Component
 {
-    public $name;
-    public $email;
     public $myID;
 
     public $newUser = [
         'name' => null,
         'email' => null,
     ];
-
     protected $listeners =[
         'resetAll',
         'create',
@@ -38,15 +35,19 @@ class CreateUser extends Component
     }
 
     public function resetAll(){
+    
         $this->reset('newUser');
-        $this->resetErrorBag();
     }
 
     public function create()
     {
+
         
         $credentials = $this->validate();
-        dd('validated');
+    
+
+        $credentials = $this->validate();
+
         if(Gate::authorize('create', auth()->user())){
             User::create($credentials);
         }
