@@ -3,10 +3,10 @@
     <div class ='flex justify-between w-full p-2 bg-base-200 rounded-md mb-2'>
         <div class="flex w-3/5">
             @can('Admin')
-                <x-button.tooltip side='right' tooltip="Hozzáad" class="ml-5">
-                    <x-modal for="create-user" label='+' class='btn-circle'>
-                        <x-modal.create-user-content wire:click='create' for='create-user'></x-modal-content>
-                    </x-modal>
+                <x-button.tooltip side='right' tooltip="Hozzáad">
+                    <x-modal.default for='create-user' label='+' class='btn-circle'>
+                        @livewire('create-user', ['for' => 'create-user'])
+                    </x-modal.default>
                 </x-button.tooltip>
             @endcan
             <x-input.text class="w-80 ml-40" placeholder="Keresés..."/>

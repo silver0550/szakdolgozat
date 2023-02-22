@@ -7,5 +7,9 @@
 
 <input type="checkbox" id="{{ $for }}" class="modal-toggle" />
 <div class="modal">
-    {{ $slot }}
+    <div class="modal-box w-11/12 max-w-5xl">
+
+        {{ $slot }}
+    
+    </div>
 </div>

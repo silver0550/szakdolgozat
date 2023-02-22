@@ -3,7 +3,7 @@
     'error' => false,
 ])
     
-<div class="form-control">
+<div {{$attributes->merge(['class' => 'form-control'])}}>
     <label class="input-group">
         <span>{{$label}}</span>
         {{ $slot }}

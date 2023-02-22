@@ -15,4 +15,4 @@
       <label {{ $attributes->whereDoesntStartWith('wire:key') }} for="{{ $for }}" class="btn btn-primary">Mentés</label>
       <label for="{{ $for }}" class="btn btn-primary">Mégse</label>
     </div>
-  </div>s
+  </div>
