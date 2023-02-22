@@ -13,12 +13,12 @@
         </label>
     @endif
     {{ $slot }}
-    @if ($error)
-        <label class="label">
-            <span class="label-text-alt text-error">
+    <label class="label h-5"> 
+        @if ($error)
+            <span class="label-text-alt text-error relative top-1 ">
                 {{$error}}
             </span>
-        </label>
-    @endif
+        @endif
+    </label>
 
 </div>
