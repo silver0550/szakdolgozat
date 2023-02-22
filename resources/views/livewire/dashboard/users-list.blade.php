@@ -4,7 +4,7 @@
     <x-table.cell>{{$user->email}}</x-table.cell>
     <x-table.cell>{{$user->admin}}</x-table.cell>
     @can('SuperAdmin')
-        <x-table.cell><x-button.toogle wire:click='update'  wire:model='user.admin'/></x-table.cell>
+        <x-table.cell><x-button.toggle class="relative top-1" wire:click='update'  wire:model='user.admin'/></x-table.cell>
     @endcan
     @can('Admin')
         <x-table.cell>
