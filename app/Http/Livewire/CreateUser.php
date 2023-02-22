@@ -8,24 +8,26 @@ use Livewire\Component;
 
 class CreateUser extends Component
 {
-    public $name;
-    public $email;
     public $myID;
 
+    public $newUser = [
+        'name' => null,
+        'email' => null,
+    ];
     protected $listeners =[
         'resetAll',
         'create',
     ];
 
     protected $rules =[
-        'email' => ['required','email'],
-        'name' => ['required']
+        'newUser.name' => ['required'],
+        'newUser.email' => ['required','email'],
     ];
 
     protected $messages =[
-        'email.required' => 'Az e-mail mező kitöltése kötelező!',
-        'email.email' => 'Hibás formátum!',
-        'password.required' => 'Jelszó mező kitöltése kötelező!',
+        'newUser.email.required' => 'Az e-mail mező kitöltése kötelező!',
+        'newUser.email.email' => 'Hibás formátum!',
+        'newUser.name.required' => 'Név mező mező kitöltése kötelező!',
     ];
 
     public function mount($for){
@@ -33,13 +35,19 @@ class CreateUser extends Component
     }
 
     public function resetAll(){
-        $this->reset('name','email');
-        $this->resetErrorBag();
+    
+        $this->reset('newUser');
     }
 
     public function create()
     {
+
+        
         $credentials = $this->validate();
+    
+
+        $credentials = $this->validate();
+
         if(Gate::authorize('create', auth()->user())){
             User::create($credentials);
         }

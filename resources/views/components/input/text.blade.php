@@ -2,16 +2,18 @@
     'password' => false,
     'key' => null,
     'placeholder' => '',
-    'error' => false,
 ])
 
 @php
     $key = $key ?? md5($attributes->wire('model'));
 @endphp
 
+@aware(['error'] )
+
 <input
+    
     type = "{{ $password ? 'password' : 'text' }}"
-    placeholder = "{{$placeholder}}"
+    placeholder = "{{ $placeholder }}"
     @if ($error)
         {{ $attributes->whereDoesntStartWith('wire:key')->merge(['class' => 'input input-bordered  input-error w-full']) }}   
     @endif
