@@ -21,12 +21,13 @@ class CreateUser extends Component
 
     protected $rules =[
         'newUser.name' => ['required'],
-        'newUser.email' => ['required','email'],
+        'newUser.email' => ['required','email','unique:users,email'],
     ];
 
     protected $messages =[
         'newUser.email.required' => 'Az e-mail mező kitöltése kötelező!',
         'newUser.email.email' => 'Hibás formátum!',
+        'newUser.email.unique' => 'Az e-mail cím már használatban van!',
         'newUser.name.required' => 'Név mező mező kitöltése kötelező!',
     ];
 
@@ -37,6 +38,7 @@ class CreateUser extends Component
     public function resetAll(){
     
         $this->reset('newUser');
+        $this->resetErrorBag();
     }
 
     public function create()
@@ -47,9 +49,8 @@ class CreateUser extends Component
     
 
         $credentials = $this->validate();
-
         if(Gate::authorize('create', auth()->user())){
-            User::create($credentials);
+            User::create($credentials['newUser']);
         }
         redirect()->route('users');
         
