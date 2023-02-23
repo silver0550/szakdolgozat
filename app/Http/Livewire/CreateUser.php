@@ -8,15 +8,14 @@ use Livewire\Component;
 
 class CreateUser extends Component
 {
-    public $myID;
-
+ 
     public $newUser = [
         'name' => null,
         'email' => null,
     ];
     protected $listeners =[
-        'resetAll',
         'create',
+        'closeThePage',
     ];
 
     protected $rules =[
@@ -31,33 +30,32 @@ class CreateUser extends Component
         'newUser.name.required' => 'Név mező mező kitöltése kötelező!',
     ];
 
-    public function mount($for){
-        $this->myID = $for;
-    }
-
-    public function resetAll(){
-    
+    public function closeThePage()
+    {
         $this->reset('newUser');
         $this->resetErrorBag();
+
+        $this->emitUp('createUserToggle');
     }
 
     public function create()
     {
 
-        
-        $credentials = $this->validate();
-    
+        $credentials = $this->validate();    
 
         $credentials = $this->validate();
         if(Gate::authorize('create', auth()->user())){
             User::create($credentials['newUser']);
         }
-        redirect()->route('users');
-        
+
+        $this->emitSelf('closeThePage');
+        $this->emitUp('createdToggle');
+
     }
 
     public function render()
     {
+
         return view('livewire.create-user');
     }
 }
