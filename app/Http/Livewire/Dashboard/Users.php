@@ -9,19 +9,42 @@ use Illuminate\Support\Facades\Gate;
 
 class Users extends Component
 {
+
     public $sortColumnName = 'id';
     public $sortDirection = 'asc';
 
     public $pageSize = 15;
     public $currentPage = 0;
 
+    public $createModalVisible = false;
+    public $createdVisible = false;
 
     protected $listeners = [
         'refresh' => '$refresh',
         'sort',
-        'create'
+        'createUserToggle',
+        'createdToggle',
     ];
 
+    public function render()
+    {
+        $users = User::where('email', '!=', env('SUPER_ADMIN'))
+            ->orderBy($this->sortColumnName,  $this->sortDirection)
+            // ->paginate($this->pageSize);
+            ->get()
+            ->chunk($this->pageSize);
+
+        return view('livewire.dashboard.users',['users' => $users,])->layout('components.layouts.index');
+    }
+
+    public function createUserToggle(){
+        $this->createModalVisible = $this->createModalVisible ? false : true;
+    }
+
+    public function createdToggle(){
+        $this->createdVisible = $this->createdVisible ? false : true;
+
+    }
 
     public function sort($type){
         if($type === $this->sortColumnName){
@@ -34,23 +57,6 @@ class Users extends Component
     public function updatedPageSize(){
         $this->reset('currentPage');
     }
-
-    public function create(){
-        dd('create');
-
-        if(Gate::authorize('update')){
-
-            $this->user->save();
-        }   
-    }
-
-    public function render()
-    {
-        $users = User::where('email', '!=', env('SUPER_ADMIN'))
-            ->orderBy($this->sortColumnName,  $this->sortDirection)
-            ->get()
-            ->chunk($this->pageSize);
-
-        return view('livewire.dashboard.users',['users' => $users,])->layout('components.layouts.index');
-    }
+   
+   
 }
