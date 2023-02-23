@@ -16,7 +16,7 @@
     </div>
     {{-- CONTROLL BLOCK END --}}    
     {{-- RESULT TABLE BEGIN --}}
-    <x-table class="p-2 bg-base-200 rounded-md max-h-[70vh]">
+    <x-table class="p-2 bg-base-200 rounded-md max-h-[72vh]"> {{--TODO: relative table size!--}}
         <x-slot name="head">
             <x-table.head class="cursor-default">#</x-table.head>
             <x-table.head wire:click="$emitSelf('sort','name')" class="cursor-pointer">Név</x-table.head>
@@ -26,7 +26,7 @@
         </x-slot>
         <x-slot name='body'>
             @foreach ($users as $user)
-                @livewire('dashboard.users-list', ['user' => $user, 'index' => $loop->index + ($currentPage * $pageSize ) + 1], key($user->id))    
+                @livewire('dashboard.users-list', ['user' => $user, 'index' => $loop->index + (($users->currentPage()-1) * $pageSize ) + 1], key($user->id))    
             @endforeach
         </x-slot>
     </x-table>
@@ -41,7 +41,7 @@
             <option>25</option>
             <option>30</option>
         </x-select>
-        <x-pagination.body class="inline-block float-right" :paged="$users"></x-pagination.body>
+        {{$users->links()}} {{--TODO: watch->paginator.body --}}
     </div>
     
     {{-- PAGINATION END --}}
@@ -49,11 +49,10 @@
     <x-modal.default :isActive="$createModalVisible">
         @livewire('create-user')
     </x-modal.default>
-    <x-modal.info id='10' wire:click="$emitSelf('createdToggle')" :isActive="$createdVisible">
+    <x-modal.info wire:click="$emitSelf('createdToggle')" :isActive="$createdVisible">
         <h3 class="text-lg font-bold">Sikeres felvétel!</h3>
-        <p class="py-4">A felhasználó az adatbázisba rögzítve lett.</p>
+        <p class="py-4">A felhasználó az adatbázisban rögzítve lett.</p>
     </x-modal.info>
     {{-- MODALS END --}}
-
   
 </div>

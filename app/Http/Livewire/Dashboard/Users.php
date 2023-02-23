@@ -15,7 +15,6 @@ class Users extends Component
     public $sortDirection = 'asc';
 
     public $pageSize = 15;
-    public $currentPage = 0;
 
     public $createModalVisible = false;
     public $createdVisible = false;
@@ -26,6 +25,11 @@ class Users extends Component
         'createUserToggle',
         'createdToggle',
     ];
+
+    public function paginationView()
+    {
+        return 'components.pagination.body';
+    }
 
     public function render()
     {
@@ -43,7 +47,6 @@ class Users extends Component
 
     public function createdToggle(){
         $this->createdVisible = $this->createdVisible ? false : true;
-
     }
 
     public function sort($type){
@@ -55,7 +58,7 @@ class Users extends Component
     }
 
     public function updatedPageSize(){
-        $this->reset('currentPage');
+        // $this->reset('currentPage');
     }
    
    
