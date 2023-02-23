@@ -13,23 +13,18 @@
                 <x-icon.search class=" w-6 h-6"/>
             </x-button.primary>
         </div>
-        <x-pagination.body class="float-right ">
-            <x-select wire:model='pageSize' class="mx-4">
-                <option>10</option>
-                <option selected >15</option>
-                <option>20</option>
-                <option>50</option>
-            </x-select>
-            @foreach ($users as $page)
+        {{-- <x-pagination.body class="float-right "> --}}
+
+            {{-- @foreach ($users as $page)
                 <x-pagination.button wire:click="$set('currentPage','{{$loop->index}}')" @class(['btn-active' => $loop->index == $currentPage])>
                     {{$loop->index+1}}
                 </x-pagination.button>
             @endforeach
-        </x-pagination.body>
+        </x-pagination.body> --}}
     </div>
     {{-- CONTROLL BLOCK END --}}    
     {{-- RESULT TABLE BEGIN --}}
-    <x-table class="p-2 bg-base-200 rounded-md">
+    <x-table class="p-2 bg-base-200 rounded-md max-h-[740px]">
         <x-slot name="head">
             <x-table.head class="cursor-default">#</x-table.head>
             <x-table.head wire:click="$emitSelf('sort','name')" class="cursor-pointer">Név</x-table.head>
@@ -38,12 +33,20 @@
             @can('SuperAdmin')<x-table.head class="cursor-default">admin</x-table.head>@endcan
         </x-slot>
         <x-slot name='body'>
-            @foreach ($users[$currentPage] as $user)
+            @foreach ($users as $user)
                 @livewire('dashboard.users-list', ['user' => $user, 'index' => $loop->index + ($currentPage * $pageSize ) + 1], key($user->id))    
             @endforeach
         </x-slot>
     </x-table>
     {{-- RESULT TABLE END --}}
+    {{-- PAGINATON BEGIN --}}
+    <x-select wire:model='pageSize' class="float-right">
+        <option selected >15</option>
+        <option>20</option>
+        <option>25</option>
+        <option>30</option>
+    </x-select>
+    {{-- PAGINATION END --}}
     {{-- MODALS BEGIN --}}
     <x-modal.default :isActive="$createModalVisible">
         @livewire('create-user')
