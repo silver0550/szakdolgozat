@@ -7,11 +7,11 @@
     $key = $key ?? md5($attributes->wire('model'));
 @endphp
 
-<div {{$attributes ->merge(['class' => 'inline-box'])}}>
+<div class="inline-block">
     @if ($label)
-        <label class="m-auto uppercase" for={{$for}}>{{$label}}:</label>
+        <label class="" for={{$for}}>{{$label}}:</label>
     @endif  
-    <select {{ $attributes->whereDoesntStartWith('wire:key')->merge(['class' => "select select-ghost ml-6 max-w-xs"]) }} >
+    <select {{ $attributes->whereDoesntStartWith('wire:key')->merge(['class' => "select select-ghost max-w-xs"]) }} >
         {{ $slot }}
     </select>
 </div>

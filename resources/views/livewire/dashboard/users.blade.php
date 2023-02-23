@@ -1,4 +1,4 @@
-<div>
+<div class="h-full">
     {{-- CONTROLL BLOCK BEGIN --}}
     <div class ='flex justify-between w-full p-2 bg-base-200 rounded-md mb-2'>
         <div class="flex w-3/5">
@@ -13,18 +13,10 @@
                 <x-icon.search class=" w-6 h-6"/>
             </x-button.primary>
         </div>
-        {{-- <x-pagination.body class="float-right "> --}}
-
-            {{-- @foreach ($users as $page)
-                <x-pagination.button wire:click="$set('currentPage','{{$loop->index}}')" @class(['btn-active' => $loop->index == $currentPage])>
-                    {{$loop->index+1}}
-                </x-pagination.button>
-            @endforeach
-        </x-pagination.body> --}}
     </div>
     {{-- CONTROLL BLOCK END --}}    
     {{-- RESULT TABLE BEGIN --}}
-    <x-table class="p-2 bg-base-200 rounded-md max-h-[740px]">
+    <x-table class="p-2 bg-base-200 rounded-md max-h-[70vh]">
         <x-slot name="head">
             <x-table.head class="cursor-default">#</x-table.head>
             <x-table.head wire:click="$emitSelf('sort','name')" class="cursor-pointer">Név</x-table.head>
@@ -40,12 +32,18 @@
     </x-table>
     {{-- RESULT TABLE END --}}
     {{-- PAGINATON BEGIN --}}
-    <x-select wire:model='pageSize' class="float-right">
-        <option selected >15</option>
-        <option>20</option>
-        <option>25</option>
-        <option>30</option>
-    </x-select>
+
+    {{-- {{$users->links()}} --}}
+    <div class="fixed bottom-20 w-4/5">   
+        <x-select class="ml-5 inline-block" wire:model='pageSize'>
+            <option selected >15</option>
+            <option>20</option>
+            <option>25</option>
+            <option>30</option>
+        </x-select>
+        <x-pagination.body class="inline-block float-right" :paged="$users"></x-pagination.body>
+    </div>
+    
     {{-- PAGINATION END --}}
     {{-- MODALS BEGIN --}}
     <x-modal.default :isActive="$createModalVisible">

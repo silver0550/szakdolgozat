@@ -5,10 +5,11 @@ namespace App\Http\Livewire\Dashboard;
 use Livewire\Component;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
-
+use Livewire\WithPagination;
 
 class Users extends Component
 {
+    use WithPagination;
 
     public $sortColumnName = 'id';
     public $sortDirection = 'asc';
@@ -30,9 +31,8 @@ class Users extends Component
     {
         $users = User::where('email', '!=', env('SUPER_ADMIN'))
             ->orderBy($this->sortColumnName,  $this->sortDirection)
-            // ->paginate($this->pageSize);
-            ->get()
-            ->chunk($this->pageSize);
+            ->paginate($this->pageSize);
+
 
         return view('livewire.dashboard.users',['users' => $users,])->layout('components.layouts.index');
     }
