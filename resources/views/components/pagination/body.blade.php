@@ -19,7 +19,8 @@
   <div class="flex items-center gap-4 ml-2">
       <select wire:model="pageSize" class="select select-bordered">
           {{-- <option value="5">5</option> --}}
-          <option value="10" selected >10</option>
+          <option value="10">10</option>
+          <option value="15" selected >15</option>
           <option value="20">20</option>
           <option value="50">50</option>
       </select>
