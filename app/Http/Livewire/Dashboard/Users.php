@@ -18,14 +18,18 @@ class Users extends Component
 
     public $createModalVisible = false;
     public $createdVisible = false;
+    public $userInfoVisible = false;
 
     public $searchByName;
+    
 
     protected $listeners = [
         'refresh' => '$refresh',
         'sort',
         'createUserToggle',
         'createdToggle',
+        'userInfoToggle',
+        'showInfo',
     ];
 
     public function paginationView()
@@ -49,6 +53,15 @@ class Users extends Component
 
     public function createdToggle(){
         $this->createdVisible = $this->createdVisible ? false : true;
+    }
+
+    public function userInfoToggle(){
+        $this->userInfoVisible = $this->userInfoVisible ? false : true;
+    }
+
+    public function showInfo(User $user){
+        
+        $this->userInfoToggle();
     }
 
     public function sort($type){

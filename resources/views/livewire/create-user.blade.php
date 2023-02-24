@@ -1,7 +1,6 @@
 
 <div>
 
-    <label wire:click="$emitSelf('closeThePage')" class="btn btn-sm btn-circle h-10 w-10 absolute right-5 top-5">✕</label>
     <div class="text-center">
         <h3 class="mt-10 font-bold text-lg">Felhasználó hozzáadása!</h3>
         <p class="py-4">Kérem adja meg a felhasználó adatait</p>

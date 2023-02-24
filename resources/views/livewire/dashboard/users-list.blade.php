@@ -12,7 +12,7 @@
         </x-table.cell>
     @endcan
     <x-table.cell>
-        <x-icon.info class="hover:text-blue-500" style='cursor: pointer'/>
+        <x-icon.info wire:click="$emitUp('showInfo',{{$user->id}})" class="hover:text-blue-500" style='cursor: pointer'/>
     </x-table.cell>    
     
 </x-table.row>

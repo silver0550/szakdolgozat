@@ -34,12 +34,26 @@
     <x-pagination.info :paginator="$users" class=" mt-2 mr-2"/>
     {{-- RESULT TABLE END --}}
     {{-- MODALS BEGIN --}}
-    <x-modal.default :isActive="$createModalVisible">
-        @livewire('create-user')
-    </x-modal.default>
-    <x-modal.info wire:click="$emitSelf('createdToggle')" :isActive="$createdVisible">
-        A felhasználó az adatbázisban rögzítve lett.
-    </x-modal.info>
+    <x-modal.inputfield exitEvent="createUserToggle" :isActive="$createModalVisible">
+        @livewire('create-user', ['exit' => 'createUserToggle']) {{--TODO: exit point hide--}}
+    </x-modal.inputfield>
+
+    <x-modal.nottification exitEvent="userInfoToggle" :isActive="$userInfoVisible">
+        <x-slot name="label">
+            Users Data
+        </x-slot>
+        <x-slot name="body">
+            DATA
+        </x-slot>
+    </x-modal.nottification>
+
+    <x-modal.nottification exitEvent="createdToggle" :isActive="$createdVisible">
+        <x-slot name="label">
+            Sikeres művelet!
+        </x-slot>
+        <x-slot name="body">
+            A felhasználó az adatbázisban rögzítve lett.
+        </x-slot>
+    </x-modal.nottification>
     {{-- MODALS END --}}
-  
 </div>
