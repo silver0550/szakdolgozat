@@ -16,23 +16,10 @@
       @endforeach
       <button class="btn" wire:click="nextPage" @disabled(!$paginator->hasMorePages())>»</button>
   </div>
-  <div class="flex items-center gap-4">
-      <p class="text-sm leading-5">
-          {!! __('Showing') !!}
-          @if ($paginator->firstItem())
-              <span class="font-medium">{{ $paginator->firstItem() }}</span>
-              {!! __('to') !!}
-              <span class="font-medium">{{ $paginator->lastItem() }}</span>
-          @else
-              {{ $paginator->count() }}
-          @endif
-          {!! __('of') !!}
-          <span class="font-medium">{{ $paginator->total() }}</span>
-          {!! __('results') !!}
-      </p>
-      <select wire:model="perPage" class="select select-bordered">
-          <option value="5">5</option>
-          <option value="10">10</option>
+  <div class="flex items-center gap-4 ml-2">
+      <select wire:model="pageSize" class="select select-bordered">
+          {{-- <option value="5">5</option> --}}
+          <option value="10" selected >10</option>
           <option value="20">20</option>
           <option value="50">50</option>
       </select>

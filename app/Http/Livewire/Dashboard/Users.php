@@ -14,7 +14,7 @@ class Users extends Component
     public $sortColumnName = 'id';
     public $sortDirection = 'asc';
 
-    public $pageSize = 15;
+    public $pageSize = 10;
 
     public $createModalVisible = false;
     public $createdVisible = false;
