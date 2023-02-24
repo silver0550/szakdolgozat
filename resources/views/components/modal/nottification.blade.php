@@ -1,13 +1,23 @@
 @props([
   'isActive' => false,
+  'exitEvent' => false,
   ])
-
 <input @checked($isActive) type="checkbox" class="modal modal-toggle " />
-<label wire:click={{$attributes['wire:click']}} class="modal cursor-pointer">
+
+<label 
+    
+    @if ($exitEvent)
+        wire:click="$emitSelf('{{$exitEvent}}')"
+    @endif    
+    class="modal cursor-pointer"
+>
     <label {{ $attributes->merge(['class' => 'modal-box relative text-center']) }}>
-        <h3 class="text-lg font-bold">Sikeres művelet!</h3>
+        <h3 class="text-lg font-bold">
+            {{$label}}
+
+        </h3>
         <p class="py-4">
-            {{ $slot }}
+            {{ $body }}
         </p>
         
     </label>

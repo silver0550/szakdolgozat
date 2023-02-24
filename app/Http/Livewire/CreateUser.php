@@ -9,6 +9,8 @@ use Livewire\Component;
 class CreateUser extends Component
 {
  
+    public $exit;
+
     public $newUser = [
         'name' => null,
         'email' => null,
@@ -30,12 +32,17 @@ class CreateUser extends Component
         'newUser.name.required' => 'Név mező mező kitöltése kötelező!',
     ];
 
+    public function mount($exit)
+    {   
+        $this->exit = $exit;
+    }
+
     public function closeThePage()
     {
         $this->reset('newUser');
         $this->resetErrorBag();
 
-        $this->emitUp('createUserToggle');
+        $this->emitUp($this->exit);
     }
 
     public function create()
@@ -55,7 +62,6 @@ class CreateUser extends Component
 
     public function render()
     {
-
         return view('livewire.create-user');
     }
 }
