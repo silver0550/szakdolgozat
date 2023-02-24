@@ -14,7 +14,7 @@
     </div>
     {{-- TODO: style--}}
     <div class="modal-action justify-around">
-        <label wire:click="$emitSelf('create')" class="btn btn-primary">Mentés</label>
+        <label wire:click="$emitSelf('create')" wire:keydown.enter="$emitSelf('create')" tabindex="0" class="btn btn-primary">Mentés</label>
     </div>
     
 </div>
