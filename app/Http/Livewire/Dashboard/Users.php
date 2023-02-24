@@ -14,10 +14,12 @@ class Users extends Component
     public $sortColumnName = 'id';
     public $sortDirection = 'asc';
 
-    public $pageSize = 10;
+    public $pageSize = 15;
 
     public $createModalVisible = false;
     public $createdVisible = false;
+
+    public $searchByName;
 
     protected $listeners = [
         'refresh' => '$refresh',
@@ -34,11 +36,11 @@ class Users extends Component
     public function render()
     {
         $users = User::where('email', '!=', env('SUPER_ADMIN'))
+            ->where('name','LIKE','%'.$this->searchByName.'%')
             ->orderBy($this->sortColumnName,  $this->sortDirection)
             ->paginate($this->pageSize);
 
-
-        return view('livewire.dashboard.users',['users' => $users,])->layout('components.layouts.index');
+            return view('livewire.dashboard.users',['users' => $users,])->layout('components.layouts.index');
     }
 
     public function createUserToggle(){
@@ -58,8 +60,11 @@ class Users extends Component
     }
 
     public function updatedPageSize(){
-        // $this->reset('currentPage');
+        $this->gotoPage(1);
     }
    
+    public function updatedSearchByName(){
+        $this->gotoPage(1);
+    }
    
 }
