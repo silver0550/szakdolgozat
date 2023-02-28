@@ -1,7 +1,7 @@
 <div>
     {{-- CONTROLL BLOCK BEGIN --}}
     <div class="h-12">
-        <x-alert.successful @class(['hidden' => !$notificationVisible])> {{$notificationMessage}}</x-alert.successful>
+        <x-notifications.successful @class(['hidden' => !$notificationVisible])> {{$notificationMessage}}</x-notifications.successful>
     </div>
     <div class ='flex justify-between w-full p-2 bg-base-200 rounded-md mb-2'>
         <div class="flex w-1/2 justify-between">
