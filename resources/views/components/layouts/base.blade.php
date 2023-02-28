@@ -11,7 +11,8 @@
             'resources/css/app.css',
             'resources/js/app.js',
         ])
-
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
         {{-- <x-admin.theme /> --}}
 
         @livewireStyles
@@ -19,9 +20,11 @@
     <body class="antialiased">
         
         {{ $slot }}
-
+        
         @stack('scripts')
 
+        @livewire('livewire-ui-modal')
         @livewireScripts
+        
     </body>
 </html>

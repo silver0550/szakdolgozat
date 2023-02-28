@@ -27,14 +27,6 @@ class UsersList extends Component
         }   
     }
 
-    public function delete(){
-        if(Gate::authorize('delete',$this->user)){
-
-            $this->user->delete();
-            $this->emitUp('refresh');            
-        }   
-    }
-
     public function render()
     {
         return view('livewire.dashboard.users-list');

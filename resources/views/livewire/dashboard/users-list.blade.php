@@ -8,7 +8,7 @@
     @endcan
     @can('Admin')
         <x-table.cell>
-            <x-icon.delete class="hover:text-red-500" wire:click='delete' style='cursor: pointer'/>
+            <x-icon.delete class="hover:text-red-500" wire:click="$emitUp('delete',{{$user->id}})" style='cursor: pointer'/>
         </x-table.cell>
     @endcan
     <x-table.cell>
