@@ -18,23 +18,13 @@ class Users extends Component
 
     public $pageSize = 15; //traitbe zárás
 
-    public $createModalVisible = false;
-    public $createdVisible = false;
-    public $userInfoVisible = false;
-
     public $notificationVisible = false;    
-    public $notificationType;
     public $notificationMessage;
 
 
     protected $listeners = [
         'sort',
         'delete',
-
-        // 'createUserToggle',
-        // 'createdToggle',
-        // 'userInfoToggle',
-        // 'showInfo',
     ];
 
     public function paginationView() // traitbe zárás
@@ -52,23 +42,6 @@ class Users extends Component
             return view('livewire.dashboard.users',['users' => $users,])->layout('components.layouts.index');
     }
 
-    // public function createUserToggle(){
-    //     $this->createModalVisible = $this->createModalVisible ? false : true;
-    // }
-
-    // public function createdToggle(){
-    //     $this->createdVisible = $this->createdVisible ? false : true;
-    // }
-
-    // public function userInfoToggle(){
-    //     $this->userInfoVisible = $this->userInfoVisible ? false : true;
-    // }
-
-    // public function showInfo(User $user){
-        
-    //     $this->userInfoToggle();
-    // }
-
     public function sort($type){
         if($type === $this->sortColumnName){
             $this->sortDirection = $this->sortDirection === 'asc' ?  'desc' : 'asc';
@@ -83,7 +56,6 @@ class Users extends Component
             $user->delete();
 
             $this->notificationVisible = true;
-            $this->notificationType = 'success';
             $this->notificationMessage = notificationEnum::DELETE_SUCCES;
 
         }   
@@ -99,7 +71,6 @@ class Users extends Component
    
     public function updatedSearchByName(){
         $this->resetPage();
-    }
-
+    }   
    
 }
