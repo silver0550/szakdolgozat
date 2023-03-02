@@ -41,7 +41,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return $user->admin;
+        return $user->admin || $user->email === env('SUPER_ADMIN') ;
     }
 
     /**
@@ -53,7 +53,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return $user->admin;
+        return $user->admin || $user->email === env('SUPER_ADMIN');
     }
 
     /**
@@ -69,7 +69,7 @@ class UserPolicy
 
         if ($model->admin){ return false;}
 
-        return $user->admin;
+        return $user->admin || $user->email === env('SUPER_ADMIN');
     }
 
     /**
@@ -95,4 +95,5 @@ class UserPolicy
     {
         //
     }
+
 }

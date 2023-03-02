@@ -11,7 +11,7 @@
     </label>
     <label class="label h-5"> 
         @if ($error)
-            <span class="label-text-alt text-error relative top-1 left-20">
+            <span class="label-text-alt text-error relative top-1 left-20 pb-2">
                 {{$error}}
             </span>
         @endif

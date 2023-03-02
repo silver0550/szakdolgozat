@@ -2,6 +2,7 @@
     'password' => false,
     'key' => null,
     'placeholder' => '',
+    'readonly' => false,
 ])
 
 @php
@@ -14,6 +15,7 @@
     
     type = "{{ $password ? 'password' : 'text' }}"
     placeholder = "{{ $placeholder }}"
+    @disabled($readonly)
     @if ($error)
         {{ $attributes->whereDoesntStartWith('wire:key')->merge(['class' => 'input input-bordered  input-error w-full']) }}   
     @endif

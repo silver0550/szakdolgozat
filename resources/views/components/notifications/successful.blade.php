@@ -1,4 +1,3 @@
-
 <div
     {{$attributes->merge(['class' => 'relative opacity-80 h-12 -top-2 alert alert-success shadow-lg mb-2'])}}>
         <div>
