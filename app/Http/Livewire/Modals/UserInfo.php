@@ -2,47 +2,49 @@
 
 namespace App\Http\Livewire\Modals;
 
-
 use LivewireUI\Modal\ModalComponent;
 use App\Models\User;
 
-class NewUserForm extends ModalComponent
+class UserInfo extends ModalComponent
 {
-    public User $user;
+    public $user;
+    public $label;
+    public $readonly;
 
     protected $rules =[
         'user.name' => ['required'],
-        'user.email' => ['required','email','unique:users,email'],
+        'user.email' => ['required','email'],
     ];
 
     protected $messages =[
         'user.email.required' => 'Az e-mail mező kitöltése kötelező!',
         'user.email.email' => 'Hibás formátum!',
-        'user.email.unique' => 'Az e-mail cím már használatban van!',
         'user.name.required' => 'Név mező kitöltése kötelező!',
     ];
 
-    public function mount(){
-        $this->user = new User;
+    public function mount(User $user){
+        $this->user = $user;
+        $this->label = $user->name;
+        $this->readonly = !(auth()->user()->admin);
+        
     }
 
-    public function save(){
+    public function update(){
         $this->validate();
 
-        $this->emit('create', $this->user);
+        $this->emit('update', $this->user);
 
         $this->closeModal();
-      
     }
 
     public function render()
     {
-        return view('livewire.modals.new-user-form');
+        return view('livewire.modals.user-info');
     }
 
     public static function modalMaxWidth(): string
     {
-        return '3xl';
+        return '2xl';
     }
 
     public static function closeModalOnEscape(): bool

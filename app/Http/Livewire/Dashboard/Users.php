@@ -26,6 +26,7 @@ class Users extends Component
         'sort',
         'delete',
         'create',
+        'update',
     ];
 
     public function paginationView() // traitbe zárás
@@ -60,14 +61,29 @@ class Users extends Component
         }   
     }
 
-    public function create($newUser){
+    public function create($user){
 
         if(Gate::authorize('create', auth()->user())){
-            User::create($newUser);
+            User::create($user);
         }
 
         $this->notificationVisible = true;
         $this->notificationMessage = notificationEnum::CREATE_SUCCES;
+    }
+
+    public function update($user){ // tábla frissítése
+        
+        $current = User::find($user['id']);
+
+        if(Gate::authorize('update', auth()->user())){
+            $current->update($user);
+           
+        }
+
+        $this->notificationVisible = true;
+        $this->notificationMessage = notificationEnum::UPDATE_SUCCES; 
+
+    
     }
 
     public function hydrate(){
