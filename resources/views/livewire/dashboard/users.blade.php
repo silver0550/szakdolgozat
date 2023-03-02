@@ -7,14 +7,13 @@
         <div class="flex w-1/2 justify-between">
             @can('Admin')
                 <x-button.tooltip side='right' tooltip="Hozzáad" class="ml-7">
-                    <x-button.primary wire:click="$emit('openModal','heloword')" class="btn-circle">+</x-button.primary>
+                    <x-button.primary wire:click="$emit('openModal','modals.new-user-form')" class="btn-circle">+</x-button.primary>
                 </x-button.tooltip>
             @endcan
             <x-input.text wire:model="searchByName" class="ml-10" placeholder="Keresés..."/>
         </div>
         {{$users->links()}}
     </div>
-
     {{-- CONTROLL BLOCK END --}}
     {{-- RESULT TABLE BEGIN --}}
     <x-table class="p-2 bg-base-200 rounded-md ">
@@ -37,4 +36,5 @@
     </x-table>
     <x-pagination.info :paginator="$users" class=" mt-2 mr-2"/>
     {{-- RESULT TABLE END --}}
+    
 </div>

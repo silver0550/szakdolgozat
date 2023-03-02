@@ -4,9 +4,8 @@ namespace App\Http\Livewire\Modals;
 
 use LivewireUI\Modal\ModalComponent;
 use App\Models\User;
-use Illuminate\Support\Facades\Gate;
 
-class Alert extends ModalComponent
+class DeleteAlert extends ModalComponent
 {
     public $user;
 
@@ -36,6 +35,6 @@ class Alert extends ModalComponent
 
     public function render()
     {
-        return view('livewire.modals.alert');
+        return view('livewire.modals.delete-alert');
     }
 }

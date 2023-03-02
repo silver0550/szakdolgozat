@@ -25,6 +25,7 @@ class Users extends Component
     protected $listeners = [
         'sort',
         'delete',
+        'create',
     ];
 
     public function paginationView() // traitbe zárás
@@ -34,8 +35,7 @@ class Users extends Component
 
     public function render()
     {
-        $users = User::where('email', '!=', env('SUPER_ADMIN'))
-            ->where('name','LIKE','%'.$this->searchByName.'%')
+        $users = User::where('name','LIKE','%'.$this->searchByName.'%')
             ->orderBy($this->sortColumnName,  $this->sortDirection)
             ->paginate($this->pageSize);
 
@@ -57,8 +57,17 @@ class Users extends Component
 
             $this->notificationVisible = true;
             $this->notificationMessage = notificationEnum::DELETE_SUCCES;
-
         }   
+    }
+
+    public function create($newUser){
+
+        if(Gate::authorize('create', auth()->user())){
+            User::create($newUser);
+        }
+
+        $this->notificationVisible = true;
+        $this->notificationMessage = notificationEnum::CREATE_SUCCES;
     }
 
     public function hydrate(){
