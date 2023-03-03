@@ -12,12 +12,16 @@ class UsersList extends Component
     public User $user;
     public $index;
 
+    protected $listeners = [
+        'refreshAllUsers' => '$refresh',
+    ];
+
     protected $rules = [
         'user.admin' => ['required'],
     ];
 
     public function mount(User $user, Int $index){
-        //        
+        //
     }
 
     public function update(){

@@ -7,7 +7,7 @@ use App\Models\User;
 
 class UserInfo extends ModalComponent
 {
-    public $user;
+    public User $user;
     public $label;
     public $readonly;
 

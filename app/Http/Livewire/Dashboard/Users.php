@@ -71,19 +71,18 @@ class Users extends Component
         $this->notificationMessage = notificationEnum::CREATE_SUCCES;
     }
 
-    public function update($user){ // tábla frissítése
+    public function update($user){
         
         $current = User::find($user['id']);
 
         if(Gate::authorize('update', auth()->user())){
             $current->update($user);
-           
         }
 
         $this->notificationVisible = true;
         $this->notificationMessage = notificationEnum::UPDATE_SUCCES; 
 
-    
+        $this->emitTo('dashboard.users-list','refreshAllUsers');
     }
 
     public function hydrate(){
