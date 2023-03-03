@@ -82,7 +82,7 @@ class Users extends Component
         $this->notificationVisible = true;
         $this->notificationMessage = notificationEnum::UPDATE_SUCCES; 
 
-        $this->emitTo('dashboard.users-list','refreshAllUsers');
+        $this->emitTo('dashboard.users-list','userRefresh'.$user['id']);
     }
 
     public function hydrate(){

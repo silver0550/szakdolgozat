@@ -12,13 +12,15 @@ class UsersList extends Component
     public User $user;
     public $index;
 
-    protected $listeners = [
-        'refreshAllUsers' => '$refresh',
-    ];
+    protected $listeners = [];
 
     protected $rules = [
         'user.admin' => ['required'],
     ];
+
+    public function booted(){
+        $this->listeners = array_merge($this->listeners, ['userRefresh'.$this->user->id => '$refresh']);
+    }
 
     public function mount(User $user, Int $index){
         //
@@ -26,7 +28,6 @@ class UsersList extends Component
 
     public function update(){
         if(Gate::authorize('update', $this->user)){
-
             $this->user->save();
         }   
     }
