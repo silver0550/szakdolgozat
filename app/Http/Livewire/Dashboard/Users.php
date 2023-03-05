@@ -6,17 +6,16 @@ use App\Enums\notificationEnum;
 use Livewire\Component;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
-use Livewire\WithPagination;
+use App\Http\Traits\WithSelfPagination;
 
 class Users extends Component
 {
-    use WithPagination;
+    use WithSelfPagination;
 
     public $sortColumnName = 'id';
     public $sortDirection = 'asc';
     public $searchByName;
 
-    public $pageSize = 15; //traitbe zárás
 
     public $notificationVisible = false;    
     public $notificationMessage;
@@ -29,10 +28,6 @@ class Users extends Component
         'update',
     ];
 
-    public function paginationView() // traitbe zárás
-    {
-        return 'components.pagination.body';
-    }
 
     public function render()
     {
