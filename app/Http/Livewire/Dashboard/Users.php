@@ -84,10 +84,6 @@ class Users extends Component
         $this->reset('notificationVisible');
     }
 
-    public function updatedPageSize(){
-        $this->resetPage();
-    }
-   
     public function updatedSearchByName(){
         $this->resetPage();
     }   

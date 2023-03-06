@@ -14,4 +14,8 @@ trait WithSelfPagination
     {
         return 'components.pagination.body';
     }
+
+    public function updatedPageSize(){
+        $this->resetPage();
+    }
 }
