@@ -1,0 +1,1 @@
+<input {{$attributes->merge(['class' => 'file-input file-input-bordered file-input-primary file-input-sm w-full max-w-xs'])}} type="file" />
