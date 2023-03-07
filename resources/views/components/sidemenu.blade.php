@@ -1,5 +1,18 @@
 <ul class="flex-1 menu p-4 text-base-content gap-4">
-    <li class="text-center pb-3 text-xl border-b border-base-500">{{auth()->user()->name}}</li>
+    <li class="text-center text-xl border-b border-base-500">
+        <span class='flex justify-center p-0 pb-3'>
+        @if (auth()->user()->avatar_path)
+        <div class="avatar">
+            <div class="w-14 rounded-full">
+              <img src="storage/{{auth()->user()->avatar_path}}" alt="Avatar" />
+            </div>
+          </div>
+        @else
+            <img src="{{ Avatar::create(auth()->user()->name)->toBase64() }}" alt='Avatar' class="w-14 h-14" />
+        @endif
+        {{auth()->user()->name}}
+        </span>
+    </li>
     <li>
         <a href="{{route('home')}}" @class(['active' => $isActive('home')])> 
         <x-icon.home />Home</a> 
