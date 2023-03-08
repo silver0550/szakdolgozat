@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
-
+use App\Models\UserProperty;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, LogsActivity, CausesActivity;
@@ -43,15 +43,19 @@ class User extends Authenticatable
         'admin' => false,
     ];
 
-    public function resetPassword() :void
-    {
-        dd('reset password');
-    }
-
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()->logAll()
             ->dontLogIfAttributesChangedOnly(['remember_token']);
+    }
+
+     /**
+     * Get the property record associated with the user.
+     */
+    public function property(){
+        
+        return $this->hasOne(UserProperty::class);
+
     }
 
     /**
