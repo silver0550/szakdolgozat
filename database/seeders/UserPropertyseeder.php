@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\UserProperty;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
 
 class UserPropertyseeder extends Seeder
 {
@@ -15,6 +16,17 @@ class UserPropertyseeder extends Seeder
      */
     public function run()
     {
+        User::factory()->create([
+            'name' => 'Super Admin',
+            'email' => 'super@admin.com',
+            'admin' => 1,
+        ]);
+
+        User::factory()->create([
+            'name' => 'Admin',
+            'email' => 'admin@admin.com',
+            'admin' => 1,
+        ]);
         UserProperty::factory(50)->create();
     }
 }

@@ -16,10 +16,12 @@ return new class extends Migration
         Schema::create('user_properties', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->date('birth_of_date');
+            $table->string('place_of_birth');
+            $table->date('date_of_birth');
             $table->string('department');
-            $table->string('assignment');
+            $table->boolean('isleader');
             $table->json('language_knowledge')->nullable();
+            $table->integer('entry_card')->unique();
             $table->timestamps();
         });
     }

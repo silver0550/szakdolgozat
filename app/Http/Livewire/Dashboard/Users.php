@@ -2,9 +2,10 @@
 
 namespace App\Http\Livewire\Dashboard;
 
-use App\Enums\notificationEnum;
+use App\Enum\Notification;
 use Livewire\Component;
 use App\Models\User;
+use App\Models\UserProperty;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Traits\WithSelfPagination;
 
@@ -15,7 +16,6 @@ class Users extends Component
     public $sortColumnName = 'id';
     public $sortDirection = 'asc';
     public $searchByName;
-
 
     public $notificationVisible = false;    
     public $notificationMessage;
@@ -28,7 +28,7 @@ class Users extends Component
         'update',
     ];
 
-
+    
     public function render()
     {
         $users = User::where('name','LIKE','%'.$this->searchByName.'%')
@@ -52,7 +52,7 @@ class Users extends Component
             $user->delete();
 
             $this->notificationVisible = true;
-            $this->notificationMessage = notificationEnum::DELETE_SUCCES;
+            $this->notificationMessage = Notification::DELETE_SUCCES;
         }   
     }
 
@@ -63,7 +63,7 @@ class Users extends Component
         }
 
         $this->notificationVisible = true;
-        $this->notificationMessage = notificationEnum::CREATE_SUCCES;
+        $this->notificationMessage = Notification::CREATE_SUCCES;
     }
 
     public function update($user){
@@ -75,7 +75,7 @@ class Users extends Component
         }
 
         $this->notificationVisible = true;
-        $this->notificationMessage = notificationEnum::UPDATE_SUCCES; 
+        $this->notificationMessage = Notification::UPDATE_SUCCES; 
 
         $this->emitTo('dashboard.users-list','userRefresh'.$user['id']);
     }

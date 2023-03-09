@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Enums;
+namespace App\Enum;
 
-enum notificationEnum: string
+enum Notification: string
 {
-    //modals notifications
     case OPERATION_SUCCES = 'Sikeres művelet!';
     case OPERATION_FAILD = 'A kért művelet nem hajtható végre!';
     case DELETE_SUCCES = 'Az elem törlése az adatbázisból megtörtént!';

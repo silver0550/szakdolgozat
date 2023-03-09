@@ -4,9 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
-use App\Enums\DepartmentEnum;
-use App\Enums\AssignmentEnum;
-
+use App\Enum\Department;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\UserProperty>
@@ -23,18 +21,16 @@ class UserPropertyFactory extends Factory
         $user = User::factory()->create();
         return [
             'user_id' => $user->id,
-            'birth_of_date' => fake()->date(),
+            'place_of_birth' =>fake()->city(),
+            'date_of_birth' => fake()->date(),
             'department' => fake()->randomElement([
-                DepartmentEnum::DEVELOPMENT,
-                DepartmentEnum::MARCETING,
-                DepartmentEnum::PRODUCTION,
-                DepartmentEnum::SALES
+                Department::DEVELOPMENT,
+                Department::MARKETING,
+                Department::PRODUCTION,
+                Department::SALES
             ]),
-            'assignment' => fake()->randomElement([
-                AssignmentEnum::LEADER,
-                AssignmentEnum::SUBORDINATE
-            ]),
-            
+            'isleader' => fake()->boolean(),
+            'entry_card' => fake()->unique()->numberBetween(100000,999999),
         ];
     }
 }
