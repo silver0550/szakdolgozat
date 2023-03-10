@@ -56,8 +56,9 @@ class Users extends Component
         }   
     }
 
-    public function create($user){
+    public function create($user, $property){
 
+        dd($user, $property);
         if(Gate::authorize('create', auth()->user())){
             User::create($user);
         }

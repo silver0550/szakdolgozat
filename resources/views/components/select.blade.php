@@ -11,7 +11,7 @@
     @if ($label)
         <label class="" for={{$for}}>{{$label}}:</label>
     @endif  
-    <select {{ $attributes->whereDoesntStartWith('wire:key')->merge(['class' => "select select-ghost max-w-xs"]) }} >
+    <select {{ $attributes->whereDoesntStartWith('wire:key')->merge(['class' => "select w-full max-w-xs"]) }} >
         {{ $slot }}
     </select>
 </div>
