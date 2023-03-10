@@ -15,7 +15,11 @@ class UserProperty extends Model
 
     protected $hidden = [];
 
-    protected $attributes = [];
+    protected $attributes = [
+        'isleader' => 0,
+    ];
+
+    protected $guarded = [];
 
     public function user(){
         

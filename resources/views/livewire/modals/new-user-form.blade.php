@@ -47,12 +47,12 @@
 
         <div class="flex justify-between px-10">
 
-            <x-input.form-control class="w-full mr-5" :error="$errors->first('property.place_of_birt')" label='Születési hely*'>
-                <x-input.text wire:model.debounce='property.place_of_birt'  />
+            <x-input.form-control class="w-full mr-5" :error="$errors->first('property.place_of_birth')" label='Születési hely*'>
+                <x-input.text wire:model.debounce='property.place_of_birth'  />
             </x-input.form-control>
 
-            <x-input.form-control  class="w-full ml-5" :error="$errors->first('property.date_of_birt')" label='Születési idő*'>
-                <x-input.date wire:model=property.date_of_birt/>
+            <x-input.form-control  class="w-full ml-5" :error="$errors->first('property.date_of_birth')" label='Születési idő*'>
+                <x-input.date wire:model=property.date_of_birth/>
             </x-input.form-control>
         
         </div>

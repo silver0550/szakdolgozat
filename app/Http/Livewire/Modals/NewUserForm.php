@@ -26,8 +26,8 @@ class NewUserForm extends ModalComponent
     protected $rules =[
         'user.name' => ['required'],
         'user.email' => ['required','email','unique:users,email'],
-        'property.place_of_birt' => ['required'],
-        'property.date_of_birt' => ['required'],
+        'property.place_of_birth' => ['required'],
+        'property.date_of_birth' => ['required'],
         'avatar' => ['image','nullable'],
         'property.entry_card' => ['required','digits:6','unique:user_properties,entry_card'],
         'property.language_knowledge' => ['nullable'],
@@ -42,8 +42,8 @@ class NewUserForm extends ModalComponent
         'user.email.email' => 'Hibás formátum!',
         'user.email.unique' => 'Az e-mail cím már használatban van!',
         'user.name.required' => 'Név mező kitöltése kötelező!',
-        'property.place_of_birt' => 'A születési hely mező kitöltése kötelező!',
-        'property.date_of_birt' => 'A születési idő mező kitöltése kötelező!',
+        'property.place_of_birth' => 'A születési hely mező kitöltése kötelező!',
+        'property.date_of_birth' => 'A születési idő mező kitöltése kötelező!',
         'property.entry_card.required' => 'A belépő kártya számát kötelező megadni!',
         'property.entry_card.digits' => 'Hibás formátum, adjon meg 6 számjegyű számot',
         'property.entry_card.unique' => 'A belépőkártya szám már használatban van!',
@@ -64,7 +64,7 @@ class NewUserForm extends ModalComponent
         if ($this->avatar){
             $this->user->avatar_path = $this->avatar->store('avatars','public');
         }
-        $this->property->language_knowledge = $this->language_knowledge;
+        $this->property->language_knowledge = json_encode($this->language_knowledge);
         $this->emit('create', $this->user, $this->property);
 
         $this->closeModal();

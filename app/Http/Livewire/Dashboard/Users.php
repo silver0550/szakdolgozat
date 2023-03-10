@@ -58,9 +58,13 @@ class Users extends Component
 
     public function create($user, $property){
 
-        dd($user, $property);
+        
         if(Gate::authorize('create', auth()->user())){
-            User::create($user);
+            $currentUser = User::create($user);
+
+            $property['user_id'] = $currentUser->id;
+            
+            UserProperty::create($property);
         }
 
         $this->notificationVisible = true;
