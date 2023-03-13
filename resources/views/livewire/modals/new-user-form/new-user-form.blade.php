@@ -59,7 +59,7 @@
 
         <div class="flex justify-between px-10 ">
             <div class="w-2/3">
-                @livewire('file-upload-controller')
+                @livewire('modals.new-user-form.file-upload-controller')
             </div>
 
             <x-input.form-control class="w-1/3 ml-5" :error="$errors->first('property.entry_card')" label='Belépő kártya száma*'>
@@ -68,43 +68,9 @@
 
         </div>
 
-        <div class="flex justify-center w-1/2 px-10 border-2 border-white">
+        <div class="flex justify-center px-10 ">
 
-            <x-input.form-control class="w-full justify-center" :error="$errors->first('languageBuilder.*')" label='Beszélt nyelvek'>
-                
-                @if($language_knowledge)
-                    @foreach ($language_knowledge as $language => $level)
-                        <div class="flex w-1/2 justify-between my-1">
-                            <label class="label-text">{{$language}}</label>
-                            <label class="label-text">{{$level}}</label>
-                            <x-button.primary wire:click="removeLanguage('{{$language}}')" class="btn-ghost btn-xs">X</x-button.primary>
-                        </div>
-                    @endforeach
-                @else
-                    <label class="my-1 label-text">Nincs beszélt nyelv</label>
-                @endif
-                
-                <div class="flex justify-between w-full mt-2" >
-
-                    <x-select wire:model="languageBuilder.language" class="select-sm w-max">
-                        <option selected >Válasszon</option>
-                        @foreach (\App\Enum\LanguageKnowledge::cases() as $language)
-                            <option value={{$language}}>{{$language}}</option>
-                        @endforeach
-                    </x-select>
-
-                    <x-select  wire:model="languageBuilder.level" class="select-sm w-max">
-                        <option selected >Válasszon</option>
-                        @foreach (\App\Enum\LanguageKnowledge::getLevels() as $level)
-                            <option value={{$level}}>{{$level}}</option>
-                        @endforeach
-                    </x-select>
-
-                    <x-button.primary wire:click="addLanguage" class="btn-xs my-auto w-max" >Hozzáad</x-button.primary>
-                
-                </div>
-
-            </x-input.form-control>
+            @livewire('modals.new-user-form.language-controller')
         
         </div>
 

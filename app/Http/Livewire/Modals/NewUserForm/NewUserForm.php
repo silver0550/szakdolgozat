@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Modals;
+namespace App\Http\Livewire\Modals\NewUserForm;
 
 
 use LivewireUI\Modal\ModalComponent;
@@ -16,10 +16,10 @@ class NewUserForm extends ModalComponent
     public UserProperty $property;
     public $avatar;
 
-    public $languageBuilder = [
-        'language' => '',
-        'level' => '',
-    ];
+    // public $languageBuilder = [
+    //     'language' => '',
+    //     'level' => '',
+    // ];
 
     public $language_knowledge;
 
@@ -46,7 +46,7 @@ class NewUserForm extends ModalComponent
         'property.entry_card.digits' => 'Hibás formátum, adjon meg 6 számjegyű számot',
         'property.entry_card.unique' => 'A belépőkártya szám már használatban van!',
         'property.department' => 'A részleg kitöltése kötelező!',
-        'languageBuilder.*' => 'A nyelv és a szint kiválasztása is kötelező!',
+        // 'languageBuilder.*' => 'A nyelv és a szint kiválasztása is kötelező!',
     ];
 
     protected $listeners = [
@@ -70,32 +70,13 @@ class NewUserForm extends ModalComponent
       
     }
 
-    public function addLanguage(){
-        $this->validate([
-            'languageBuilder.language' => ['required','not_in:Válasszon'],
-            'languageBuilder.level' => ['required','not_in:Válasszon'],
-        ]);
-
-        $language_knowledge = [
-            $this->languageBuilder['language'] => $this->languageBuilder['level']
-        ];
-
-        if ($this->language_knowledge){
-            $this->language_knowledge = array_merge($this->language_knowledge, $language_knowledge);
-        }
-        else {$this->language_knowledge = $language_knowledge;}
-
-        $this->reset('languageBuilder');
-
-    }
-
     public function removeLanguage($language){
         unset($this->language_knowledge[$language]);
     }
 
     public function render()
     {
-        return view('livewire.modals.new-user-form');
+        return view('livewire.modals.new-user-form.new-user-form');
     }
 
     public function fileUploaded($filePath){

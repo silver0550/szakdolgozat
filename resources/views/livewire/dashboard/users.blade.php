@@ -7,7 +7,7 @@
         <div class="flex w-1/2 justify-between">
             @can('Admin')
                 <x-button.tooltip side='right' tooltip="Hozzáad" class="ml-7">
-                    <x-button.primary wire:click="$emit('openModal','modals.new-user-form')" class="btn-circle">+</x-button.primary>
+                    <x-button.primary wire:click="$emit('openModal','modals.new-user-form.new-user-form')" class="btn-circle">+</x-button.primary>
                 </x-button.tooltip>
             @endcan
             <x-input.text wire:model="searchByName" class="ml-10" placeholder="Keresés..."/>
