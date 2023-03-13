@@ -57,33 +57,18 @@
         
         </div>
 
-        <div class="flex justify-between px-10">
-
-            <div class="flex w-1/2 mr-5">
-
-                <x-input.form-control class=" w-3/4" :error="$errors->first('avatar')" label='Avatár'>
-                    <input wire:click="$set('avatar','')" wire:model='avatar' type="file" class="file-input file-input-sm file-input-bordered file-input-primary w-full max-w-xs " />
-                </x-input.form-control>
-
-                @if ($avatar && !$errors->first('avatar'))
-
-                    <div class="avatar flex w-1/4 justify-end my-auto">
-                        <div class="w-20 h-20 rounded-xl">
-                            <img src="{{$avatar->temporaryUrl()}}" alt="Avatar preview">
-                        </div>
-                    </div>
-
-                @endif
-
+        <div class="flex justify-between px-10 ">
+            <div class="w-2/3">
+                @livewire('file-upload-controller')
             </div>
 
-            <x-input.form-control class="w-1/2 ml-5" :error="$errors->first('property.entry_card')" label='Belépő kártya száma*'>
+            <x-input.form-control class="w-1/3 ml-5" :error="$errors->first('property.entry_card')" label='Belépő kártya száma*'>
                 <x-input.text placeholder="pl.:123456" wire:model.debounce='property.entry_card' />
             </x-input.form-control>
 
         </div>
 
-        <div class="flex justify-center w-1/2 px-10 ">
+        <div class="flex justify-center w-1/2 px-10 border-2 border-white">
 
             <x-input.form-control class="w-full justify-center" :error="$errors->first('languageBuilder.*')" label='Beszélt nyelvek'>
                 
@@ -130,7 +115,4 @@
 
         <x-button.primary wire:click="$emit('closeModal')" class="btn-sm">Mégsem</x-button.primary>
     </x-modals.control>
-    {{-- @if($errors->any())
-        {{$errors->first('languageBuilder.*')}}
-    @endif --}}
 </div>   

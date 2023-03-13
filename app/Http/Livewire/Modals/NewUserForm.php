@@ -28,12 +28,10 @@ class NewUserForm extends ModalComponent
         'user.email' => ['required','email','unique:users,email'],
         'property.place_of_birth' => ['required'],
         'property.date_of_birth' => ['required'],
-        'avatar' => ['image','nullable'],
         'property.entry_card' => ['required','digits:6','unique:user_properties,entry_card'],
         'property.language_knowledge' => ['nullable'],
         'property.department' => ['required','not_in:Válasszon'],
         'property.isleader'=> ['nullable'],
-        
         
     ];
 
@@ -47,10 +45,12 @@ class NewUserForm extends ModalComponent
         'property.entry_card.required' => 'A belépő kártya számát kötelező megadni!',
         'property.entry_card.digits' => 'Hibás formátum, adjon meg 6 számjegyű számot',
         'property.entry_card.unique' => 'A belépőkártya szám már használatban van!',
-        // 'property.language_knowledge' => ,
         'property.department' => 'A részleg kitöltése kötelező!',
-        'avatar' => 'Csak kép formátum engedélyezett!',
         'languageBuilder.*' => 'A nyelv és a szint kiválasztása is kötelező!',
+    ];
+
+    protected $listeners = [
+        'fileUploaded',
     ];
 
     public function mount(){
@@ -61,12 +61,11 @@ class NewUserForm extends ModalComponent
     public function save(){
         $this->validate();
 
-        if ($this->avatar){
-            $this->user->avatar_path = $this->avatar->store('avatars','public');
+        if($this->avatar){
+            $this->user->avatar_path = $this->avatar;
         }
         $this->property->language_knowledge = json_encode($this->language_knowledge);
         $this->emit('create', $this->user, $this->property);
-
         $this->closeModal();
       
     }
@@ -99,10 +98,10 @@ class NewUserForm extends ModalComponent
         return view('livewire.modals.new-user-form');
     }
 
-    public function updatedAvatar(){
-        $this->validate([
-            'avatar' => ['image','nullable'],
-        ]);
+    public function fileUploaded($filePath){
+
+        $this->avatar = $filePath;
+    
     }
 
     public static function modalMaxWidth(): string
