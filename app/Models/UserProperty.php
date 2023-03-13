@@ -9,7 +9,7 @@ use Spatie\Activitylog\LogOptions;
 
 class UserProperty extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $fillable = [];
 

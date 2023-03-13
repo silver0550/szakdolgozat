@@ -47,8 +47,9 @@ class Users extends Component
     }
 
     public function delete(User $user){     //sorszám frissítés, vagy sorszám törlés
-        if(Gate::authorize('delete',$user)){
+        if(Gate::authorize('delete', $user)){
 
+            $user->property()->first()->delete();
             $user->delete();
 
             $this->notificationVisible = true;
