@@ -14,22 +14,16 @@ class NewUserForm extends ModalComponent
 
     public User $user;
     public UserProperty $property;
+
     public $avatar;
-
-    // public $languageBuilder = [
-    //     'language' => '',
-    //     'level' => '',
-    // ];
-
     public $language_knowledge;
 
     protected $rules =[
-        'user.name' => ['required'],
+        'user.name' => ['required'], 
         'user.email' => ['required','email','unique:users,email'],
-        'property.place_of_birth' => ['required'],
+        'property.place_of_birth' => ['required','alpha'],
         'property.date_of_birth' => ['required'],
         'property.entry_card' => ['required','digits:6','unique:user_properties,entry_card'],
-        'property.language_knowledge' => ['nullable'],
         'property.department' => ['required','not_in:Válasszon'],
         'property.isleader'=> ['nullable'],
         
@@ -40,17 +34,18 @@ class NewUserForm extends ModalComponent
         'user.email.email' => 'Hibás formátum!',
         'user.email.unique' => 'Az e-mail cím már használatban van!',
         'user.name.required' => 'Név mező kitöltése kötelező!',
-        'property.place_of_birth' => 'A születési hely mező kitöltése kötelező!',
+        'property.place_of_birth.required' => 'A születési hely mező kitöltése kötelező!',
+        'property.place_of_birth.alpha' => 'A mező csak betűket tartalmazhat!',
         'property.date_of_birth' => 'A születési idő mező kitöltése kötelező!',
         'property.entry_card.required' => 'A belépő kártya számát kötelező megadni!',
         'property.entry_card.digits' => 'Hibás formátum, adjon meg 6 számjegyű számot',
         'property.entry_card.unique' => 'A belépőkártya szám már használatban van!',
         'property.department' => 'A részleg kitöltése kötelező!',
-        // 'languageBuilder.*' => 'A nyelv és a szint kiválasztása is kötelező!',
     ];
 
     protected $listeners = [
         'fileUploaded',
+        'languageUpdated'
     ];
 
     public function mount(){
@@ -64,14 +59,11 @@ class NewUserForm extends ModalComponent
         if($this->avatar){
             $this->user->avatar_path = $this->avatar;
         }
+
         $this->property->language_knowledge = json_encode($this->language_knowledge);
         $this->emit('create', $this->user, $this->property);
         $this->closeModal();
       
-    }
-
-    public function removeLanguage($language){
-        unset($this->language_knowledge[$language]);
     }
 
     public function render()
@@ -83,6 +75,12 @@ class NewUserForm extends ModalComponent
 
         $this->avatar = $filePath;
     
+    }
+
+    public function languageUpdated($languages){
+
+        $this->language_knowledge = $languages;
+
     }
 
     public static function modalMaxWidth(): string
