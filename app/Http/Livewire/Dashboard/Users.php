@@ -8,27 +8,18 @@ use App\Models\User;
 use App\Models\UserProperty;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Traits\WithSelfPagination;
+use App\Http\Traits\WithSortedTable;
 
 class Users extends Component
 {
-    use WithSelfPagination;
-
-    public $sortColumnName = 'id';
-    public $sortDirection = 'asc';
-    public $searchByName;
-
-    public $notificationVisible = false;    
-    public $notificationMessage;
-
+    use WithSelfPagination, WithSortedTable;
 
     protected $listeners = [
-        'sort',
         'delete',
         'create',
         'update',
     ];
 
-    
     public function render()
     {
         $users = User::where('name','LIKE','%'.$this->searchByName.'%')
@@ -38,17 +29,10 @@ class Users extends Component
             return view('livewire.dashboard.users',['users' => $users,])->layout('components.layouts.index');
     }
 
-    public function sort($type){
-        if($type === $this->sortColumnName){
-            $this->sortDirection = $this->sortDirection === 'asc' ?  'desc' : 'asc';
-        } else {$this->sortDirection = 'asc';}
-
-        $this->sortColumnName = $type;
-    }
-
     public function delete(User $user){     //sorszám frissítés, vagy sorszám törlés
-        if(Gate::authorize('delete',$user)){
+        if(Gate::authorize('delete', $user)){
 
+            $user->property()->first()->delete();
             $user->delete();
 
             $this->notificationVisible = true;

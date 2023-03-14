@@ -7,7 +7,7 @@
         <div class="flex w-1/2 justify-between">
             @can('Admin')
                 <x-button.tooltip side='right' tooltip="Hozzáad" class="ml-7">
-                    <x-button.primary wire:click="$emit('openModal','modals.new-user-form')" class="btn-circle">+</x-button.primary>
+                    <x-button.primary wire:click="$emit('openModal','modals.new-user-form.new-user-form')" class="btn-circle">+</x-button.primary>
                 </x-button.tooltip>
             @endcan
             <x-input.text wire:model="searchByName" class="ml-10" placeholder="Keresés..."/>
@@ -22,9 +22,9 @@
                 <x-table.head class="cursor-default">A keresésnek nincs eredménye</x-table.head> 
             @else
                 <x-table.head class="cursor-default">#</x-table.head> 
-                <x-table.head wire:click="$emitSelf('sort','name')" class="cursor-pointer">Név</x-table.head>
-                <x-table.head wire:click="$emitSelf('sort','email')" class="cursor-pointer">Email</x-table.head>
-                <x-table.head wire:click="$emitSelf('sort','id')" class="cursor-pointer">Beosztás</x-table.head>
+                <x-table.head wire:click="sort('name')" class="cursor-pointer">Név</x-table.head>
+                <x-table.head wire:click="sort('email')" class="cursor-pointer">Email</x-table.head>
+                <x-table.head wire:click="sort('id')" class="cursor-pointer">Létrehozva</x-table.head>
                 @can('SuperAdmin')<x-table.head class="cursor-default">admin</x-table.head>@endcan
             @endif
         </x-slot>

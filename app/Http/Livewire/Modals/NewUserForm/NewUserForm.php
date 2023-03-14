@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Modals;
+namespace App\Http\Livewire\Modals\NewUserForm;
 
 
 use LivewireUI\Modal\ModalComponent;
@@ -14,26 +14,18 @@ class NewUserForm extends ModalComponent
 
     public User $user;
     public UserProperty $property;
+
     public $avatar;
-
-    public $languageBuilder = [
-        'language' => '',
-        'level' => '',
-    ];
-
     public $language_knowledge;
 
     protected $rules =[
-        'user.name' => ['required'],
+        'user.name' => ['required'], 
         'user.email' => ['required','email','unique:users,email'],
-        'property.place_of_birth' => ['required'],
+        'property.place_of_birth' => ['required','alpha'],
         'property.date_of_birth' => ['required'],
-        'avatar' => ['image','nullable'],
         'property.entry_card' => ['required','digits:6','unique:user_properties,entry_card'],
-        'property.language_knowledge' => ['nullable'],
         'property.department' => ['required','not_in:Válasszon'],
         'property.isleader'=> ['nullable'],
-        
         
     ];
 
@@ -42,15 +34,18 @@ class NewUserForm extends ModalComponent
         'user.email.email' => 'Hibás formátum!',
         'user.email.unique' => 'Az e-mail cím már használatban van!',
         'user.name.required' => 'Név mező kitöltése kötelező!',
-        'property.place_of_birth' => 'A születési hely mező kitöltése kötelező!',
+        'property.place_of_birth.required' => 'A születési hely mező kitöltése kötelező!',
+        'property.place_of_birth.alpha' => 'A mező csak betűket tartalmazhat!',
         'property.date_of_birth' => 'A születési idő mező kitöltése kötelező!',
         'property.entry_card.required' => 'A belépő kártya számát kötelező megadni!',
         'property.entry_card.digits' => 'Hibás formátum, adjon meg 6 számjegyű számot',
         'property.entry_card.unique' => 'A belépőkártya szám már használatban van!',
-        // 'property.language_knowledge' => ,
         'property.department' => 'A részleg kitöltése kötelező!',
-        'avatar' => 'Csak kép formátum engedélyezett!',
-        'languageBuilder.*' => 'A nyelv és a szint kiválasztása is kötelező!',
+    ];
+
+    protected $listeners = [
+        'fileUploaded',
+        'languageUpdated'
     ];
 
     public function mount(){
@@ -61,48 +56,31 @@ class NewUserForm extends ModalComponent
     public function save(){
         $this->validate();
 
-        if ($this->avatar){
-            $this->user->avatar_path = $this->avatar->store('avatars','public');
+        if($this->avatar){
+            $this->user->avatar_path = $this->avatar;
         }
+
         $this->property->language_knowledge = json_encode($this->language_knowledge);
         $this->emit('create', $this->user, $this->property);
-
         $this->closeModal();
       
     }
 
-    public function addLanguage(){
-        $this->validate([
-            'languageBuilder.language' => ['required','not_in:Válasszon'],
-            'languageBuilder.level' => ['required','not_in:Válasszon'],
-        ]);
-
-        $language_knowledge = [
-            $this->languageBuilder['language'] => $this->languageBuilder['level']
-        ];
-
-        if ($this->language_knowledge){
-            $this->language_knowledge = array_merge($this->language_knowledge, $language_knowledge);
-        }
-        else {$this->language_knowledge = $language_knowledge;}
-
-        $this->reset('languageBuilder');
-
-    }
-
-    public function removeLanguage($language){
-        unset($this->language_knowledge[$language]);
-    }
-
     public function render()
     {
-        return view('livewire.modals.new-user-form');
+        return view('livewire.modals.new-user-form.new-user-form');
     }
 
-    public function updatedAvatar(){
-        $this->validate([
-            'avatar' => ['image','nullable'],
-        ]);
+    public function fileUploaded($filePath){
+
+        $this->avatar = $filePath;
+    
+    }
+
+    public function languageUpdated($languages){
+
+        $this->language_knowledge = $languages;
+
     }
 
     public static function modalMaxWidth(): string
