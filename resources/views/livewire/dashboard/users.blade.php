@@ -5,8 +5,8 @@
     </div>
     <div class ='flex justify-between w-full p-2 bg-base-200 rounded-md mb-2'>
         <div class="flex w-1/2 justify-between">
-            @can('Admin')
-                <x-button.tooltip side='right' tooltip="Hozzáad" class="ml-7">
+            @can('create', App\Models\User::class)
+                <x-button.tooltip side='right' label="Hozzáad" class="ml-7">
                     <x-button.primary wire:click="$emit('openModal','modals.new-user-form.new-user-form')" class="btn-circle">+</x-button.primary>
                 </x-button.tooltip>
             @endcan

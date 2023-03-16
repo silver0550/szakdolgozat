@@ -27,10 +27,18 @@ class UserPolicy
      * @param  \App\Models\User  $user
      * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
-     */
+     */ 
     public function view(User $user, User $model)
     {
-        //
+        if ($user->admin){ return true;}
+
+        if ($model->property()->first() && $user->property()->first()){
+            return (
+                $user->property()->first()->department == $model->property()->first()->department &&
+                $user->property()->first()->isleader
+            );   
+        }
+        return false;
     }
 
     /**
@@ -53,7 +61,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return $user->admin || $user->email === env('SUPER_ADMIN');
+        return $user->admin || $user->email === env('SUPER_ADMIN') || $user->id === $model->id;
     }
 
     /**

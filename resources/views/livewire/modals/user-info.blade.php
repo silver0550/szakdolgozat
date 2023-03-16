@@ -16,8 +16,8 @@
         </x-input.form-control-together>
     </x-modals.body>
     <x-modals.control>
-        @can('Admin')
-            <x-button.primary wire:click="update()" class="btn-sm">Mentés</x-button.primary>
+        @can('update', $user)
+            <x-button.primary wire:click="update" class="btn-sm">Mentés</x-button.primary>
         @endcan
     </x-modals.control>
 

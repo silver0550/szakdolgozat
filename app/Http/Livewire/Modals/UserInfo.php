@@ -25,7 +25,7 @@ class UserInfo extends ModalComponent
     public function mount(User $user){
         $this->user = $user;
         $this->label = $user->name;
-        $this->readonly = !(auth()->user()->admin);
+        $this->readonly = !auth()->user()->can('update', $user);
         
     }
 

@@ -1,8 +1,8 @@
 @props([
-    'tooltip' => '',
+    'label' => '',
 ])
 
 
-<div {{ $attributes->merge(['class' => 'tooltip pr-2 ml-3'])}} data-tip='{{$tooltip}}'>
+<div {{ $attributes->merge(['class' => 'tooltip pr-2 ml-3'])}} data-tip='{{$label}}'>
     {{ $slot }}
 </div>    
