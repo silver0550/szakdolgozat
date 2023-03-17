@@ -11,6 +11,7 @@
                 </x-button.tooltip>
             @endcan
             <x-input.text wire:model="searchByName" class="ml-10" placeholder="Keresés..."/>
+            {{-- TODO:searchByGroup --}}
         </div>
         {{$users->links()}}
     </div>

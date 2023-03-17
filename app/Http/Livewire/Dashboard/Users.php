@@ -29,9 +29,9 @@ class Users extends Component
             return view('livewire.dashboard.users',['users' => $users,])->layout('components.layouts.index');
     }
 
-    public function delete(User $user){     //sorszám frissítés, vagy sorszám törlés
-        if(Gate::authorize('delete', $user)){
+    public function delete(User $user){ // delete funkció nincs használva
 
+        if(Gate::authorize('delete', $user)){ 
             $user->property()->first()->delete();
             $user->delete();
 

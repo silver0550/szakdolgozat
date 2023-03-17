@@ -4,16 +4,20 @@ namespace App\Http\Livewire\Modals;
 
 use LivewireUI\Modal\ModalComponent;
 use App\Models\User;
+use App\Models\UserProperty;
 
 class UserInfo extends ModalComponent
 {
     public User $user;
+    public UserProperty $property;
     public $label;
     public $readonly;
 
     protected $rules =[
         'user.name' => ['required'],
         'user.email' => ['required','email'],
+        'property.isleader' => ['nullable'],
+        'property.department' => ['required'],
     ];
 
     protected $messages =[
@@ -25,6 +29,8 @@ class UserInfo extends ModalComponent
     public function mount(User $user){
         $this->user = $user;
         $this->label = $user->name;
+
+        $this->property = $user->property()->first();
         $this->readonly = !auth()->user()->can('update', $user);
         
     }
@@ -44,7 +50,7 @@ class UserInfo extends ModalComponent
 
     public static function modalMaxWidth(): string
     {
-        return '2xl';
+        return '5xl';
     }
 
     public static function closeModalOnEscape(): bool
