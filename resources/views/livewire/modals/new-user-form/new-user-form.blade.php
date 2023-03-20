@@ -9,7 +9,7 @@
         </x-slot>
     </x-modals.header>
 
-    <x-modals.body class="flex flex-col text-center">
+    <x-modals.body class="flex flex-col ">
 
         <div class="flex justify-between px-10">
 

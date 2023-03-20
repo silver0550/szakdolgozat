@@ -34,11 +34,13 @@ class UserPolicy
 
         if ($model->property()->first() && $user->property()->first()){
             return (
+                $user->id === $model->id ||
                 $user->property()->first()->department == $model->property()->first()->department &&
                 $user->property()->first()->isleader
             );   
         }
-        return false;
+
+        return $user->id === $model->id;
     }
 
     /**
@@ -61,7 +63,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return $user->admin || $user->email === env('SUPER_ADMIN') || $user->id === $model->id;
+        return $user->admin || $user->email === env('SUPER_ADMIN');
     }
 
     /**

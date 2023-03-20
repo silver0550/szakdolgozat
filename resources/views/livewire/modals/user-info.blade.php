@@ -11,7 +11,7 @@
     
     <x-modals.body class="flex flex-col mx-10">
         <div class="flex">
-            <figure class=" avatar pr-5 w-1/4 ">
+            <figure class=" avatar pr-5 w-1/4 h-max">
                 
                 <div class="rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
     
@@ -24,36 +24,45 @@
                 </div>
             
             </figure>
-            <div class="flex justify-between pl-5 w-full">
+            <div class="flex flex-col w-full">
 
-                <x-input.form-control class="w-3/4 pr-2" :error="$errors->first('user.name')" label='Név*'>
-                    <x-input.text :readonly='$readonly' class=" disabled:cursor-default" wire:model.debounce='user.name'/> 
-                </x-input.form-control>
+                <div class="flex justify-between pl-5 ">
+                    <x-input.form-control class="w-3/4 pr-2" :error="$errors->first('user.name')" label='Név*'>
+                        <x-input.text :readonly='$readonly' class=" disabled:cursor-default" wire:model.debounce='user.name'/> 
+                    </x-input.form-control>
 
-                <div class="flex flex-col w-1/4 mx-auto text-center">
-                    <label for="isleader" class="label-text p-2 w-full"> Vezető Beosztás</label>
-                    <x-button.toggle wire:model.debounce="property.isleader" class=" toggle-primary toggle-md mt-3 mx-auto"/>
+                    <div class="flex flex-col w-1/4 mx-auto text-center">
+                        <label for="isleader" class="label-text p-2 w-full"> Vezető Beosztás</label>
+                        <x-button.toggle  :disabled='$readonly' wire:model.debounce="property.isleader" class=" toggle-primary toggle-md mt-3 mx-auto"/>
+                    </div>
                 </div>
 
+                <div class="flex justify-between pl-5 w-full">
+
+                    <x-input.form-control class="w-3/4" :error="$errors->first('user.email')" label='Email*'>
+                        <x-input.text :readonly='$readonly' class=" disabled:cursor-default" wire:model.debounce='user.email'/> 
+                    </x-input.form-control>
+
+                    <x-input.form-control class="w-1/4 pl-5" :error="$errors->first('property.department')" label='Részleg*'>
+               
+                        <x-select :disabled='$readonly' wire:model.debounce="property.department" >
+        
+                            @foreach (\App\Enum\Department::cases() as $department)
+                                <option value={{$department}}>{{$department}}</option>
+                            @endforeach
+        
+                        </x-select>
+        
+                    </x-input.form-control>
+                
+                </div>  
+            
             </div>
         </div>
         <div class="flex">
-            <x-input.form-control class="w-3/4 pl-2" :error="$errors->first('user.email')" label='Email*'>
-                <x-input.text :readonly='$readonly' class=" disabled:cursor-default" wire:model.debounce='user.email'/> 
-            </x-input.form-control>
+            
 
-            <x-input.form-control class="w-1/4 pl-5" :error="$errors->first('property.department')" label='Részleg*'>
-               
-                <x-select wire:model="property.department" >
-
-                    <option selected >Válasszon</option>
-                    @foreach (\App\Enum\Department::cases() as $department)
-                        <option value={{$department}}>{{$department}}</option>
-                    @endforeach
-
-                </x-select>
-
-            </x-input.form-control>
+            
         </div>
 
         <div class="flex justify-between">

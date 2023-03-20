@@ -1,6 +1,7 @@
 @props([
   'for' => '',
   'label' => '',
+  'disabled' =>false,
 ])
 
 @php
@@ -13,12 +14,15 @@
     @if ($label)
         <label class="" for={{$for}}>{{$label}}:</label>
     @endif
-
-    @if($error)
-        <select {{ $attributes->whereDoesntStartWith('wire:key')->merge(['class' => "select select-error w-full max-w-xs"]) }} >    
-    @else
-        <select {{ $attributes->whereDoesntStartWith('wire:key')->merge(['class' => "select w-full max-w-xs"]) }} >
-    @endif    
-    {{ $slot }}
+    
+    <select 
+        @disabled($disabled)
+        @if($error)
+            {{ $attributes->whereDoesntStartWith('wire:key')->merge(['class' => "select select-error w-full max-w-xs"]) }}  
+        @else
+            {{ $attributes->whereDoesntStartWith('wire:key')->merge(['class' => "select w-full max-w-xs"]) }}
+        @endif    
+    >
+        {{ $slot }}
     </select>
 </div>
