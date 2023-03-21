@@ -21,7 +21,7 @@ class NewUserForm extends ModalComponent
     protected $rules =[
         'user.name' => ['required'], 
         'user.email' => ['required','email','unique:users,email'],
-        'property.place_of_birth' => ['required','alpha'],
+        'property.place_of_birth' => ['required'],
         'property.date_of_birth' => ['required'],
         'property.entry_card' => ['required','digits:6','unique:user_properties,entry_card'],
         'property.department' => ['required','not_in:Válasszon'],
@@ -35,7 +35,6 @@ class NewUserForm extends ModalComponent
         'user.email.unique' => 'Az e-mail cím már használatban van!',
         'user.name.required' => 'Név mező kitöltése kötelező!',
         'property.place_of_birth.required' => 'A születési hely mező kitöltése kötelező!',
-        'property.place_of_birth.alpha' => 'A mező csak betűket tartalmazhat!',
         'property.date_of_birth' => 'A születési idő mező kitöltése kötelező!',
         'property.entry_card.required' => 'A belépő kártya számát kötelező megadni!',
         'property.entry_card.digits' => 'Hibás formátum, adjon meg 6 számjegyű számot',

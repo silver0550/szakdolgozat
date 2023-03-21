@@ -55,7 +55,7 @@ class Users extends Component
         $this->notificationMessage = Notification::CREATE_SUCCES;
     }
 
-    public function update($user){
+    public function update($user, $property){
         
         $current = User::find($user['id']);
 
