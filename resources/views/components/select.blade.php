@@ -4,11 +4,16 @@
   'disabled' =>false,
 ])
 
+@aware(['error'] )
+
 @php
     $key = $key ?? md5($attributes->wire('model'));
-@endphp
 
-@aware(['error'] )
+    $style = 'select w-full max-w-xs disabled:cursor-default disabled:font-bold disabled:text-xl';
+    if ($error) {
+        $style = $style.' select-error';
+    }
+@endphp
 
 <div class="inline-block">
     @if ($label)
@@ -17,11 +22,7 @@
     
     <select 
         @disabled($disabled)
-        @if($error)
-            {{ $attributes->whereDoesntStartWith('wire:key')->merge(['class' => "select select-error w-full max-w-xs"]) }}  
-        @else
-            {{ $attributes->whereDoesntStartWith('wire:key')->merge(['class' => "select w-full max-w-xs"]) }}
-        @endif    
+        {{ $attributes->whereDoesntStartWith('wire:key')->merge(['class' => $style]) }}
     >
         {{ $slot }}
     </select>
