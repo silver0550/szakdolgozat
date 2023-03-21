@@ -20,7 +20,7 @@
 
         @cannot('update', $user)
                 @can('view', $user)
-                    <x-icon.info wire:click="$emit('openModal','modals.user-info',['{{$user->id}}'])" class="hover:text-blue-500 cursor-pointer"/>
+                    <x-icon.info wire:click="$emit('openModal','modals.user-info.user-info',['{{$user->id}}'])" class="hover:text-blue-500 cursor-pointer"/>
                 @endcan
         @endcannot
 
