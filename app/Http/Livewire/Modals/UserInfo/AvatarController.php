@@ -12,7 +12,6 @@ class AvatarController extends Component
 
     public User $user;
     public $unvalidedAvatar;
-    public $avatar;
 
 
     protected $rules =[
@@ -22,9 +21,7 @@ class AvatarController extends Component
     public function updatedUnvalidedAvatar(){
         $this->validate();
         
-        $this->avatar = $this->unvalidedAvatar;
-
-        $this->emitUp('avatarUploaded', 'storage/'.$this->avatar->store('avatar','public'));
+        $this->emitUp('avatarUploaded', $this->unvalidedAvatar->store('avatar','public'));
   
     }
 
@@ -34,6 +31,7 @@ class AvatarController extends Component
 
     public function render()
     {
-        return view('livewire.modals.user-info.avatar-controller');
+        $avatar = $this->unvalidedAvatar;
+        return view('livewire.modals.user-info.avatar-controller',['avatar' => $avatar]);
     }
 }

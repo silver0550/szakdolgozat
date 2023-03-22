@@ -11,9 +11,9 @@
     
     <x-modals.body class="flex flex-col mx-10">
         <div class="flex">
-            <div class="w-1/4 m-auto mt-5">
-            @livewire('modals.user-info.avatar-controller',['user' => $user])
-        </div>
+            <div class="w-1/4 min-w-[200px] h-[200px] m-5 ml-0">
+                @livewire('modals.user-info.avatar-controller',['user' => $user])
+            </div>
             <div class="flex flex-col justify-center w-full">
 
                 <div class="flex justify-between pl-5 ">
