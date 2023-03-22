@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Modals\NewUserForm;
+namespace App\Http\Livewire\Modals\UserForm;
 
 use Livewire\Component;
 
@@ -41,6 +41,6 @@ class LanguageController extends Component
 
     public function render()
     {
-        return view('livewire.modals.new-user-form.language-controller');
+        return view('livewire.modals.user-form.language-controller');
     }
 }

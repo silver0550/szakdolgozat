@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Livewire\Modals\UserInfo;
+namespace App\Http\Livewire\Modals\UserForm;
 
-use LivewireUI\Modal\ModalComponent;
+use Livewire\Component;
 use App\Models\User;
 use App\Models\UserProperty;
 
-class UserInfo extends ModalComponent
+class UserForm extends Component
 {
     public User $user;
     public UserProperty $property;
@@ -14,10 +14,8 @@ class UserInfo extends ModalComponent
     public $avatar_path = null;
     public $languages = null;
 
-    public $label;
     public $readonly;
-
-// userProperty ellenőrzése
+    public $target;
 
     protected $listeners = [
         'avatarUploaded',
@@ -45,12 +43,11 @@ class UserInfo extends ModalComponent
         'property.entry_card.digits' => 'Hibás formátum, adjon meg 6 számjegyű számot',
     ];
 
-    public function mount(User $user){
+    public function mount(User $user, bool $readonly, String $target){
         $this->user = $user;
-        $this->label = $user->name;
-
-        $this->property = $user->property()->first();
-        $this->readonly = !auth()->user()->can('update', $user);
+        $this->target = $target;
+        $this->property = $user->property()->first() ? $user->property()->first() : new UserProperty();
+        $this->readonly = $readonly;
         
     }
 
@@ -78,29 +75,26 @@ class UserInfo extends ModalComponent
 
         $this->emit('update', $this->user, $this->property);
 
-        $this->closeModal();
+        $this->emitUp('close');
     }
 
+    public function create(): Void
+    {
+
+        $this->validate();
+
+        $this->property->language_knowledge = $this->languages;
+        
+        $this->user->avatar_path = $this->avatar_path;
+
+        $this->emit('create', $this->user, $this->property);
+
+        $this->emitUp('close');
+      
+    }
     public function render()
     {
-        return view('livewire.modals.user-info.user-info');
+        return view('livewire.modals.user-form.user-form');
     }
 
-
-    // MODAL CONTROL
-
-    public static function modalMaxWidth(): string
-    {
-        return '5xl';
-    }
-
-    public static function closeModalOnEscape(): bool
-    {
-        return false;
-    }
-
-    public static function closeModalOnClickAway(): bool
-    {
-        return false;
-    }
 }

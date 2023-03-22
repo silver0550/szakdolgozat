@@ -1,18 +1,8 @@
-<div class="bg-base-200 text-base-800">
-    <x-modals.header>
-        <x-slot name='icon'>
-            <x-icon.info/>
-        </x-slot>
-        <x-slot name='label'>
-            {{$label}}
-        </x-slot>
-    </x-modals.header>
-
-    
+<div>
     <x-modals.body class="flex flex-col mx-10">
         <div class="flex">
             <div class="w-1/4 min-w-[200px] h-[200px] m-5 ml-0">
-                @livewire('modals.user-info.avatar-controller',['user' => $user])
+                @livewire('modals.user-form.avatar-controller',['user' => $user])
             </div>
             <div class="flex flex-col justify-center w-full">
 
@@ -34,15 +24,15 @@
                     </x-input.form-control>
 
                     <x-input.form-control class="w-2/5 pl-5" :error="$errors->first('property.department')" label='Részleg*'>
-               
+                    
                         <x-select :disabled='$readonly'  wire:model.debounce="property.department" >
-        
+                        
                             @foreach (\App\Enum\Department::cases() as $department)
                                 <option value={{$department}}>{{$department}}</option>
                             @endforeach
-        
+                        
                         </x-select>
-        
+                    
                     </x-input.form-control>
                 
                 </div>  
@@ -66,16 +56,13 @@
         </div>
 
         <div class="flex justify-center">
-            {{-- {{$property}} --}}
-            @livewire('modals.new-user-form.language-controller',['languages' => $property->language_knowledge])
-        
+            @livewire('modals.user-form.language-controller',['languages' => $property->language_knowledge])
         </div>
 
     </x-modals.body>
     <x-modals.control>
-        @can('update', $user)
-            <x-button.primary wire:click="update" class="btn-sm">Mentés</x-button.primary>
+        @can($target, $user)
+            <x-button.primary wire:click="{{$target}}" class="btn-sm">Mentés</x-button.primary>
         @endcan
     </x-modals.control>
-
 </div>

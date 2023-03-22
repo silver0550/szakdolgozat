@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Modals\UserInfo;
+namespace App\Http\Livewire\Modals\UserForm;
 
 use Livewire\Component;
 use App\Models\User;
@@ -32,6 +32,6 @@ class AvatarController extends Component
     public function render()
     {
         $avatar = $this->unvalidedAvatar;
-        return view('livewire.modals.user-info.avatar-controller',['avatar' => $avatar]);
+        return view('livewire.modals.user-form.avatar-controller',['avatar' => $avatar]);
     }
 }

@@ -56,14 +56,22 @@ class Users extends Component
     }
 
     public function update($user, $property){
-
-        // dd($user,$property);
         
-        $current = User::find($user['id']);
+        $currentUser = User::find($user['id']);
 
         if(Gate::authorize('update', auth()->user())){
-            $current->update($user);
-            $current->property()->first()->update($property);
+            $currentUser->update($user);
+            
+            if ($currentUser->property()->first()){
+
+                $currentUser->property()->first()->update($property);
+
+            } else{
+                
+                $property['user_id'] = $currentUser->id;
+                
+                UserProperty::create($property);
+            }
         }
 
         $this->notificationVisible = true;
