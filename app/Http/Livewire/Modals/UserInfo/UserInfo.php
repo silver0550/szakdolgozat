@@ -10,7 +10,9 @@ class UserInfo extends ModalComponent
 {
     public User $user;
     public UserProperty $property;
-    public $avatar_path;
+    
+    public $avatar_path = null;
+    public $languages = null;
 
     public $label;
     public $readonly;
@@ -19,6 +21,7 @@ class UserInfo extends ModalComponent
 
     protected $listeners = [
         'avatarUploaded',
+        'languageUpdated',
     ];
 
     protected $rules =[
@@ -51,16 +54,27 @@ class UserInfo extends ModalComponent
         
     }
 
-    public function avatarUploaded($avatar_path){
+    public function avatarUploaded(String $avatar_path): Void
+    {
         
         $this->avatar_path = $avatar_path;
     }
 
-    public function update(){                            /* Crashes if entry card is not unique */
+    public function languageUpdated(Array $languages): Void
+    {
+        $this->languages = $languages;
+    }
+
+    public function update(): Void  /* Crashes if entry card is not unique */
+    {                            
      
         $this->validate();
 
-        $this->user->avatar_path = $this->avatar_path;
+        $this->user->avatar_path = 
+            $this->avatar_path !== null ? $this->avatar_path : $this->user->avatar_path ;
+
+        $this->property->language_knowledge = 
+            $this->languages !== null ? $this->languages : $this->property->language_knowledge;
 
         $this->emit('update', $this->user, $this->property);
 

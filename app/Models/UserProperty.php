@@ -21,6 +21,10 @@ class UserProperty extends Model
 
     protected $guarded = [];
 
+    protected $casts =[
+        'language_knowledge' => 'array',
+    ];
+
     public function user(){
         
         return $this->belongsTo(User::class);

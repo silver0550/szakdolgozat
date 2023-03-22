@@ -65,18 +65,9 @@
             </x-input.form-control>
         </div>
 
-        <div class="flex justify-between">
-            {{-- <div class="w-2/3">
-                @livewire('modals.new-user-form.file-upload-controller')
-            </div> --}}
-
-            
-
-        </div>
-
         <div class="flex justify-center">
-
-            @livewire('modals.new-user-form.language-controller')
+            {{-- {{$property}} --}}
+            @livewire('modals.new-user-form.language-controller',['languages' => $property->language_knowledge])
         
         </div>
 
