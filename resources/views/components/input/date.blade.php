@@ -21,7 +21,7 @@
     type = "date"
     placeholder = "{{ $placeholder }}"
     @disabled($readonly)
-
+    max={{now()->toDateString('Y-m-d')}}
     {{ $attributes->whereDoesntStartWith('wire:key')->merge(['class' => $style]) }}
     wire:key="{{ $key }}"
 />

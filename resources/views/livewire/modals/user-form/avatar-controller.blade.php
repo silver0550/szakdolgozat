@@ -6,9 +6,9 @@
 
         <div class="rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
 
-            @if ($avatar && !$errors->first('unvalidedAvatar'))
+            @if ($validAvatar)
 
-                <img src={{$avatar->temporaryUrl()}} alt="avatar">    
+                <img src={{$validAvatar->temporaryUrl()}} alt="avatar">    
             
             @else
             
@@ -17,7 +17,7 @@
                     <img src='storage/{{$user->avatar_path}}' alt="avatar">
                         
                 @else
-            
+                    
                     <img src={{\App\Enum\Avatar::DEFAULT_AVATAR}} alt="avatar">    
             
                 @endif

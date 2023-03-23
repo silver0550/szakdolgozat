@@ -26,7 +26,7 @@
                     <x-input.form-control class="w-2/5 pl-5" :error="$errors->first('property.department')" label='Részleg*'>
                     
                         <x-select :disabled='$readonly'  wire:model.debounce="property.department" >
-                        
+                            <option selected>Válasszon</option>
                             @foreach (\App\Enum\Department::cases() as $department)
                                 <option value={{$department}}>{{$department}}</option>
                             @endforeach
@@ -47,7 +47,7 @@
             </x-input.form-control>
 
             <x-input.form-control  class="w-full ml-5" :error="$errors->first('property.date_of_birth')" label='Születési idő*'>
-                <x-input.date  :disabled='$readonly'  wire:model=property.date_of_birth/>
+                <x-input.date  :disabled='$readonly' wire:model=property.date_of_birth/>
             </x-input.form-control>
         
             <x-input.form-control class="w-full ml-5" :error="$errors->first('property.entry_card')" label='Belépő kártya száma*'>
@@ -56,7 +56,12 @@
         </div>
 
         <div class="flex justify-center">
-            @livewire('modals.user-form.language-controller',['languages' => $property->language_knowledge])
+            <div class="w-1/2 mr-2">
+                @livewire('modals.user-form.language-controller',['languages' => $property->language_knowledge])
+            </div>
+            <div class="w-1/2 ml-2 bg-base-100">
+                livewire tools controll / add tools / show tools
+            </div>
         </div>
 
     </x-modals.body>

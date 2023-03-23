@@ -26,19 +26,22 @@ class UserForm extends Component
         'user.name' => ['required'],
         'user.email' => ['required','email'],
         'property.isleader' => ['nullable'],
-        'property.department' => ['required'],
+        'property.department' => ['required','not_in:Válasszon'],
         'property.place_of_birth' => ['required'],
-        'property.date_of_birth' => ['required'],
+        'property.date_of_birth' => ['required','date','before:today'],
         'property.entry_card' => ['required','digits:6'],
     ];
 
     protected $messages =[
         'user.email.required' => 'Az e-mail mező kitöltése kötelező!',
         'user.email.email' => 'Hibás formátum!',
+        'user.email.email.unique' => 'Az e-mail cím már használatban van!',
         'user.name.required' => 'Név mező kitöltése kötelező!',
         'property.department' => 'A részleg kitöltése kötelező!',
         'property.place_of_birth.required' => 'A születési hely mező kitöltése köptelező!',
-        'property.date_of_birth' => 'A születési idő mező kitöltése kötelező!',
+        'property.date_of_birth.required' => 'A születési idő mező kitöltése kötelező!',
+        'property.date_of_birth.before' => 'A születési idő nem haladhatja meg a mai napot!',
+
         'property.entry_card.required' => 'A belépő kártya számát kötelező megadni!',
         'property.entry_card.digits' => 'Hibás formátum, adjon meg 6 számjegyű számot',
     ];
@@ -47,13 +50,11 @@ class UserForm extends Component
         $this->user = $user;
         $this->target = $target;
         $this->property = $user->property()->first() ? $user->property()->first() : new UserProperty();
-        $this->readonly = $readonly;
-        
+        $this->readonly = $readonly;   
     }
 
     public function avatarUploaded(String $avatar_path): Void
     {
-        
         $this->avatar_path = $avatar_path;
     }
 
@@ -82,9 +83,13 @@ class UserForm extends Component
     {
 
         $this->validate();
+        $this->validate([
+            'user.email' => ['unique:users,email'],
+            'property.entry_card' => ['unique:user_properties,entry_card'],   
+        ]);
 
         $this->property->language_knowledge = $this->languages;
-        
+
         $this->user->avatar_path = $this->avatar_path;
 
         $this->emit('create', $this->user, $this->property);
@@ -92,6 +97,7 @@ class UserForm extends Component
         $this->emitUp('close');
       
     }
+
     public function render()
     {
         return view('livewire.modals.user-form.user-form');
