@@ -60,7 +60,7 @@
                 @livewire('modals.user-form.language-controller',['languages' => $property->language_knowledge])
             </div>
             <div class="w-1/2 ml-2 bg-base-100">
-                livewire tools controll / add tools / show tools
+                livewire tools controll
             </div>
         </div>
 

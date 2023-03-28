@@ -14,6 +14,12 @@ class Users extends Component
 {
     use WithSelfPagination, WithSortedTable;
 
+
+    public $notificationVisible = false;    
+    public $notificationMessage;
+
+    public $groupBy;
+
     protected $listeners = [
         'delete',
         'create',
@@ -22,9 +28,13 @@ class Users extends Component
 
     public function render()
     {
-        $users = User::where('name','LIKE','%'.$this->searchByName.'%')
+
+        $departmentGroup = $this->groupBy ? UserProperty::where('department', $this->groupBy)->select('user_id') : User::select('id');
+
+        $users = User::whereIn('id', $departmentGroup)
+            ->where('name','LIKE','%'.$this->searchByName.'%')
             ->orderBy($this->sortColumnName,  $this->sortDirection)
-            ->paginate($this->pageSize);
+            ->paginate($this->pageSize);;
 
             return view('livewire.dashboard.users',['users' => $users,])->layout('components.layouts.index');
     }

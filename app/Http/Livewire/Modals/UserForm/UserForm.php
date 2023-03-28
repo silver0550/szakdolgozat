@@ -83,6 +83,7 @@ class UserForm extends Component
     {
 
         $this->validate();
+                
         $this->validate([
             'user.email' => ['unique:users,email'],
             'property.entry_card' => ['unique:user_properties,entry_card'],   
