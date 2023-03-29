@@ -15,7 +15,7 @@
             </div>
             <div class="flex">
                 <x-button.tooltip label="Osztályok">
-                    <x-select wire:model='groupBy'>
+                    <x-select wire:model='departmentFilter'>
                         <option selected value="{{null}}">Összes</option>
                         @foreach (\App\Enum\Department::cases() as $department)
                             <option value={{$department}}>{{$department}}</option>

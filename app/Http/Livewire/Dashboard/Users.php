@@ -2,24 +2,21 @@
 
 namespace App\Http\Livewire\Dashboard;
 
-use App\Enum\Notification;
 use Livewire\Component;
 use App\Models\User;
 use App\Models\UserProperty;
 use Illuminate\Support\Facades\Gate;
+use App\Enum\Notification;
 use App\Http\Traits\WithSelfPagination;
-use App\Http\Traits\WithSortedTable;
+use App\Http\Traits\Users\WithControlledTable;
 
 class Users extends Component
 {
-    use WithSelfPagination, WithSortedTable;
-
+    use WithSelfPagination, WithControlledTable;
 
     public $notificationVisible = false;    
     public $notificationMessage;
-
-    public $groupBy;
-
+    
     protected $listeners = [
         'delete',
         'create',
@@ -28,18 +25,13 @@ class Users extends Component
 
     public function render()
     {
+      
+        $users = $this->filteredUsers(); 
 
-        $departmentGroup = $this->groupBy ? UserProperty::where('department', $this->groupBy)->select('user_id') : User::select('id');
-
-        $users = User::whereIn('id', $departmentGroup)
-            ->where('name','LIKE','%'.$this->searchByName.'%')
-            ->orderBy($this->sortColumnName,  $this->sortDirection)
-            ->paginate($this->pageSize);;
-
-            return view('livewire.dashboard.users',['users' => $users,])->layout('components.layouts.index');
+        return view('livewire.dashboard.users',['users' => $users,])->layout('components.layouts.index');
     }
 
-    public function delete(User $user){ // delete funkció nincs használva
+    public function delete(User $user){ // delete function doesn't use
 
         if(Gate::authorize('delete', $user)){ 
             $user->property()->first()->delete();
@@ -50,26 +42,27 @@ class Users extends Component
         }   
     }
 
-    public function create($user, $property){
-
-        
-        if(Gate::authorize('create', auth()->user())){
+    public function create($user, $property): Void
+    {
+        if (auth()->user()->can("create", User::class)){
             $currentUser = User::create($user);
 
             $property['user_id'] = $currentUser->id;
             
             UserProperty::create($property);
+
+            $this->notificationVisible = true;
+            $this->notificationMessage = Notification::CREATE_SUCCES;
         }
 
-        $this->notificationVisible = true;
-        $this->notificationMessage = Notification::CREATE_SUCCES;
     }
 
-    public function update($user, $property){
+    public function update($user, $property): Void
+    {
         
         $currentUser = User::find($user['id']);
 
-        if(Gate::authorize('update', auth()->user())){
+        if(auth()->user()->can('update', $currentUser)){
             $currentUser->update($user);
             
             if ($currentUser->property()->first()){
@@ -82,12 +75,17 @@ class Users extends Component
                 
                 UserProperty::create($property);
             }
+            $this->notificationVisible = true;
+            $this->notificationMessage = Notification::UPDATE_SUCCES; 
+    
+            $this->emitTo('dashboard.users-list','userRefresh'.$user['id']);
+        } else{
+
+            $this->notificationVisible = true;
+            $this->notificationMessage = 'Nem sikerült'; 
+    
         }
 
-        $this->notificationVisible = true;
-        $this->notificationMessage = Notification::UPDATE_SUCCES; 
-
-        $this->emitTo('dashboard.users-list','userRefresh'.$user['id']);
     }
 
     public function hydrate(){
