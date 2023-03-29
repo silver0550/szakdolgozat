@@ -24,20 +24,20 @@
                 
                     <div class="flex w-full">
                         <div class="pr-5">
-                            <x-select wire:model="language" class="select-sm">
+                            <x-selector wire:model="language" class="select-sm">
                                 <option selected >Nyelv</option>
                                 @foreach (\App\Enum\LanguageKnowledge::cases() as $language)
                                     <option value={{$language}}>{{$language}}</option>
                                 @endforeach
-                            </x-select>
+                            </x-selector>
                         </div>
                         <div class="pr-5">
-                            <x-select  wire:model="level" class="select-sm">
+                            <x-selector  wire:model="level" class="select-sm">
                                 <option selected >Szint</option>
                                 @foreach (\App\Enum\LanguageKnowledge::getLevels() as $level)
                                     <option value={{$level}}>{{$level}}</option>
                                 @endforeach
-                            </x-select>
+                            </x-selector>
                         </div>
 
                         <x-button.primary wire:click="addLanguage" class="btn-xs my-auto" >Hozzáad</x-button.primary>

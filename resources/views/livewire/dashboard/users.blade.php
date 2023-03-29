@@ -15,12 +15,12 @@
             </div>
             <div class="flex">
                 <x-button.tooltip label="Osztályok">
-                    <x-select wire:model='departmentFilter'>
+                    <x-selector wire:model='departmentFilter'>
                         <option selected value="{{null}}">Összes</option>
                         @foreach (\App\Enum\Department::cases() as $department)
                             <option value={{$department}}>{{$department}}</option>
                         @endforeach
-                    </x-select>    
+                    </x-selector>    
                 </x-button.tooltip>
             </div>
         </div>

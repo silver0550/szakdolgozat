@@ -28,8 +28,8 @@ Route::middleware('guest')->get('/login', Login::class)->name('login');
 Route::middleware('auth')->group(function(){
     Route::get('/home', Home::class)->name('home');
     Route::get('/users', Users::class)->name('users');
-    Route::get('/tools', Users::class)->name('tools');
-    Route::get('/search', Users::class)->name('search');
+    Route::get('/tools', Home::class)->name('tools');
+    Route::get('/search', Home::class)->name('search');
 });
 
 

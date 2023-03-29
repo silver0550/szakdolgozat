@@ -33,17 +33,23 @@ class Users extends Component
 
     public function delete(User $user){ // delete function doesn't use
 
-        if(Gate::authorize('delete', $user)){ 
+        $this->notificationMessage = 'Notification::DELETE_SUCCES'; // TODO: fail notifications
+
+
+        if(auth()->user()->can('delete', $user)){ 
             $user->property()->first()->delete();
             $user->delete();
 
-            $this->notificationVisible = true;
             $this->notificationMessage = Notification::DELETE_SUCCES;
-        }   
+        } 
+  
+        $this->notificationVisible = true;
     }
 
     public function create($user, $property): Void
     {
+        $this->notificationMessage = 'Notification::CREATE_SUCCES';
+
         if (auth()->user()->can("create", User::class)){
             $currentUser = User::create($user);
 
@@ -51,14 +57,16 @@ class Users extends Component
             
             UserProperty::create($property);
 
-            $this->notificationVisible = true;
             $this->notificationMessage = Notification::CREATE_SUCCES;
         }
 
+        $this->notificationVisible = true;
     }
 
     public function update($user, $property): Void
     {
+
+        $this->notificationMessage = 'Notification::UPDATE_SUCCES'; 
         
         $currentUser = User::find($user['id']);
 
@@ -75,17 +83,13 @@ class Users extends Component
                 
                 UserProperty::create($property);
             }
-            $this->notificationVisible = true;
+            
             $this->notificationMessage = Notification::UPDATE_SUCCES; 
     
             $this->emitTo('dashboard.users-list','userRefresh'.$user['id']);
-        } else{
-
-            $this->notificationVisible = true;
-            $this->notificationMessage = 'Nem sikerült'; 
-    
-        }
-
+        } 
+        
+        $this->notificationVisible = true;
     }
 
     public function hydrate(){

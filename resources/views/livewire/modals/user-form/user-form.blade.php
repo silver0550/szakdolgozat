@@ -25,13 +25,13 @@
 
                     <x-input.form-control class="w-2/5 pl-5" :error="$errors->first('property.department')" label='Részleg*'>
                     
-                        <x-select :disabled='$readonly'  wire:model.debounce="property.department" >
+                        <x-selector :disabled='$readonly'  wire:model.debounce="property.department" >
                             <option selected>Válasszon</option>
                             @foreach (\App\Enum\Department::cases() as $department)
                                 <option value={{$department}}>{{$department}}</option>
                             @endforeach
                         
-                        </x-select>
+                        </x-selector>
                     
                     </x-input.form-control>
                 
