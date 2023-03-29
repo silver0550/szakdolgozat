@@ -27,10 +27,20 @@ class UserPolicy
      * @param  \App\Models\User  $user
      * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
-     */
+     */ 
     public function view(User $user, User $model)
     {
-        //
+        if ($user->admin){ return true;}
+
+        if ($model->property()->first() && $user->property()->first()){
+            return (
+                $user->id === $model->id ||
+                $user->property()->first()->department == $model->property()->first()->department &&
+                $user->property()->first()->isleader
+            );   
+        }
+
+        return $user->id === $model->id;
     }
 
     /**

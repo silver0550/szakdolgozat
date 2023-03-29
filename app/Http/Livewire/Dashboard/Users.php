@@ -14,6 +14,12 @@ class Users extends Component
 {
     use WithSelfPagination, WithSortedTable;
 
+
+    public $notificationVisible = false;    
+    public $notificationMessage;
+
+    public $groupBy;
+
     protected $listeners = [
         'delete',
         'create',
@@ -22,16 +28,20 @@ class Users extends Component
 
     public function render()
     {
-        $users = User::where('name','LIKE','%'.$this->searchByName.'%')
+
+        $departmentGroup = $this->groupBy ? UserProperty::where('department', $this->groupBy)->select('user_id') : User::select('id');
+
+        $users = User::whereIn('id', $departmentGroup)
+            ->where('name','LIKE','%'.$this->searchByName.'%')
             ->orderBy($this->sortColumnName,  $this->sortDirection)
-            ->paginate($this->pageSize);
+            ->paginate($this->pageSize);;
 
             return view('livewire.dashboard.users',['users' => $users,])->layout('components.layouts.index');
     }
 
-    public function delete(User $user){     //sorszám frissítés, vagy sorszám törlés
-        if(Gate::authorize('delete', $user)){
+    public function delete(User $user){ // delete funkció nincs használva
 
+        if(Gate::authorize('delete', $user)){ 
             $user->property()->first()->delete();
             $user->delete();
 
@@ -55,12 +65,23 @@ class Users extends Component
         $this->notificationMessage = Notification::CREATE_SUCCES;
     }
 
-    public function update($user){
+    public function update($user, $property){
         
-        $current = User::find($user['id']);
+        $currentUser = User::find($user['id']);
 
         if(Gate::authorize('update', auth()->user())){
-            $current->update($user);
+            $currentUser->update($user);
+            
+            if ($currentUser->property()->first()){
+
+                $currentUser->property()->first()->update($property);
+
+            } else{
+                
+                $property['user_id'] = $currentUser->id;
+                
+                UserProperty::create($property);
+            }
         }
 
         $this->notificationVisible = true;

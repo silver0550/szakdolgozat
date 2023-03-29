@@ -4,14 +4,27 @@
         <x-notifications.successful @class(['hidden' => !$notificationVisible])> {{$notificationMessage}}</x-notifications.successful>
     </div>
     <div class ='flex justify-between w-full p-2 bg-base-200 rounded-md mb-2'>
-        <div class="flex w-1/2 justify-between">
-            @can('Admin')
-                <x-button.tooltip side='right' tooltip="Hozzáad" class="ml-7">
-                    <x-button.primary wire:click="$emit('openModal','modals.new-user-form.new-user-form')" class="btn-circle">+</x-button.primary>
+        <div class="flex  ">
+            @can('create', App\Models\User::class)
+                <x-button.tooltip side='right' label="Hozzáad" class="ml-7">
+                    <x-button.primary wire:click="$emit('openModal','modals.new-user-form')" class="btn-circle">+</x-button.primary>
                 </x-button.tooltip>
             @endcan
-            <x-input.text wire:model="searchByName" class="ml-10" placeholder="Keresés..."/>
+            <div class="px-10  w-96 ">
+                <x-input.text wire:model="searchByName"  placeholder="Keresés..."/>
+            </div>
+            <div class="flex">
+                <x-button.tooltip label="Osztályok">
+                    <x-select wire:model='groupBy'>
+                        <option selected value="{{null}}">Összes</option>
+                        @foreach (\App\Enum\Department::cases() as $department)
+                            <option value={{$department}}>{{$department}}</option>
+                        @endforeach
+                    </x-select>    
+                </x-button.tooltip>
+            </div>
         </div>
+        
         {{$users->links()}}
     </div>
     {{-- CONTROLL BLOCK END --}}

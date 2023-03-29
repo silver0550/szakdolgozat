@@ -1,24 +1,29 @@
 @props([
   'for' => '',
   'label' => '',
+  'disabled' =>false,
 ])
+
+@aware(['error'] )
 
 @php
     $key = $key ?? md5($attributes->wire('model'));
-@endphp
 
-@aware(['error'] )
+    $style = 'select w-full max-w-xs disabled:cursor-default disabled:font-bold disabled:text-xl';
+    if ($error) {
+        $style = $style.' select-error';
+    }
+@endphp
 
 <div class="inline-block">
     @if ($label)
         <label class="" for={{$for}}>{{$label}}:</label>
     @endif
-
-    @if($error)
-        <select {{ $attributes->whereDoesntStartWith('wire:key')->merge(['class' => "select select-error w-full max-w-xs"]) }} >    
-    @else
-        <select {{ $attributes->whereDoesntStartWith('wire:key')->merge(['class' => "select w-full max-w-xs"]) }} >
-    @endif    
-    {{ $slot }}
+    
+    <select 
+        @disabled($disabled)
+        {{ $attributes->whereDoesntStartWith('wire:key')->merge(['class' => $style]) }}
+    >
+        {{ $slot }}
     </select>
 </div>

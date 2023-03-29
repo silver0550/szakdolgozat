@@ -9,8 +9,6 @@ trait WithSortedTable
     public $sortDirection = 'asc';
     public $searchByName;
 
-    public $notificationVisible = false;    
-    public $notificationMessage;
 
     public function sort($type){
         if($type === $this->sortColumnName){

@@ -4,20 +4,24 @@
     'readonly' => false,
 ])
 
+@aware(['error'] )
+
 @php
     $key = $key ?? md5($attributes->wire('model'));
-@endphp
 
-@aware(['error'] )
+    $style = 'input input-bordered w-full disabled:cursor-default disabled:font-bold disabled:text-xl';
+    if ($error) {
+        $style = $style.' input-error';
+    }
+
+@endphp
 
 <input
     
     type = "date"
     placeholder = "{{ $placeholder }}"
     @disabled($readonly)
-    @if ($error)
-        {{ $attributes->whereDoesntStartWith('wire:key')->merge(['class' => 'input input-bordered  input-error w-full']) }}   
-    @endif
-    {{ $attributes->whereDoesntStartWith('wire:key')->merge(['class' => 'input input-bordered w-full']) }}
+    max={{now()->toDateString('Y-m-d')}}
+    {{ $attributes->whereDoesntStartWith('wire:key')->merge(['class' => $style]) }}
     wire:key="{{ $key }}"
 />
