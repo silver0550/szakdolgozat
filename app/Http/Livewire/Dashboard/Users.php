@@ -34,9 +34,9 @@ class Users extends Component
             $user->property()->first()->delete();
             $user->delete();
 
-            $this->sendSuccessNotification(Notification::DELETE_SUCCESS);
+            $this->sendSuccessResponse(Notification::DELETE_SUCCESS);
         
-        } else { $this->sendFaildNotification(Notification::OPERATION_DENIED); }
+        } else { $this->sendFaildResponse(Notification::OPERATION_DENIED); }
   
     }
 
@@ -50,9 +50,9 @@ class Users extends Component
             
             UserProperty::create($property);
 
-            $this->sendSuccessNotification(Notification::CREATE_SUCCESS);
+            $this->sendSuccessResponse(Notification::CREATE_SUCCESS);
 
-        } else { $this->sendFaildNotification(Notification::OPERATION_DENIED); }
+        } else { $this->sendFaildResponse(Notification::OPERATION_DENIED); }
 
     }
 
@@ -77,14 +77,12 @@ class Users extends Component
     
             $this->emitTo('dashboard.users-list','userRefresh'.$user['id']);
 
-            $this->sendSuccessNotification(Notification::UPDATE_SUCCESS);
+            $this->sendSuccessResponse(Notification::UPDATE_SUCCESS);
 
-        } else { $this->sendFaildNotification(Notification::OPERATION_DENIED); }
+        } else { $this->sendFaildResponse(Notification::OPERATION_DENIED); }
         
     }
 
-    public function updatedSearchByName(){
-        $this->resetPage();
-    }   
+
    
 }

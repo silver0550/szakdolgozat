@@ -8,7 +8,7 @@
                 </x-button.tooltip>
             @endcan
             <div class="px-10  w-96 ">
-                <x-input.text wire:model="searchByName"  placeholder="Keresés..."/>
+                <x-input.text wire:model="search"  placeholder="Keresés..."/>
             </div>
             <div class="flex">
                 <x-button.tooltip label="Osztályok">

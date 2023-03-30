@@ -9,7 +9,7 @@ trait WithControlledTable
 {
     public $sortColumnName = 'id';
     public $sortDirection = 'asc';
-    public $searchByName;
+    public $search;
 
     public $departmentFilter;
 
@@ -26,11 +26,19 @@ trait WithControlledTable
         return User::orderBy($this->sortColumnName,  $this->sortDirection)
                 ->when($this->departmentFilter, function($query){
                     return $query->whereIn('id', UserProperty::where('department', $this->departmentFilter)->select('user_id'));})
-                ->when($this->searchByName, function ($query) {
-                    return $query->where('name','LIKE','%'.$this->searchByName.'%')
-                                ->orWhere('email','LIKE','%'.$this->searchByName.'%');})
+                ->when($this->search, function ($query) {
+                    return $query->where('name','LIKE','%'.$this->search.'%')
+                                ->orWhere('email','LIKE','%'.$this->search.'%');})
                 ->paginate($this->pageSize);
     }
+
+    public function updatedSearch(){
+        $this->resetPage();
+    }   
+
+    public function updatedDepartmentFilter(){
+        $this->resetPage();
+    }   
 
 
 }

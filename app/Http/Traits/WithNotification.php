@@ -7,13 +7,13 @@ use App\Enum\Notification;
 trait WithNotification
 {
 
-    public function sendSuccessNotification($content){
+    public function sendSuccessResponse($content){
 
         $this->dispatchBrowserEvent('success', ['title' => Notification::OPERATION_SUCCESS, 'content' => $content]);
 
     }
 
-    public function sendFaildNotification($content){
+    public function sendFaildResponse($content){
 
         $this->dispatchBrowserEvent('faild', ['title' => Notification::OPERATION_FAILD, 'content' => $content]);
 
