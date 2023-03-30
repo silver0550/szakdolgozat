@@ -1,8 +1,5 @@
 <div>
     {{-- CONTROLL BLOCK BEGIN --}}
-    <div class="h-12">
-        <x-notifications.successful @class(['hidden' => !$notificationVisible])> {{$notificationMessage}}</x-notifications.successful>
-    </div>
     <div class ='flex justify-between w-full p-2 bg-base-200 rounded-md mb-2'>
         <div class="flex  ">
             @can('create', App\Models\User::class)
@@ -49,5 +46,5 @@
     </x-table>
     <x-pagination.info :paginator="$users" class=" mt-2 mr-2"/>
     {{-- RESULT TABLE END --}}
-    
+
 </div>
