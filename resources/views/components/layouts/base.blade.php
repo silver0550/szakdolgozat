@@ -25,6 +25,15 @@
 
         @livewire('livewire-ui-modal')
         @livewireScripts
+
+        {{-- NOTIFICATION MODELS --}}
+
+        <x-notifications.successful/>
+    
+        <x-notifications.faild/>
+
+        {{-- NOTIFICATION END --}}
         
+       
     </body>
 </html>

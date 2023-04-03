@@ -4,8 +4,9 @@ namespace App\Http\Traits\Users;
 
 use App\Models\User;
 use App\Models\UserProperty;
+use Illuminate\Contracts\Pagination\Paginator;
 
-trait WithControlledTable
+trait WithUsersTable
 {
     public $sortColumnName = 'id';
     public $sortDirection = 'asc';
@@ -21,7 +22,8 @@ trait WithControlledTable
         $this->sortColumnName = $type;
     }
 
-    public function filteredUsers(){
+    public function filteredUsers(): Paginator
+    {
 
         return User::orderBy($this->sortColumnName,  $this->sortDirection)
                 ->when($this->departmentFilter, function($query){
@@ -31,7 +33,7 @@ trait WithControlledTable
                                 ->orWhere('email','LIKE','%'.$this->search.'%');})
                 ->paginate($this->pageSize);
     }
-
+    
     public function updatedSearch(){
         $this->resetPage();
     }   

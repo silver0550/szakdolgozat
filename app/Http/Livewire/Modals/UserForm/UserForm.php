@@ -63,7 +63,7 @@ class UserForm extends Component
         $this->languages = $languages;
     }
 
-    public function update(): Void  /* Crashes if entry card is not unique */
+    public function update(): Void 
     {                            
      
         $this->validate();

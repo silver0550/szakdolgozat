@@ -1,9 +1,12 @@
-<div
-    {{$attributes->merge(['class' => 'relative opacity-80 h-12 -top-2 alert alert-success shadow-lg mb-2'])}}>
-        <div>
-            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            <span>
-                {{$slot}}    
-            </span>
-        </div>
+
+<div x-data="{ open: false, title:'', content:'' }" @success.window="open = true, title = $event.detail.title, content = $event.detail.content">
+    <label x-bind:class=" open ? 'modal-open' : ''" class="modal cursor-pointer">
+        <label @click.outside="open = false" class="modal-box bg-green-400 text-black text-center " >
+            <div class="flex w-full justify-center">
+                <x-icon.checkmark class="mr-5"/>
+                <h3 x-text="title" class="text-xl font-bold inline-block "></h3>
+            </div>
+          <p x-text="content" class="pt-2"></p>
+        </label>
+      </label>
 </div>

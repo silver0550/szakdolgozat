@@ -7,23 +7,23 @@ use App\Models\User;
 use App\Models\UserProperty;
 use App\Enum\Notification;
 use App\Http\Traits\WithSelfPagination;
-use App\Http\Traits\Users\WithControlledTable;
+use App\Http\Traits\Users\WithUsersTable;
 use App\Http\Traits\WithNotification;
 
 class Users extends Component
 {
-    use WithSelfPagination, WithControlledTable, WithNotification;
+    use WithSelfPagination, WithUsersTable, WithNotification;
 
     protected $listeners = [
         'delete',
         'create',
         'update',
     ];
-
+    
     public function render()
     {
       
-        $users = $this->filteredUsers(); 
+        $users = $this->filteredUsers(User::class); 
 
         return view('livewire.dashboard.users',['users' => $users,])->layout('components.layouts.index');
     }

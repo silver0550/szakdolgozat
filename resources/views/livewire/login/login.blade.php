@@ -13,7 +13,7 @@
             </x-input.form-control>
             <div class="mt-5" >
                 <x-button.primary>Login</x-button>
-                <a class="float-right mt-3" href="#">Forgot?</a>
+                <a wire:click="$emit('openModal','login.password-reset')" class="float-right mt-3 cursor-pointer">Elfelejtette?</a>
             </div>
         </form>
         
