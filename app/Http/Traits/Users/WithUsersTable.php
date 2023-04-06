@@ -2,36 +2,44 @@
 
 namespace App\Http\Traits\Users;
 
+use App\Filters\User\department;
+use App\Filters\User\SortBy;
+use App\Filters\User\SearchBy;
 use App\Models\User;
-use App\Models\UserProperty;
-use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Pipeline\Pipeline;
+use Illuminate\Database\Eloquent\Builder;
 
 trait WithUsersTable
 {
-    public $sortColumnName = 'id';
-    public $sortDirection = 'asc';
+    public $sortColumnName;
+    public $sortDirection;
     public $search;
 
     public $departmentFilter;
 
     public function sort($type){
         if($type === $this->sortColumnName){
-            $this->sortDirection = $this->sortDirection === 'asc' ?  'desc' : 'asc';
-        } else {$this->sortDirection = 'asc';}
+            $this->sortDirection = ! $this->sortDirection ;
+        } else {$this->sortDirection = true;}
 
         $this->sortColumnName = $type;
     }
 
-    public function filteredUsers(): Paginator
+    public function filteredUsers(): Builder
     {
 
-        return User::orderBy($this->sortColumnName,  $this->sortDirection)
-                ->when($this->departmentFilter, function($query){
-                    return $query->whereIn('id', UserProperty::where('department', $this->departmentFilter)->select('user_id'));})
-                ->when($this->search, function ($query) {
-                    return $query->where('name','LIKE','%'.$this->search.'%')
-                                ->orWhere('email','LIKE','%'.$this->search.'%');})
-                ->paginate($this->pageSize);
+        $filters = [
+            (new SortBy($this->sortColumnName, $this->sortDirection)),
+            (new department($this->departmentFilter)),
+            (new SearchBy(['email', 'name'], $this->search)),
+        ];
+
+        $user = (new Pipeline(app()))->send(User::query())
+                                    ->through($filters)
+                                    ->thenReturn();
+
+        return $user;
+       
     }
     
     public function updatedSearch(){

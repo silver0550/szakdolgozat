@@ -23,7 +23,7 @@ class Users extends Component
     public function render()
     {
       
-        $users = $this->filteredUsers(User::class); 
+        $users = $this->filteredUsers()->paginate($this->pageSize); 
 
         return view('livewire.dashboard.users',['users' => $users,])->layout('components.layouts.index');
     }
