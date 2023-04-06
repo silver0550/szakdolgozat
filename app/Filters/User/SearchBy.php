@@ -7,7 +7,7 @@ use Illuminate\Contracts\Database\Query\Builder;
 
 class SearchBy
 {
-    public function __construct(public Array|null $where, public String|null $what)
+    public function __construct(public Array $where, public String|null $what)
     {
         //
     }
@@ -16,11 +16,6 @@ class SearchBy
     {
         if (!$this->what){
             return $next($query);
-        }
-
-        if(count($this->where) === 1 ){
-            return $next($query)->where($this->where[0], 'LIKE', '%'.$this->what.'%');
-            
         }
 
         return $next($query)->where( function($query) {

@@ -2,14 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\Activitylog\LogOptions;
 
 class PasswordReset extends Model
 {
-    use HasFactory, LogsActivity;
 
     protected $fillable = [];
 
@@ -23,8 +19,4 @@ class PasswordReset extends Model
 
     protected $casts =[];
 
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()->logAll();
-    }
 }
