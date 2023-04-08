@@ -32,7 +32,10 @@ Route::middleware('auth')->group(function(){
     Route::get('/search', Home::class)->name('search');
 });
 
+Route::middleware('admin')->group(function(){
+    Route::get('/password-reset', Home::class)->name('password-reset'); //TODO: password reset létrehozása
 
+});
 
 Route::middleware('auth')->get('/dashboard',DashBoard::class)->name('dashboard'); //TODO: dashboard törlése
 
