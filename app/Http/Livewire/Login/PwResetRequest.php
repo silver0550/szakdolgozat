@@ -12,7 +12,7 @@ use LivewireUI\Modal\ModalComponent;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Collection;
 
-class PasswordReset extends ModalComponent
+class PwResetRequest extends ModalComponent
 {
     
     use WithNotification;
@@ -93,7 +93,7 @@ class PasswordReset extends ModalComponent
 
     public function render()
     {
-        return view('livewire.login.password-reset');
+        return view('livewire.login.pw-reset-request');
     }
 
     public static function modalMaxWidth(): string

@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Login\Login;
 use App\Http\Livewire\Main\Home;
 use App\Http\Livewire\Dashboard\Users;
-use App\Http\Livewire\Main\DashBoard;
+use App\Http\Livewire\PasswordReset;
 
 use App\Http\Controllers\AuthController;
 
@@ -33,10 +33,9 @@ Route::middleware('auth')->group(function(){
 });
 
 Route::middleware('admin')->group(function(){
-    Route::get('/password-reset', Home::class)->name('password-reset'); //TODO: password reset létrehozása
+    Route::get('/password-reset', PasswordReset::class)->name('password-reset'); //TODO: password reset létrehozása
 
 });
 
-Route::middleware('auth')->get('/dashboard',DashBoard::class)->name('dashboard'); //TODO: dashboard törlése
 
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
