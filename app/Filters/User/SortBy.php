@@ -13,7 +13,9 @@ class SortBy
     public function __construct(String|null $column = 'id', bool|null $asc = true)
     {
         if (!$column) { $this->column = 'id';}
-        if (!$asc) { $asc = true;}
+        if ($asc === null ) { $asc = true;}
+
+        $this->column = $column ? $column : 'id' ;
 
         $this->direction = $asc ? 'asc' : 'desc';
     }

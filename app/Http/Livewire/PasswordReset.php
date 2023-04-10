@@ -2,16 +2,17 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Traits\Users\WithUsersTable;
+use App\Http\Traits\WithNotification;
 use App\Http\Traits\WithSelfPagination;
 use Livewire\Component;
 use App\Models\PasswordReset as PwResetModel;
 use App\Models\User;
+use App\Enum\Notification;
 
 class PasswordReset extends Component
 {
-    use WithSelfPagination;
-
-    //TODO: controll not work
+    use WithSelfPagination, WithUsersTable, WithNotification;
 
     public $chackedRequests = [];
 
@@ -27,14 +28,17 @@ class PasswordReset extends Component
 
     public function render()
     {
-        $requests = PwResetModel::where('isActive', 1)
+
+        $users = User::findMany(
+                    PwResetModel::where('isActive', 1)
                     ->get()
-                    ->map( fn($e) => User::find($e->user_id))
-                    ->toQuery()
-                    ->paginate($this->pageSize);
+                    ->map( fn($e) => $e['user_id']));
 
+        if($users->isNotEmpty()){
+            $users = $this->filteredUsers($users)->paginate($this->pageSize);
+        }
 
-        return view('livewire.password-reset',['requests' => $requests])->layout('components.layouts.index');
+        return view('livewire.password-reset',['users' => $users])->layout('components.layouts.index');
     }
 
     public function resetAll(){
@@ -42,14 +46,16 @@ class PasswordReset extends Component
 
             collect($this->chackedRequests)->each(function ($id){
 
-                    User::find($id)->update(['password' => env('DEFAULT_PASSWORD')]);
+                User::find($id)->update(['password' => env('DEFAULT_PASSWORD')]);
 
-                    PwResetModel::where('user_id', $id)
-                    ->first()
-                    ->update([
-                        'isActive' => false,
-                        'completed_at' => now(),
+                PwResetModel::where('user_id', $id)
+                ->first()
+                ->update([
+                    'isActive' => false,
+                    'completed_at' => now(),
                 ]);
+
+                $this->sendSuccessResponse(Notification::PASSWORD_RESET_SUCCESS);
                 
             });
     }
@@ -62,10 +68,5 @@ class PasswordReset extends Component
                                     return $value == $id;
                                 });
     }
-
-
-        // $this->chackedRequests[$id] = array_key_exists($id, $this->chackedRequests) ?
-        //                             !$this->chackedRequests[$id] :
-        //                             true;
     
 }

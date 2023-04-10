@@ -4,36 +4,24 @@
         <a class="btn btn-ghost btn-sm normal-case text-sm">Téma</a>
         
             @can('Admin')
-                <ul  class="menu menu-horizontal mr-20 px-1">
-                    <li tabindex="0">
-                        <div class="indicator ">
-                            <span class="indicator-item badge badge-primary cursor-default top-3">{{$notification}}</span> 
-                            <a>
-                                <x-icon.bell class="cursor-pointer  hover:text-blue-500 " />
-                            </a>
-                        </div>
-                        <ul class="p-2 bg-base-100">
-                            <li>
-                                <div class="indicator ">
-                                    <span class="indicator-item badge badge-primary cursor-default top-3">{{$password}}</span> 
-                                    <x-button.tooltip label="jelszó visszaállítás">
-                                        <a href="{{route('password-reset')}}">
-                                            <x-icon.password class=""/>
-                                        </a>
-                                </x-button.tooltip>
-                                </div>
-                            </li>
-                            {{-- <li>
-                                <div class="indicator ">
-                                    <span class="indicator-item badge badge-primary cursor-default top-3">{{$password}}</span> 
-                                    <a>
-                                        <x-icon.password class="mx-auto"/>
+                <x-menu.horizontal>
+                    <x-slot name="main">
+                        <x-indicator label={{$notification}}>
+                            <x-icon.bell class="cursor-pointer  hover:text-blue-500 " />
+                        </x-indicator>
+                    </x-slot>
+                    <x-slot name="subs">
+                        <li>
+                            <x-indicator label={{$password}}>
+                                <x-button.tooltip label="jelszó visszaállítás">
+                                    <a href="{{route('password-reset')}}">
+                                        <x-icon.password/>
                                     </a>
-                                </div>
-                            </li> --}}
-                          
-                        </ul>
-                      </li>
+                                </x-button.tooltip>
+                            </x-indicator>
+                        </li>
+                    </x-slot>
+                </x-menu.horizontal>
             @endcan
         </div>
     </div>

@@ -11,7 +11,7 @@ use App\Http\Traits\WithNotification;
 use LivewireUI\Modal\ModalComponent;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Collection;
-
+use App\Enum\Notification;
 class PwResetRequest extends ModalComponent
 {
     
@@ -63,12 +63,12 @@ class PwResetRequest extends ModalComponent
 
                 $this->closeModal();
 
-                return $this->sendSuccessResponse('A kérést továbítottuk az adminok irányába!'); 
+                return $this->sendSuccessResponse(Notification::PASSWORD_RESET_REQUEST_SUCCES); 
             }
     
         } 
         
-        return $this->sendFaildResponse('A megadott adatok nem felelnek meg a valóságnak, vegye fel a kapcsolatot a rendszergazdával!');
+        return $this->sendFaildResponse(Notification::PASSWORD_RESET_REQUEST_FAILD);
         
     }
 

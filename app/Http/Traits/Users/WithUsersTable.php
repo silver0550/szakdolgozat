@@ -8,6 +8,7 @@ use App\Filters\User\SearchBy;
 use App\Models\User;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 trait WithUsersTable
 {
@@ -19,14 +20,16 @@ trait WithUsersTable
 
     public function sort($type){
         if($type === $this->sortColumnName){
-            $this->sortDirection = ! $this->sortDirection ;
+            $this->sortDirection = !$this->sortDirection ;
         } else {$this->sortDirection = true;}
 
         $this->sortColumnName = $type;
+        
     }
 
-    public function filteredUsers(): Builder
+    public function filteredUsers(Collection $users = null): Builder
     {
+        if(!$users) { $users = User::all();} 
 
         $filters = [
             (new SortBy($this->sortColumnName, $this->sortDirection)),
@@ -34,11 +37,9 @@ trait WithUsersTable
             (new SearchBy(['email', 'name'], $this->search)),
         ];
 
-        $user = (new Pipeline(app()))->send(User::query())
+        return (new Pipeline(app()))->send($users->toQuery())
                                     ->through($filters)
                                     ->thenReturn();
-
-        return $user;
        
     }
     
