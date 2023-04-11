@@ -1,4 +1,4 @@
-<ul  class="menu menu-horizontal mr-20 px-1">
+<ul {{$attributes->merge([ 'class' => 'menu menu-horizontal px-1' ])}} >
 
     <li tabindex="0">
 

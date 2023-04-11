@@ -12,6 +12,7 @@ class Navbar extends Component
 
     public $notification;
     public $pwResetRequest;
+    public $userId;
     
     /**
      * Create a new component instance.
@@ -22,6 +23,7 @@ class Navbar extends Component
     {
         $this->pwResetRequest = count((new Pipeline(app()))->send(PasswordReset::query())->through(Active::class)->thenReturn()->get()); 
         $this->notification = $this->pwResetRequest;
+        $this->userId = auth()->user()->id;
     }
 
     /**
@@ -31,9 +33,6 @@ class Navbar extends Component
      */
     public function render()
     {
-        return view('components.navbar', [
-            'notification' => $this->notification,
-            'password' => $this->pwResetRequest,
-    ]);
+        return view('components.navbar');
     }
 }
