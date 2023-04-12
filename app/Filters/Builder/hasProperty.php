@@ -5,7 +5,7 @@ namespace App\Filters\Builder;
 use Closure;
 use Illuminate\Contracts\Database\Query\Builder;
 
-class hasProperty
+class HasProperty
 {
     public function __construct(public String $column, public mixed $data)
     {

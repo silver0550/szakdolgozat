@@ -73,9 +73,11 @@ class Users extends Component
                 $property['user_id'] = $currentUser->id;
                 
                 UserProperty::create($property);
+                
+                $this->emitTo('dashboard.users-list','userRefresh'.$user['id']);
             }
     
-            $this->emitTo('dashboard.users-list','userRefresh'.$user['id']);
+            
 
             $this->sendSuccessResponse(Notification::UPDATE_SUCCESS);
 

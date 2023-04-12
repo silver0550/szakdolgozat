@@ -102,6 +102,14 @@ class UserForm extends Component
 
         $this->user->avatar_path = $this->avatar_path;
 
+        $this->user->name = (new Pipeline(app()))->send($this->user->name)
+                            ->through(FirstUpper::class)
+                            ->thenReturn();
+
+        $this->property->place_of_birth = (new Pipeline(app()))->send($this->property->place_of_birth)
+                            ->through(FirstUpper::class)
+                            ->thenReturn();
+
         $this->emit('create', $this->user, $this->property);
 
         $this->emitUp('close');
