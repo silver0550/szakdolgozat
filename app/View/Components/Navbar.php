@@ -2,7 +2,7 @@
 
 namespace App\View\Components;
 
-use App\Filters\Active;
+use App\Filters\Builder\Active;
 use Illuminate\View\Component;
 use App\Models\PasswordReset;
 use Illuminate\Pipeline\Pipeline;

@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Filters;
+namespace App\Filters\Builder;
 
-use App\Models\UserProperty;
 use Closure;
 use Illuminate\Contracts\Database\Query\Builder;
 

@@ -5,6 +5,8 @@ namespace App\Http\Livewire\Modals\UserForm;
 use Livewire\Component;
 use App\Models\User;
 use App\Models\UserProperty;
+use Illuminate\Pipeline\Pipeline;
+use App\Filters\String\FirstUpper;
 
 class UserForm extends Component
 {
@@ -41,7 +43,6 @@ class UserForm extends Component
         'property.place_of_birth.required' => 'A születési hely mező kitöltése köptelező!',
         'property.date_of_birth.required' => 'A születési idő mező kitöltése kötelező!',
         'property.date_of_birth.before' => 'A születési idő nem haladhatja meg a mai napot!',
-
         'property.entry_card.required' => 'A belépő kártya számát kötelező megadni!',
         'property.entry_card.digits' => 'Hibás formátum, adjon meg 6 számjegyű számot',
     ];
@@ -73,6 +74,14 @@ class UserForm extends Component
 
         $this->property->language_knowledge = 
             $this->languages !== null ? $this->languages : $this->property->language_knowledge;
+
+        $this->user->name = (new Pipeline(app()))->send($this->user->name)
+                            ->through(FirstUpper::class)
+                            ->thenReturn();
+
+        $this->property->place_of_birth = (new Pipeline(app()))->send($this->property->place_of_birth)
+                            ->through(FirstUpper::class)
+                            ->thenReturn();
 
         $this->emit('update', $this->user, $this->property);
 

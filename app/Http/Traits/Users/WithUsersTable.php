@@ -2,9 +2,9 @@
 
 namespace App\Http\Traits\Users;
 
-use App\Filters\User\department;
-use App\Filters\User\SortBy;
-use App\Filters\User\SearchBy;
+use App\Filters\Builder\department;
+use App\Filters\Builder\SortBy;
+use App\Filters\Builder\SearchBy;
 use App\Models\User;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Database\Eloquent\Builder;
