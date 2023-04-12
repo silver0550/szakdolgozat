@@ -7,7 +7,7 @@ This skeleton is based on the Laravel Framework, which has thorough [documentati
 
 To initialize the project run the `init.sh` script:
 ```bash
-./bin/init.sh
+./init.sh
 ```
 This script install dependecies via `composer`, creates a `.env` file, and sets up the app key.
 In this file set all necessary configurations, like database connection settings:
@@ -19,7 +19,11 @@ DB_DATABASE=<DATABASE_NAME>
 DB_USERNAME=<DB_USERNAME>
 DB_PASSWORD=<DB_PASSWORD>
 ```
-
+Is also necessary the email addres of the 'Super Admin' and the 'hashed Defalt Password' like this:
+```
+SUPER_ADMIN='super@admin.com'
+DEFAULT_PASSWORD='$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
+```
 ## Setting up the database
 After the database connection is set up correctly, migrations, and seeders can be run with the following:
 ```bash
@@ -38,5 +42,4 @@ After the initial configurations, the dev server can be started like:
 php artisan serve
 ```
 
-## Tools
-The project includes some tools to aid the development process.
+
