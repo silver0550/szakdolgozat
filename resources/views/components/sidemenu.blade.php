@@ -6,9 +6,13 @@
             <div class="w-14 rounded-full">
               <img src="storage/{{auth()->user()->avatar_path}}" alt="Avatar" />
             </div>
-          </div>
+        </div>
         @else
-            <img src="{{ Avatar::create(auth()->user()->name)->toBase64() }}" alt='Avatar' class="w-14 h-14" />
+        <div class="avatar">
+            <div class="w-14 rounded-full">
+                <img src={{\App\Enum\Avatar::DEFAULT_AVATAR}} alt="Avatar" />
+            </div>
+        </div>
         @endif
         {{auth()->user()->name}}
         </span>

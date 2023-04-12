@@ -9,6 +9,4 @@ fi
 
 php artisan storage:link
 
-composer require laravolt/avatar
-
 npm install
