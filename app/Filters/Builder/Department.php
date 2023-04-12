@@ -6,7 +6,7 @@ use Closure;
 use App\Models\UserProperty;
 use Illuminate\Contracts\Database\Query\Builder;
 
-class department
+class Department
 {
     public function __construct(public String|null $department)
     {
