@@ -7,12 +7,12 @@ use App\Models\User;
 use App\Models\UserProperty;
 use App\Enum\Notification;
 use App\Http\Traits\WithSelfPagination;
-use App\Http\Traits\Users\WithUsersTable;
+use App\Http\Traits\WithControlledTable;
 use App\Http\Traits\WithNotification;
 
 class Users extends Component
 {
-    use WithSelfPagination, WithUsersTable, WithNotification;
+    use WithSelfPagination, WithControlledTable, WithNotification;
 
     protected $listeners = [
         'delete',
@@ -22,7 +22,10 @@ class Users extends Component
     
     public function render()
     {
-        $users = $this->filteredUsers(User::with('isAdmin'))->paginate($this->pageSize); 
+
+        $users =  $this->setUsersFilters()
+                    ->filteredUsers(User::with('isAdmin'))
+                    ->paginate($this->pageSize); 
 
         return view('livewire.dashboard.users',['users' => $users,])->layout('components.layouts.index');
     }

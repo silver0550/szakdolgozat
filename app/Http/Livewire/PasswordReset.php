@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Http\Traits\Users\WithUsersTable;
+use App\Http\Traits\WithControlledTable;
 use App\Http\Traits\WithNotification;
 use App\Http\Traits\WithSelfPagination;
 use Livewire\Component;
@@ -12,7 +12,7 @@ use App\Enum\Notification;
 
 class PasswordReset extends Component
 {
-    use WithSelfPagination, WithUsersTable, WithNotification;
+    use WithSelfPagination, WithControlledTable, WithNotification;
 
     public $chackedRequests = [];
 
@@ -29,7 +29,8 @@ class PasswordReset extends Component
     public function render()
     {
 
-        $users = $this->filteredUsers( User::whereRelation('pwReset','isActive',1) )
+        $users = $this->setUsersFilters()
+                    ->filteredUsers( User::whereRelation('pwReset','isActive',1) )
                     ->paginate($this->pageSize);
 
         return view('livewire.password-reset',['users' => $users])->layout('components.layouts.index');
