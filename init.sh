@@ -10,3 +10,5 @@ fi
 php artisan storage:link
 
 npm install
+npm run build
+

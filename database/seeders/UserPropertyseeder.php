@@ -19,14 +19,13 @@ class UserPropertyseeder extends Seeder
         User::factory()->create([
             'name' => 'Super Admin',
             'email' => 'super@admin.com',
-            'admin' => 1,
         ]);
 
         User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@admin.com',
-            'admin' => 1,
         ]);
+        
         UserProperty::factory(50)->create();
     }
 }

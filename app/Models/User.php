@@ -11,6 +11,11 @@ use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 use App\Models\UserProperty;
+use App\Models\Admin;
+use App\Models\PasswordReset;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Str;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, LogsActivity, CausesActivity;
@@ -24,7 +29,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'admin',
         'avatar_path',
     ];
 
@@ -40,7 +44,6 @@ class User extends Authenticatable
 
     protected $attributes = [
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', //password
-        'admin' => false,
     ];
 
     public function getActivitylogOptions(): LogOptions
@@ -57,6 +60,24 @@ class User extends Authenticatable
         return $this->hasOne(UserProperty::class);
 
     }
+
+    public function isAdmin(){
+
+        return $this->hasOne(Admin::class);
+    }
+
+    public function pwReset(){
+
+        return $this->hasOne(PasswordReset::class);
+
+    }
+
+    // public function name(): Attribute
+    // {
+    //     return Attribute::make(
+    //         set: fn($value) => Str::title($value),
+    //     );
+    // }
 
     /**
      * The attributes that should be cast.

@@ -2,13 +2,12 @@
 
 namespace App\Http\Traits\Users;
 
-use App\Filters\Builder\department;
+use App\Filters\Builder\Department;
 use App\Filters\Builder\SortBy;
 use App\Filters\Builder\SearchBy;
 use App\Models\User;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Collection;
 
 trait WithUsersTable
 {
@@ -27,9 +26,9 @@ trait WithUsersTable
         
     }
 
-    public function filteredUsers(Collection $users = null): Builder
+    public function filteredUsers(Builder $users = null): Builder
     {
-        if(!$users) { $users = User::all();} 
+        if(!$users) { $users = User::query(); } 
 
         $filters = [
             (new SortBy($this->sortColumnName, $this->sortDirection)),
@@ -37,7 +36,7 @@ trait WithUsersTable
             (new SearchBy(['email', 'name'], $this->search)),
         ];
 
-        return (new Pipeline(app()))->send($users->toQuery())
+        return (new Pipeline(app()))->send($users)
                                     ->through($filters)
                                     ->thenReturn();
        

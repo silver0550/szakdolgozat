@@ -29,14 +29,8 @@ class PasswordReset extends Component
     public function render()
     {
 
-        $users = User::findMany(
-                    PwResetModel::where('isActive', 1)
-                    ->get()
-                    ->map( fn($e) => $e['user_id']));
-
-        if($users->isNotEmpty()){
-            $users = $this->filteredUsers($users)->paginate($this->pageSize);
-        }
+        $users = $this->filteredUsers( User::whereRelation('pwReset','isActive',1) )
+                    ->paginate($this->pageSize);
 
         return view('livewire.password-reset',['users' => $users])->layout('components.layouts.index');
     }
@@ -44,7 +38,7 @@ class PasswordReset extends Component
     public function resetAll(){
 
 
-            collect($this->chackedRequests)->each(function ($id){
+            $this->chackedRequests->each(function ($id){
 
                 User::find($id)->update(['password' => env('DEFAULT_PASSWORD')]);
 

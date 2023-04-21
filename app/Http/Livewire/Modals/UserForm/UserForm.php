@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Modals\UserForm;
 use Livewire\Component;
 use App\Models\User;
 use App\Models\UserProperty;
+use Illuminate\Support\Str;
 use Illuminate\Pipeline\Pipeline;
 use App\Filters\String\FirstUpper;
 
@@ -74,14 +75,8 @@ class UserForm extends Component
 
         $this->property->language_knowledge = 
             $this->languages !== null ? $this->languages : $this->property->language_knowledge;
-
-        $this->user->name = (new Pipeline(app()))->send($this->user->name)
-                            ->through(FirstUpper::class)
-                            ->thenReturn();
-
-        $this->property->place_of_birth = (new Pipeline(app()))->send($this->property->place_of_birth)
-                            ->through(FirstUpper::class)
-                            ->thenReturn();
+        $this->user->name = Str::title($this->user->name);
+        $this->property->place_of_birth = Str::title($this->property->place_of_birth);
 
         $this->emit('update', $this->user, $this->property);
 
@@ -99,16 +94,10 @@ class UserForm extends Component
         ]);
 
         $this->property->language_knowledge = $this->languages;
-
         $this->user->avatar_path = $this->avatar_path;
+        $this->user->name = Str::title($this->user->name);
+        $this->property->place_of_birth = Str::title($this->property->place_of_birth);
 
-        $this->user->name = (new Pipeline(app()))->send($this->user->name)
-                            ->through(FirstUpper::class)
-                            ->thenReturn();
-
-        $this->property->place_of_birth = (new Pipeline(app()))->send($this->property->place_of_birth)
-                            ->through(FirstUpper::class)
-                            ->thenReturn();
 
         $this->emit('create', $this->user, $this->property);
 

@@ -25,10 +25,7 @@
             </div>
 
         </div>
-        
-        @if($users->isNotEmpty())
-            {{$users->links()}}
-        @endif
+        {{$users->links()}}
     </div>
     {{-- CONTROLL BLOCK END --}}
     {{-- RESULT TABLE BEGIN --}}
@@ -50,9 +47,7 @@
         </x-slot>
     </x-table>
 
-    @if($users->isNotEmpty())
-        <x-pagination.info :paginator="$users" class=" mt-2 mr-2"/>
-    @endif
+    <x-pagination.info :paginator="$users" class=" mt-2 mr-2"/>
     
     {{-- RESULT TABLE END --}}
 </div>

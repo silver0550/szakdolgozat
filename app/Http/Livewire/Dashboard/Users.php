@@ -22,8 +22,7 @@ class Users extends Component
     
     public function render()
     {
-      
-        $users = $this->filteredUsers()->paginate($this->pageSize); 
+        $users = $this->filteredUsers(User::with('isAdmin'))->paginate($this->pageSize); 
 
         return view('livewire.dashboard.users',['users' => $users,])->layout('components.layouts.index');
     }
@@ -64,20 +63,9 @@ class Users extends Component
         if(auth()->user()->can('update', $currentUser)){
             $currentUser->update($user);
             
-            if ($currentUser->property()->first()){
+                $currentUser->property->update($property);
 
-                $currentUser->property()->first()->update($property);
-
-            } else{
-                
-                $property['user_id'] = $currentUser->id;
-                
-                UserProperty::create($property);
-                
                 $this->emitTo('dashboard.users-list','userRefresh'.$user['id']);
-            }
-    
-            
 
             $this->sendSuccessResponse(Notification::UPDATE_SUCCESS);
 

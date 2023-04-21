@@ -32,11 +32,11 @@ class UserPolicy
     {
         if ($user->admin){ return true;}
 
-        if ($model->property()->first() && $user->property()->first()){
+        if ($model->property && $user->property){
             return (
                 $user->id === $model->id ||
-                $user->property()->first()->department == $model->property()->first()->department &&
-                $user->property()->first()->isleader
+                $user->property->department == $model->property->department &&
+                $user->property->isleader
             );   
         }
 
@@ -51,7 +51,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return $user->admin || $user->email === env('SUPER_ADMIN') ;
+        return $user->isAdmin || $user->email === env('SUPER_ADMIN') ;
     }
 
     /**
@@ -63,7 +63,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return $user->admin || $user->email === env('SUPER_ADMIN');
+        return $user->isAdmin || $user->email === env('SUPER_ADMIN');
     }
 
     /**
@@ -77,9 +77,9 @@ class UserPolicy
     {
         if ($user->id === $model->id){ return false;}
 
-        if ($model->admin){ return false;}
+        if ($model->isAdmin){ return false;}
 
-        return $user->admin || $user->email === env('SUPER_ADMIN');
+        return $user->isAdmin || $user->email === env('SUPER_ADMIN');
     }
 
     /**
