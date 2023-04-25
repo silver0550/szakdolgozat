@@ -61,11 +61,27 @@ class User extends Authenticatable
 
     }
 
+    /**
+     * Get the tool records associated with the user.
+     */
+    public function tools(){
+
+        return $this->hasMany(Tool::class);
+    }
+
+    
+     /**
+     * Get the admin record associated with the user.
+     */
+
     public function isAdmin(){
 
         return $this->hasOne(Admin::class);
     }
 
+     /**
+     * Get the PasswordReset record associated with the user.
+     */
     public function pwReset(){
 
         return $this->hasOne(PasswordReset::class);

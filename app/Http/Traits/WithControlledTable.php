@@ -27,7 +27,7 @@ trait WithControlledTable
         
     }
 
-    public function filteredUsers(Builder $models): Builder
+    public function filteredData(Builder $models): Builder
     {
         $result = (new Pipeline(app()))->send($models)
                                     ->through($this->filters)

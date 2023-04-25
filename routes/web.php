@@ -8,7 +8,7 @@ use App\Http\Livewire\Dashboard\Users;
 use App\Http\Livewire\PasswordReset;
 
 use App\Http\Controllers\AuthController;
-
+use App\Http\Livewire\Dashboard\Tools;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +28,7 @@ Route::middleware('guest')->get('/login', Login::class)->name('login');
 Route::middleware('auth')->group(function(){
     Route::get('/home', Home::class)->name('home');
     Route::get('/users', Users::class)->name('users');
-    Route::get('/tools', Home::class)->name('tools');
+    Route::get('/tools', Tools::class)->name('tools');
     Route::get('/search', Home::class)->name('search');
 });
 

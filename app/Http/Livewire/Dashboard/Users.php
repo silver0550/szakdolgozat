@@ -24,7 +24,7 @@ class Users extends Component
     {
 
         $users =  $this->setUsersFilters()
-                    ->filteredUsers(User::with('isAdmin'))
+                    ->filteredData(User::with('isAdmin'))
                     ->paginate($this->pageSize); 
 
         return view('livewire.dashboard.users',['users' => $users,])->layout('components.layouts.index');
