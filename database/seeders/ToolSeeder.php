@@ -5,9 +5,9 @@ namespace Database\Seeders;
 use App\Models\Phone;
 use App\Models\Notebook;
 use App\Models\Tool;
-use Database\Factories\NotebookFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
 
 class ToolSeeder extends Seeder
 {
@@ -20,12 +20,15 @@ class ToolSeeder extends Seeder
     {
         Tool::factory(20)->create([
             'owner_type' => Phone::class,
-            'owner_id' =>Phone::factory(),
+            'owner_id' => Phone::factory(),
+            'user_id' => User::factory(),
         ]);
 
         Tool::factory(20)->create([
             'owner_type' => Notebook::class,
             'owner_id' =>Notebook::factory(),
+            'user_id' => User::factory(),
+
         ]);
     }
 }

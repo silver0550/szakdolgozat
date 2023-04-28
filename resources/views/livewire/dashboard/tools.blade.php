@@ -5,7 +5,7 @@
             <div class="flex  ">
                 @can('create', App\Models\Tool::class)
                     <x-button.tooltip side='right' label="Hozzáad" class="ml-7">
-                        <x-button.primary {{-- wire:click="$emit('openModal','modals.new-user-form')" --}} class="btn-circle">+</x-button.primary>
+                        <x-button.primary wire:click="$emit('openModal','modals.new-user-form')" class="btn-circle">+</x-button.primary>
                     </x-button.tooltip>
                 @endcan
                 <div class="px-10  w-96 ">
@@ -13,9 +13,9 @@
                 </div>
                 <div class="flex">
                     <x-button.tooltip label="Eszközök">
-                        <x-selector wire:model='departmentFilter'>
+                        <x-selector {{-- wire:model='departmentFilter' --}}>
                             <option selected value="{{null}}">Összes</option>
-                            @foreach (\App\Enum\Department::cases() as $department)
+                            @foreach (\App\Enum\Tool::cases() as $department)
                                 <option value={{$department}}>{{$department}}</option>
                             @endforeach
                         </x-selector>    

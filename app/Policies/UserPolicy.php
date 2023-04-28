@@ -18,7 +18,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->admin;
+        return $user->isAdmin;
     }
 
     /**
@@ -30,7 +30,7 @@ class UserPolicy
      */ 
     public function view(User $user, User $model)
     {
-        if ($user->admin){ return true;}
+        if ($user->isAdmin){ return true;}
 
         if ($model->property && $user->property){
             return (
@@ -51,7 +51,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return $user->isAdmin || $user->email === env('SUPER_ADMIN') ;
+        return $user->isAdmin ;
     }
 
     /**
@@ -63,7 +63,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return $user->isAdmin || $user->email === env('SUPER_ADMIN');
+        return $user->isAdmin;
     }
 
     /**
@@ -79,7 +79,7 @@ class UserPolicy
 
         if ($model->isAdmin){ return false;}
 
-        return $user->isAdmin || $user->email === env('SUPER_ADMIN');
+        return $user->isAdmin;
     }
 
     /**
