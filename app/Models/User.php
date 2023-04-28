@@ -72,12 +72,13 @@ class User extends Authenticatable
 
     }
 
-    // public function name(): Attribute
-    // {
-    //     return Attribute::make(
-    //         set: fn($value) => Str::title($value),
-    //     );
-    // }
+    public function name(): Attribute
+    {
+        return Attribute::make(
+            set: fn($value) => Str::title($value),
+        );
+    }
+
 
     /**
      * The attributes that should be cast.

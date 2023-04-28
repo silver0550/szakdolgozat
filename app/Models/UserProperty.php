@@ -32,12 +32,12 @@ class UserProperty extends Model
         return $this->belongsTo(User::class);
     }
 
-    // public function placeOfBirth():Attribute
-    // {
-    //     return Attribute::make(
-    //         set: fn($value) => Str::title($value),
-    //     );
-    // }
+    public function placeOfBirth():Attribute
+    {
+        return Attribute::make(
+            set: fn($value) => Str::title($value),
+        );
+    }
 
     public function getActivitylogOptions(): LogOptions
     {
