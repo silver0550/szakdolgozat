@@ -18,7 +18,6 @@ class UsersList extends Component
 
     public function booted(){
         $this->listeners = array_merge($this->listeners, ['userRefresh'.$this->user->id => '$refresh']);
-        // dd($this->listeners);
     }
 
 

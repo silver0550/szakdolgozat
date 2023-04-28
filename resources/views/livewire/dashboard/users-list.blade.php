@@ -10,9 +10,9 @@
     @endcan
     <x-table.cell>
         <x-button.tooltip label="{{$user->name}}">
-
-        <x-icon.phone class=" hover:text-blue-500 cursor-pointer " /></x-table.cell> 
+            <x-icon.phone class=" hover:text-blue-500 cursor-pointer " />
         </x-button.tooltip>
+    </x-table.cell>    
     <x-table.cell>
 
         @can('update', $user)

@@ -2,23 +2,20 @@
 
 namespace App\Http\Livewire\Dashboard;
 
-use App\Models\Phone;
 use Livewire\Component;
 use App\Models\Tool;
-use App\Models\User;
+use App\Http\Traits\WithSelfPagination;
 
 class Tools extends Component
 {
 
+    use WithSelfPagination;
 
     public function render()
     {
-        // $tools = Tool::find(6)->user()->get();
 
-        $self = Tool::with('owner');
-        
-        dd($self->where('user_id',null)->get()->map( function (Tool $tool){ return $tool->owner;}));
+        $tools = Tool::with('owner','user')->paginate($this->pageSize);
 
-        return view('livewire.dashboard.tools',['tools' => $self])->layout('components.layouts.index');
+        return view('livewire.dashboard.tools',['tools' => $tools])->layout('components.layouts.index');
     }
 }
