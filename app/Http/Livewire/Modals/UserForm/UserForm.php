@@ -75,8 +75,6 @@ class UserForm extends Component
 
         $this->property->language_knowledge = 
             $this->languages !== null ? $this->languages : $this->property->language_knowledge;
-        $this->user->name = Str::title($this->user->name);
-        $this->property->place_of_birth = Str::title($this->property->place_of_birth);
 
         $this->emit('update', $this->user, $this->property);
 
@@ -95,9 +93,6 @@ class UserForm extends Component
 
         $this->property->language_knowledge = $this->languages;
         $this->user->avatar_path = $this->avatar_path;
-        $this->user->name = Str::title($this->user->name);
-        $this->property->place_of_birth = Str::title($this->property->place_of_birth);
-
 
         $this->emit('create', $this->user, $this->property);
 
