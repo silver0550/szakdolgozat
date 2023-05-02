@@ -26,7 +26,11 @@ class Notebook extends Model implements IsTool
 
     public function getInputs(): Array {
         
-        return [];
+        return [
+            'serial_number' => 'Sorozatszám',
+            'manufacturer' => 'Gyártó',
+            'model_type' => 'Típus',
+            'description' => 'Leírás',
+        ];
     }
-
 }

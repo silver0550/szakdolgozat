@@ -4,7 +4,7 @@
         <div class="flex  ">
             @can('create', App\Models\Tool::class)
                 <x-button.tooltip side='right' label="Hozzáad" class="ml-7">
-                    <x-button.primary wire:click="$emit('openModal','modals.new-user-form')" class="btn-circle">+</x-button.primary>
+                    <x-button.primary wire:click="$emit('openModal','modals.new-tool-form')" class="btn-circle">+</x-button.primary>
                 </x-button.tooltip>
             @endcan
             <div class="px-10  w-96 ">

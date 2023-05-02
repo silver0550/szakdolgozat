@@ -5,9 +5,6 @@ namespace App\Http\Livewire\Modals\UserForm;
 use Livewire\Component;
 use App\Models\User;
 use App\Models\UserProperty;
-use Illuminate\Support\Str;
-use Illuminate\Pipeline\Pipeline;
-use App\Filters\String\FirstUpper;
 
 class UserForm extends Component
 {

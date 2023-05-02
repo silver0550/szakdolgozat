@@ -12,6 +12,10 @@ class Phone extends Model implements IsTool
 {
     use HasFactory, BaseTool;
 
+    protected $fillable = [
+        'IMEI',
+    ];
+
     public function tool(){
 
         return $this->morphOne(Tool::class, 'owner');
@@ -24,7 +28,13 @@ class Phone extends Model implements IsTool
 
     public function getInputs(): Array {
         
-        return [];
+        return [
+            'IMEI' => 'IMEI',
+            'manufacturer' => 'Gyártó',
+            'model_type' => 'Típus',
+            'description' => 'Leírás',
+        ];
     }
+
 
 }

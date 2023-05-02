@@ -30,7 +30,7 @@ class PasswordReset extends Component
     {
 
         $users = $this->setUsersFilters()
-                    ->filteredUsers( User::whereRelation('pwReset','isActive',1) )
+                    ->filteredData( User::whereRelation('pwReset','isActive',1) )
                     ->paginate($this->pageSize);
 
         return view('livewire.password-reset',['users' => $users])->layout('components.layouts.index');
