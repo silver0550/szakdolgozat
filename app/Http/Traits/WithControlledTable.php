@@ -5,6 +5,8 @@ namespace App\Http\Traits;
 use App\Filters\Builder\Department;
 use App\Filters\Builder\SortBy;
 use App\Filters\Builder\SearchBy;
+use App\Filters\Builder\ToolType;
+use App\Filters\Builder\SearchFromTools;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -15,6 +17,7 @@ trait WithControlledTable
     public $search;
 
     public $departmentFilter;
+    public $typeFilter;
 
     protected $filters = [];
 
@@ -71,6 +74,18 @@ trait WithControlledTable
         return $this;
     }
 
+    public function setToolsFilters(){
+
+        $this->filters = [
+            // (new SortBy($this->sortColumnName, $this->sortDirection)),
+            (new ToolType($this->typeFilter)),
+            (new SearchFromTools($this->search)),
+
+        ];
+
+        return $this;
+    }
+
     public function updatedSearch(){
         $this->resetPage();
     }   
@@ -79,5 +94,8 @@ trait WithControlledTable
         $this->resetPage();
     }   
 
+    public function updatedTypeFilter(){
+        $this->resetPage();
+    }
 
 }

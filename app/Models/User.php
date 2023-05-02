@@ -14,6 +14,7 @@ use App\Models\UserProperty;
 use App\Models\Admin;
 use App\Models\PasswordReset;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class User extends Authenticatable
@@ -70,6 +71,13 @@ class User extends Authenticatable
     }
 
     
+    public function getTools(): Collection {
+        
+        return $this->tools()
+                    ->get()
+                    ->map( fn($tool) => $tool->owner);
+    }
+
      /**
      * Get the admin record associated with the user.
      */

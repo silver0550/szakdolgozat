@@ -5,16 +5,18 @@ namespace App\Http\Livewire\Dashboard;
 use Livewire\Component;
 use App\Models\Tool;
 use App\Http\Traits\WithSelfPagination;
+use App\Http\Traits\WithControlledTable;
 
 class Tools extends Component
 {
 
-    use WithSelfPagination;
+    use WithSelfPagination, WithControlledTable;
 
     public function render()
     {
-
-        $tools = Tool::with('owner','user')->paginate($this->pageSize);
+        $tools = $this->setToolsFilters()
+                    ->filteredData(Tool::with('owner','user'))
+                    ->paginate($this->pageSize);
 
         return view('livewire.dashboard.tools',['tools' => $tools])->layout('components.layouts.index');
     }

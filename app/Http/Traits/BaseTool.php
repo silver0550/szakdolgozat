@@ -2,15 +2,12 @@
 
 namespace App\Http\Traits;
 
-use App\Enum\Tool as EnumTool;
-
+use App\Service\ToolService;
 trait BaseTool
 {
-    public function type(): EnumTool {
+    public function type(): String {
         
-        $className = class_basename($this);
-
-        return EnumTool::getName($className);
+        return ToolService::displayableName(get_class($this));
 
     }
 

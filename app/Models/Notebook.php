@@ -6,6 +6,7 @@ use App\Contracts\Services\IsTool;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Traits\BaseTool;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Notebook extends Model implements IsTool
 {
@@ -22,4 +23,10 @@ class Notebook extends Model implements IsTool
 
         return $this->serial_number;
     }
+
+    public function getInputs(): Array {
+        
+        return [];
+    }
+
 }

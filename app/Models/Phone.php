@@ -22,4 +22,9 @@ class Phone extends Model implements IsTool
         return $this->IMEI;
     }
 
+    public function getInputs(): Array {
+        
+        return [];
+    }
+
 }
