@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('tools', function (Blueprint $table) {
             $table->id();
             $table->morphs('owner');
+            // $table->foreignId('user_id')->constrained()->nullable();
             $table->bigInteger('user_id')->nullable();
             $table->timestamps();
         });

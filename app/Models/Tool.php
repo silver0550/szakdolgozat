@@ -18,6 +18,10 @@ class Tool extends Model
         'user_id',
     ];
 
+    protected $attributes = [
+        'user_id' => null,
+    ];
+
     public function owner(){
 
         return $this->morphTo();

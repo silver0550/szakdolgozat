@@ -2,23 +2,29 @@
     <x-modals.body class="flex flex-col mx-10">
 
         <x-selector wire:model='classType'>
-            <option selected value={{null}}>Válasszon</option>
+            <option value={{null}}>Válasszon</option>
                 @foreach (\App\Service\ToolService::getClasses() as $class => $name)
                     <option value={{$class}}>{{$name}}</option>
                 @endforeach        
         </x-selector>
-
         <div class="flex justify-between pl-5 ">
             
-            @if ($model)
-                @foreach ($model->getInputs() as $column => $input)
-                        <x-input.form-control class="w-3/5 pr-2" :error="$errors->first('user.name')" label={{$input}}>
-                            <x-input.text wire:model='data.{{$column}}'/> 
+            @if ($classType)
+                @foreach ($classType::getInputs() as $column => $input)
+                        <x-input.form-control class="w-3/5 pr-2" :error="$errors->first($column)" label={{$input}}>
+                            <x-input.text wire:model.lazy='modelData.{{$column}}'/> 
                         </x-input.form-control>
                 @endforeach
             @endif
-        </div>
-        <button wire:click='dede'>DD</button>
+        </div> 
+        {{-- {{$errors->first()}} --}}
+        {{-- @foreach ($errors->all() as $error)
+            {{$error->message}}
+        @endforeach --}}
+
+
+
+        
             {{-- {{$model->getInputs()}} --}}
         {{-- <div class="flex">
             <div class="flex flex-col justify-center w-full">
@@ -82,9 +88,10 @@
         </div> --}}
 
     </x-modals.body>
-    {{-- <x-modals.control>
-        @can($target, $user)
+    <x-modals.control>
+        <x-button.primary :disabled="!$classType" wire:click="store">Mentés</x-button.primary>
+        {{-- @can($target, $user)
             <x-button.primary wire:click="{{$target}}" class="btn-sm">Mentés</x-button.primary>
-        @endcan
-    </x-modals.control> --}}
+        @endcan --}}
+    </x-modals.control>
 </div>

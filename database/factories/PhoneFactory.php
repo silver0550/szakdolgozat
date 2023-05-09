@@ -20,7 +20,7 @@ class PhoneFactory extends Factory
 
         return [
             'IMEI' => fake()->unique()->numberBetween(100000000000000,999999999999999),
-            'manufactuter' => fake()->randomElement([
+            'manufacturer' => fake()->randomElement([
                     'Samsung',
                     'Huawei',
                     'LG',

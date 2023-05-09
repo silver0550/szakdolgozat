@@ -18,7 +18,7 @@ class NotebookFactory extends Factory
     {
         return [
             'serial_number' =>fake()->unique()->regexify('[A-Z0-9]{10}'),
-            'manufactuter' => fake()->randomElement([
+            'manufacturer' => fake()->randomElement([
                 'Asus',
                 'HP',
                 'DELL',

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('notebooks', function (Blueprint $table) {
             $table->id();
             $table->string('serial_number')->unique();
-            $table->string('manufactuter');
+            $table->string('manufacturer');
             $table->string('model_type');
             $table->text('description')->nullable();
             $table->timestamps();

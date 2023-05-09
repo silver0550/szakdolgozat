@@ -3,6 +3,7 @@
 namespace App\Contracts\Services;
 
 use App\Enum\Tool as EnumTool;
+use Illuminate\Validation\Validator;
 
 interface IsTool
 {
@@ -12,6 +13,12 @@ interface IsTool
 
     public function keeper(): String;
 
-    public function getInputs(): Array;
+    public function saveToTools(): Void;
+
+    public static function getInputs(): Array;
+
+    public static function getValidator(array $validation);
+
+    
 
 }

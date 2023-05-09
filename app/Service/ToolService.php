@@ -12,7 +12,7 @@ class ToolService
 
         return [
             Phone::class => 'Mobiltelefon', 
-            Notebook::class => 'Laptop'
+            Notebook::class => 'Laptop',
         ];
     }
 

@@ -12,6 +12,10 @@ class Tools extends Component
 
     use WithSelfPagination, WithControlledTable;
 
+    protected $listeners = [
+        'refresh' => '$refresh',
+    ];
+
     public function render()
     {
         $tools = $this->setToolsFilters()
