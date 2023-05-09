@@ -43,7 +43,7 @@ class ChangePassword extends ModalComponent
         $this->validate([
                 'passwords.current' => [
                     'required', 
-                    function($attriute, $value, $fail){
+                    function($attriute, $value, $fail){             //TODO: don't check password
                         if (!Hash::check($value, $this->user->password)){
                             $fail('Hibás jelszó!');
                         }

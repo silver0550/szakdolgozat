@@ -19,7 +19,7 @@ DB_DATABASE=<DATABASE_NAME>
 DB_USERNAME=<DB_USERNAME>
 DB_PASSWORD=<DB_PASSWORD>
 ```
-Is also necessary the email addres of the 'Super Admin' and the 'hashed Defalt Password' like this:
+Is also necessary the email addres of the 'Super Admin' and the 'hashed Default Password' like this:
 ```
 SUPER_ADMIN='super@admin.com'
 DEFAULT_PASSWORD='$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
