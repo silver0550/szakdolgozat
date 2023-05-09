@@ -20,7 +20,7 @@
         </x-input.form-control>
     </x-modals.body>
     <x-modals.control>
-        <x-button.primary class="btn-sm mr-5">Mentés</x-button.primary>
+        <x-button.primary wire:click='save' class="btn-sm mr-5">Mentés</x-button.primary>
     </x-modals.control>
 
   
