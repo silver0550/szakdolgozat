@@ -15,10 +15,16 @@ use App\Models\Admin;
 use App\Models\PasswordReset;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Str;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, LogsActivity, CausesActivity;
+    use HasApiTokens,
+        HasFactory,
+        Notifiable,
+        LogsActivity,
+        CausesActivity,
+        HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -56,14 +62,9 @@ class User extends Authenticatable
      * Get the property record associated with the user.
      */
     public function property(){
-        
+
         return $this->hasOne(UserProperty::class);
 
-    }
-
-    public function isAdmin(){
-
-        return $this->hasOne(Admin::class);
     }
 
     public function pwReset(){

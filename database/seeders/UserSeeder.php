@@ -7,6 +7,8 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\UserProperty;
+use Spatie\Permission\Models\Role;
+
 class UserSeeder extends Seeder
 {
     /**
@@ -31,9 +33,9 @@ class UserSeeder extends Seeder
                         ]),
         ]);
 
-        Admin::factory()->create(['user_id' => 1]);
-        Admin::factory()->create(['user_id' => 2]);
-        
+        User::find(1)->assignRole('system');
+        User::find(2)->assignRole('admin');
+
         UserProperty::factory(50)->create();
 
 

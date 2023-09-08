@@ -30,13 +30,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('SuperAdmin', function(User $user){
-            return $user->email === env('SUPER_ADMIN');
+        Gate::before(function ($user, $ability) {
+            if ($user->hasRole('system')) {
+                return true;
+            }
         });
-
-        Gate::define('Admin', function(User $user){
-            return $user->isAdmin()->first();
-        });
-        
     }
 }
