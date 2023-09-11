@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Dashboard;
 use Livewire\Component;
 use App\Models\User;
 use App\Models\UserProperty;
-use App\Enum\Notification;
 use App\Http\Traits\WithSelfPagination;
 use App\Http\Traits\WithControlledTable;
 use App\Http\Traits\WithNotification;
@@ -36,9 +35,12 @@ class Users extends Component
             $user->property()->first()->delete();
             $user->delete();
 
-            $this->sendSuccessResponse(Notification::DELETE_SUCCESS);
+            $this->alertSuccess(__('alert.delete_user_success'));
 
-        } else { $this->sendFaildResponse(Notification::OPERATION_DENIED); }
+        } else {
+            $this->alertError(__('alert.delete_user_fail'));
+            $this->alertWarning(__('alert.access_denied'));
+        }
 
     }
 
@@ -52,9 +54,12 @@ class Users extends Component
 
             UserProperty::create($property);
 
-            $this->sendSuccessResponse(Notification::CREATE_SUCCESS);
+            $this->alertSuccess(__('alert.create_user_success'));
 
-        } else { $this->sendFaildResponse(Notification::OPERATION_DENIED); }
+        } else {
+            $this->alertError(__('alert.create_user_fail'));
+            $this->alertWarning(__('alert.access_denied'));
+        }
 
     }
 
@@ -70,12 +75,13 @@ class Users extends Component
 
                 $this->emitTo('dashboard.users-list','userRefresh'.$user['id']);
 
-            $this->sendSuccessResponse(Notification::UPDATE_SUCCESS);
+            $this->alertSuccess(__('alert.update_user_success'));
 
-        } else { $this->sendFaildResponse(Notification::OPERATION_DENIED); }
+        } else {
+            $this->alertError(__('alert.update_user_fail'));
+            $this->alertWarning(__('alert.access_denied'));
+        }
 
     }
-
-
 
 }

@@ -2,20 +2,26 @@
 
 namespace App\Http\Traits;
 
-use App\Enum\Notification;
+use App\View\AlertBuilder;
 
 trait WithNotification
 {
 
-    public function sendSuccessResponse($content){
+    public function alertSuccess($content){
 
-        $this->dispatchBrowserEvent('success', ['title' => Notification::OPERATION_SUCCESS, 'content' => $content]);
-
+        $alertContent = AlertBuilder::alert()->success($content)->get();
+        $this->dispatchBrowserEvent('showAlert', $alertContent);
     }
 
-    public function sendFaildResponse($content){
+    public function alertError($content){
 
-        $this->dispatchBrowserEvent('faild', ['title' => Notification::OPERATION_FAILD, 'content' => $content]);
+        $alertContent = AlertBuilder::alert()->error($content)->get();
+        $this->dispatchBrowserEvent('showAlert', $alertContent);
+    }
 
+    public function alertWarning($content){
+
+        $alertContent = AlertBuilder::alert()->warning($content)->get();
+        $this->dispatchBrowserEvent('showAlert', $alertContent);
     }
 }
