@@ -31,7 +31,7 @@ class Users extends Component
 
     public function delete(User $user){ // delete function doesn't use
 
-        if(auth()->user()->can('delete', $user)){
+        if(user()->can('delete-user')){
             $user->property()->first()->delete();
             $user->delete();
 
@@ -47,7 +47,7 @@ class Users extends Component
     public function create($user, $property): Void
     {
 
-        if (auth()->user()->can("create", User::class)){
+        if (user()->can("create-user")){
             $currentUser = User::create($user);
 
             $property['user_id'] = $currentUser->id;
@@ -68,12 +68,12 @@ class Users extends Component
 
         $currentUser = User::find($user['id']);
 
-        if(auth()->user()->can('update', $currentUser)){
+        if(user()->can('edit-user')){
             $currentUser->update($user);
 
-                $currentUser->property->update($property);
+            $currentUser->property->update($property);
 
-                $this->emitTo('dashboard.users-list','userRefresh'.$user['id']);
+            $this->emitTo('dashboard.users-list','userRefresh'.$user['id']);
 
             $this->alertSuccess(__('alert.update_user_success'));
 

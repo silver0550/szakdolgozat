@@ -14,7 +14,7 @@ use Illuminate\Support\Collection;
 use App\Enum\Notification;
 class PwResetRequest extends ModalComponent
 {
-    
+
     use WithNotification;
 
     public $name;
@@ -48,7 +48,7 @@ class PwResetRequest extends ModalComponent
                 ->first();
 
         if( $isExist) {
-            
+
             $isExist = (new Pipeline(app()))
                     ->send(User::query())
                     ->through([
@@ -57,19 +57,19 @@ class PwResetRequest extends ModalComponent
                     ->thenReturn()
                     ->first();
 
-            if ( $isExist ) { 
+            if ( $isExist ) {
 
                 $this->store(collect(Array('user_id' => $isExist->id)));
 
                 $this->closeModal();
 
-                return $this->sendSuccessResponse(Notification::PASSWORD_RESET_REQUEST_SUCCES); 
+                return $this->alertSuccess(Notification::PASSWORD_RESET_REQUEST_SUCCES);
             }
-    
-        } 
-        
-        return $this->sendFaildResponse(Notification::PASSWORD_RESET_REQUEST_FAILD);
-        
+
+        }
+
+        return $this->alertError(Notification::PASSWORD_RESET_REQUEST_FAILD);
+
     }
 
     public function store(Collection $data): Void
@@ -84,7 +84,7 @@ class PwResetRequest extends ModalComponent
                         (new hasProperty('user_id',$data['user_id']))])
                     ->thenReturn()
                     ->first();
-           
+
             if ($hasRequest) { PasswordResetModel::find($hasRequest->id)->touch(); }
             else { PasswordResetModel::create(['user_id' => $data['user_id']]); }
         }

@@ -9,7 +9,7 @@
 
             </x-slot>
         </x-menu.horizontal>
-        @role('admin')
+        @role('system|admin')
             <x-menu.horizontal class="mx-5" >
                 <x-slot name="main">
                     <x-indicator label={{$notification}}>

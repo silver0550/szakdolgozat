@@ -6,34 +6,32 @@ use Livewire\Component;
 
 class LanguageController extends Component
 {
-    public $language;
-    public $level;
+    public $lang = 'Nyelv';
+    public $lvl = 'Szint';
 
     public $languages;
 
     protected $rules = [
-        'language' => ['required','not_in:Nyelv'],
-        'level' => ['required','not_in:Szint'],
+        'lang' => ['required','not_in:Nyelv'],
+        'lvl' => ['required','not_in:Szint'],
     ];
 
     public function mount($languages)
-    {   
-        
+    {
         $this->languages = collect($languages);
-       
     }
 
     public function addLanguage(){
         $this->validate();
 
-        $this->languages->put($this->language, $this->level);
+        $this->languages->put($this->lang, $this->lvl);
 
         $this->emitUp('languageUpdated', $this->languages);
-        $this->reset('language', 'level');
+        $this->reset('lang', 'lvl');
     }
 
     public function removeLanguage($language){
-        
+
         $this->languages->pull($language);
         $this->emitUp('languageUpdated', $this->languages);
 

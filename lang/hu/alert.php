@@ -12,4 +12,5 @@ return [
     'delete_user_fail' => 'A felhasználó törlése sikertelen!',
     'create_user_success' => 'A felhasználó létrehozása sikeresen megtörtént.',
     'create_user_fail' => 'A felhasználó cétrehozása sikertelen!',
+    'invalid_img' => 'A kép formátuma vagy mérete nem felel meg az elvárásoknak',
 ];
