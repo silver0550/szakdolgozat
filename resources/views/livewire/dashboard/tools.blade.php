@@ -2,7 +2,7 @@
     {{-- CONTROLL BLOCK BEGIN --}}
     <div class ='flex justify-between w-full p-2 bg-base-200 rounded-md mb-2'>
         <div class="flex  ">
-            @can('create', App\Models\Tool::class)
+            @can('create-tool')
                 <x-button.tooltip side='right' label="Hozzáad" class="ml-7">
                     <x-button.primary wire:click="$emit('openModal','modals.new-tool-form')" class="btn-circle">+</x-button.primary>
                 </x-button.tooltip>
@@ -17,7 +17,7 @@
                         @foreach (\App\Service\ToolService::getClasses() as $class => $name)
                             <option value={{$class}}>{{$name}}</option>
                         @endforeach
-                    </x-selector>    
+                    </x-selector>
                 </x-button.tooltip>
             </div>
         </div>
@@ -28,9 +28,9 @@
     <x-table class="p-2 bg-base-200 rounded-md ">
         <x-slot name="head">
             @if (!$tools->count())
-                <x-table.head class="cursor-default">A keresésnek nincs eredménye</x-table.head> 
+                <x-table.head class="cursor-default">A keresésnek nincs eredménye</x-table.head>
             @else
-                <x-table.head class="cursor-default">Azonosító</x-table.head> 
+                <x-table.head class="cursor-default">Azonosító</x-table.head>
                 <x-table.head class="cursor-default" >Típus</x-table.head>
                 <x-table.head class="cursor-default">Tulajdonosa</x-table.head>
                 <x-table.head class="cursor-default" >Létrehozva</x-table.head>

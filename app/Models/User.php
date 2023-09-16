@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -59,47 +61,25 @@ class User extends Authenticatable
             ->dontLogIfAttributesChangedOnly(['remember_token']);
     }
 
-     /**
-     * Get the property record associated with the user.
-     */
-    public function property(){
-
+    public function property(): HasOne
+    {
         return $this->hasOne(UserProperty::class);
-
     }
-
-    /**
-     * Get the tool records associated with the user.
-     */
-    public function tools(){
-
+    public function tools(): HasMany
+    {
         return $this->hasMany(Tool::class);
     }
 
 
-    public function getTools(): Collection {
-
+    public function getTools(): Collection //TODO:attribute
+    {
         return $this->tools()
                     ->get()
                     ->map( fn($tool) => $tool->owner);
     }
-
-     /**
-     * Get the admin record associated with the user.
-     */
-
-    public function isAdmin(){
-
-        return $this->hasOne(Admin::class);
-    }
-
-     /**
-     * Get the PasswordReset record associated with the user.
-     */
-    public function pwReset(){
-
+    public function pwReset(): HasOne
+    {
         return $this->hasOne(PasswordReset::class);
-
     }
 
     public function name(): Attribute
@@ -109,12 +89,6 @@ class User extends Authenticatable
         );
     }
 
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];

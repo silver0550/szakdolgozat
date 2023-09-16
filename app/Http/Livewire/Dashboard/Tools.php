@@ -9,8 +9,8 @@ use App\Http\Traits\WithControlledTable;
 
 class Tools extends Component
 {
-
-    use WithSelfPagination, WithControlledTable;
+    use WithSelfPagination;
+    use WithControlledTable;
 
     protected $listeners = [
         'refresh' => '$refresh',

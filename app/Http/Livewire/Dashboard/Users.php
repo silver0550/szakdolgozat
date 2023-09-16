@@ -11,7 +11,9 @@ use App\Http\Traits\WithNotification;
 
 class Users extends Component
 {
-    use WithSelfPagination, WithControlledTable, WithNotification;
+    use WithSelfPagination;
+    use WithControlledTable;
+    use WithNotification;
 
     protected $listeners = [
         'delete',
@@ -23,7 +25,7 @@ class Users extends Component
     {
 
         $users =  $this->setUsersFilters()
-                    ->filteredUsers(User::query())
+                    ->filteredData(User::query())
                     ->paginate($this->pageSize);
 
         return view('livewire.dashboard.users',['users' => $users,])->layout('components.layouts.index');
@@ -47,7 +49,7 @@ class Users extends Component
     public function create($user, $property): Void
     {
 
-        if (user()->can("create-user")){
+        if (user()->can('create-user')){
             $currentUser = User::create($user);
 
             $property['user_id'] = $currentUser->id;
@@ -81,7 +83,5 @@ class Users extends Component
             $this->alertError(__('alert.update_user_fail'));
             $this->alertWarning(__('alert.access_denied'));
         }
-
     }
-
 }
