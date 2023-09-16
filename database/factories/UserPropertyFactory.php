@@ -23,7 +23,6 @@ class UserPropertyFactory extends Factory
             'place_of_birth' =>fake()->city(),
             'date_of_birth' => fake()->date(),
             'department' => fake()->randomElement(Department::cases()),
-            'isleader' => fake()->boolean(),
             'entry_card' => fake()->unique()->numberBetween(100000,999999),
         ];
     }

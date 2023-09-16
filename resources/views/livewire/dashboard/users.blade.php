@@ -2,7 +2,7 @@
     {{-- CONTROLL BLOCK BEGIN --}}
     <div class ='flex justify-between w-full p-2 bg-base-200 rounded-md mb-2'>
         <div class="flex  ">
-            @can('create', App\Models\User::class)
+            @can('create-user')
                 <x-button.tooltip side='right' label="Hozzáad" class="ml-7">
                     <x-button.primary wire:click="$emit('openModal','modals.new-user-form')" class="btn-circle">+</x-button.primary>
                 </x-button.tooltip>
@@ -17,11 +17,10 @@
                         @foreach (\App\Enum\Department::cases() as $department)
                             <option value={{$department}}>{{$department}}</option>
                         @endforeach
-                    </x-selector>    
+                    </x-selector>
                 </x-button.tooltip>
             </div>
         </div>
-        
         {{$users->links()}}
     </div>
     {{-- CONTROLL BLOCK END --}}
@@ -29,13 +28,13 @@
     <x-table class="p-2 bg-base-200 rounded-md ">
         <x-slot name="head">
             @if (!$users->count())
-                <x-table.head class="cursor-default">A keresésnek nincs eredménye</x-table.head> 
+                <x-table.head class="cursor-default">A keresésnek nincs eredménye</x-table.head>
             @else
-                <x-table.head class="cursor-default">#</x-table.head> 
+                <x-table.head class="cursor-default">#</x-table.head>
                 <x-table.head wire:click="sort('name')" class="cursor-pointer">Név</x-table.head>
                 <x-table.head wire:click="sort('email')" class="cursor-pointer">Email</x-table.head>
                 <x-table.head wire:click="sort('id')" class="cursor-pointer">Létrehozva</x-table.head>
-                @can('SuperAdmin')<x-table.head class="cursor-default">admin</x-table.head>@endcan
+                @role('system')<x-table.head class="cursor-default">admin</x-table.head>@endrole
             @endif
         </x-slot>
         <x-slot name='body'>

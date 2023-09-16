@@ -7,7 +7,6 @@
             {{$user->name}}
         </x-slot>
     </x-modals.header>
-
     @livewire('modals.user-form.user-form', ['user' => $user, 'readonly' => $readonly, 'target' => 'update'])
-    
+
 </div>

@@ -8,6 +8,8 @@ use App\Http\Livewire\Dashboard\Users;
 use App\Http\Livewire\PasswordReset;
 
 use App\Http\Controllers\AuthController;
+use Spatie\Permission\Models\Permission;
+
 use App\Http\Livewire\Dashboard\Tools;
 
 /*
@@ -39,3 +41,7 @@ Route::middleware('admin')->group(function(){
 
 
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
+
+Route::get('/test', function(){
+    dd(Permission::pluck('name')->toArray());
+});

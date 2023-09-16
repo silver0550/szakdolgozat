@@ -27,7 +27,7 @@ trait WithControlledTable
         } else {$this->sortDirection = true;}
 
         $this->sortColumnName = $type;
-        
+
     }
 
     public function filteredData(Builder $models): Builder
@@ -38,7 +38,7 @@ trait WithControlledTable
         $this->reset('filters');
 
         return $result;
-       
+
     }
 
     public function setFilters(Array $filters){
@@ -59,10 +59,10 @@ trait WithControlledTable
     public function rmFilter($filter){
 
         unset($this->filters[array_search($filter, $this->filters)]);
-        
+
         return $this;
     }
-    
+
     public function setUsersFilters(){
 
         $this->filters = [
@@ -88,11 +88,11 @@ trait WithControlledTable
 
     public function updatedSearch(){
         $this->resetPage();
-    }   
+    }
 
     public function updatedDepartmentFilter(){
         $this->resetPage();
-    }   
+    }
 
     public function updatedTypeFilter(){
         $this->resetPage();

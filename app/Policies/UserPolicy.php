@@ -18,7 +18,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->isAdmin;
+        //
     }
 
     /**
@@ -27,20 +27,10 @@ class UserPolicy
      * @param  \App\Models\User  $user
      * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
-     */ 
+     */
     public function view(User $user, User $model)
     {
-        if ($user->isAdmin){ return true;}
-
-        if ($model->property && $user->property){
-            return (
-                $user->id === $model->id ||
-                $user->property->department == $model->property->department &&
-                $user->property->isleader
-            );   
-        }
-
-        return $user->id === $model->id;
+        //
     }
 
     /**
@@ -51,7 +41,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return $user->isAdmin ;
+        //
     }
 
     /**
@@ -63,7 +53,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return $user->isAdmin;
+        //
     }
 
     /**
@@ -75,11 +65,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        if ($user->id === $model->id){ return false;}
-
-        if ($model->isAdmin){ return false;}
-
-        return $user->isAdmin;
+        //
     }
 
     /**

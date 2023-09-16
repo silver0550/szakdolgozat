@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('place_of_birth');
             $table->date('date_of_birth');
             $table->string('department');
-            $table->boolean('isleader');
             $table->json('language_knowledge')->nullable();
             $table->integer('entry_card')->unique();
             $table->timestamps();

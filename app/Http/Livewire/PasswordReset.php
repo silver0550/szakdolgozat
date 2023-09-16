@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Http\Traits\WithControlledTable;
 use App\Http\Traits\WithNotification;
 use App\Http\Traits\WithSelfPagination;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use App\Models\PasswordReset as PwResetModel;
 use App\Models\User;
@@ -41,7 +42,7 @@ class PasswordReset extends Component
 
             $this->chackedRequests->each(function ($id){
 
-                User::find($id)->update(['password' => env('DEFAULT_PASSWORD')]);
+                User::find($id)->update(['password' => Hash::make('password')]);
 
                 PwResetModel::where('user_id', $id)
                 ->first()
@@ -50,18 +51,18 @@ class PasswordReset extends Component
                     'completed_at' => now(),
                 ]);
 
-                $this->sendSuccessResponse(Notification::PASSWORD_RESET_SUCCESS);
-                
+                $this->alertSuccess(Notification::PASSWORD_RESET_SUCCESS);
+
             });
     }
 
     public function statusChange($id){
- 
+
         $this->chackedRequests = !$this->chackedRequests->contains($id) ?
                                 $this->chackedRequests->push($id) :
                                 $this->chackedRequests->reject(function($value) use($id){
                                     return $value == $id;
                                 });
     }
-    
+
 }

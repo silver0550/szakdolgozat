@@ -9,7 +9,7 @@
 
             </x-slot>
         </x-menu.horizontal>
-        @can('Admin')
+        @role('system|admin')
             <x-menu.horizontal class="mx-5" >
                 <x-slot name="main">
                     <x-indicator label={{$notification}}>
@@ -28,7 +28,7 @@
                     </li>
                 </x-slot>
             </x-menu.horizontal>
-        @endcan
+        @endrole
         @livewire('navbar.self-menu', ['user' => $userId])
     </div>
 </div>
