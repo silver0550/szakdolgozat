@@ -8,19 +8,28 @@ use Illuminate\Contracts\Database\Query\Builder;
 
 class SearchFromTools
 {
-    public function __construct(public String|null $what)
+    public function __construct(public array $where, public string|null $what)
     {
         //
     }
 
     public function handle(Builder $query, Closure $next): Builder
     {
-        if (!$this->what){
+        if (!$this->what) {
+
             return $next($query);
         }
 
-        $usersId = User::where('name', 'LIKE', '%'.$this->what.'%')->select('id');
+        return $next($query)->where(function ($query) {
+            foreach ($this->where as $where) {
 
-        return $next($query)->whereIn('user_id', $usersId);
+                if ($where == 'user_id') {
+                    $usersId = User::where('name', 'LIKE', '%' . $this->what . '%')->select('id');
+                    $query->orWhereIn('user_id', $usersId);
+                } else {
+                    $query->orWhere($where, 'LIKE', '%' . $this->what . '%');
+                }
+            }
+        });
     }
 }

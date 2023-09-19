@@ -7,18 +7,18 @@ use Illuminate\Validation\Validator;
 
 interface IsTool
 {
-    public function type(): String;
+    public function type(): string;
 
-    public function serialNumber(): String;
+    public function serialNumber(): string;
 
-    public function keeper(): String;
+    public function keeper(): string;
 
-    public function saveToTools(): Void;
+    public function saveToTools(): void;
 
-    public static function getInputs(): Array;
+    public static function getInputs(): array;
 
     public static function getValidator(array $validation);
 
-    
+
 
 }

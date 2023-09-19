@@ -30,9 +30,11 @@
             @if (!$tools->count())
                 <x-table.head class="cursor-default">A keresésnek nincs eredménye</x-table.head>
             @else
+                <x-table.head class="cursor-default"></x-table.head>
                 <x-table.head class="cursor-default">Azonosító</x-table.head>
                 <x-table.head class="cursor-default" >Típus</x-table.head>
                 <x-table.head class="cursor-default">Tulajdonosa</x-table.head>
+                <x-table.head class="cursor-default">Státus</x-table.head>
                 <x-table.head class="cursor-default" >Létrehozva</x-table.head>
             @endif
         </x-slot>
