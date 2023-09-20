@@ -1,22 +1,24 @@
 <div>
     <x-modals.body class="flex flex-col mx-10">
-
-        <x-selector wire:model='classType'>
-            <option value={{null}}>Válasszon</option>
-                @foreach (\App\Service\ToolService::getClasses() as $class => $name)
-                    <option value={{$class}}>{{$name}}</option>
-                @endforeach        
-        </x-selector>
+        <div class="flex ">
+            <ul class="menu menu-horizontal menu-lg{{--lg:menu-horizontal--}} bg-base-200 rounded-box">
+                @foreach(\App\Models\Tool::getTypes() as $model)
+                    <li wire:click="setClassType('{{addslashes($model)}}')">
+                        <img class="h-20 @if($classType == $model) active @endif"
+                             src="{{ (new $model)->img }}" alt="Tool">
+                    </li>
+                @endforeach
+            </ul>
+        </div>
         <div class="flex justify-between pl-5 ">
-            
             @if ($classType)
                 @foreach ($classType::getInputs() as $column => $input)
-                        <x-input.form-control class="w-3/5 pr-2" :error="$errors->first($column)" label={{$input}}>
-                            <x-input.text wire:model.lazy='modelData.{{$column}}'/> 
-                        </x-input.form-control>
+                    <x-input.form-control class="w-3/5 pr-2" :error="$errors->first($column)" label={{$input}}>
+                        <x-input.text wire:model.lazy='modelData.{{$column}}'/>
+                    </x-input.form-control>
                 @endforeach
             @endif
-        </div> 
+        </div>
         {{-- {{$errors->first()}} --}}
         {{-- @foreach ($errors->all() as $error)
             {{$error->message}}
@@ -24,14 +26,14 @@
 
 
 
-        
+
             {{-- {{$model->getInputs()}} --}}
         {{-- <div class="flex">
             <div class="flex flex-col justify-center w-full">
 
                 <div class="flex justify-between pl-5 ">
                     <x-input.form-control class="w-3/5 pr-2" :error="$errors->first('user.name')" label='Név*'>
-                        <x-input.text :readonly='$readonly' wire:model.lazy='user.name'/> 
+                        <x-input.text :readonly='$readonly' wire:model.lazy='user.name'/>
                     </x-input.form-control>
 
                     <div class="flex flex-col w-2/5 mx-auto text-center">
@@ -43,23 +45,23 @@
                 <div class="flex justify-between pl-5 w-full">
 
                     <x-input.form-control class=" w-3/5" :error="$errors->first('user.email')" label='Email*'>
-                        <x-input.text :readonly='$readonly'  wire:model.lazy='user.email'/> 
+                        <x-input.text :readonly='$readonly'  wire:model.lazy='user.email'/>
                     </x-input.form-control>
 
                     <x-input.form-control class="w-2/5 pl-5" :error="$errors->first('property.department')" label='Részleg*'>
-                    
+
                         <x-selector :disabled='$readonly'  wire:model.lazy="property.department" >
                             <option selected>Válasszon</option>
                             @foreach (\App\Enum\Department::cases() as $department)
                                 <option value={{$department}}>{{$department}}</option>
                             @endforeach
-                        
+
                         </x-selector>
-                    
+
                     </x-input.form-control>
-                
-                </div>  
-            
+
+                </div>
+
             </div>
         </div>
 
@@ -72,7 +74,7 @@
             <x-input.form-control  class="w-full ml-5" :error="$errors->first('property.date_of_birth')" label='Születési idő*'>
                 <x-input.date  :disabled='$readonly' wire:model.lazy=property.date_of_birth/>
             </x-input.form-control>
-        
+
             <x-input.form-control class="w-full ml-5" :error="$errors->first('property.entry_card')" label='Belépő kártya száma*'>
                 <x-input.text :disabled='$readonly'  placeholder="pl.:123456" wire:model.lazy='property.entry_card' />
             </x-input.form-control>

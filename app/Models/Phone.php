@@ -26,11 +26,12 @@ class Phone extends Model implements IsTool
         return $this->morphOne(Tool::class, 'owner');
     }
 
-    public function getImg(): string
+    public function getImgAttribute(): string
     {
         return PictureProviderEnum::PHONE->value;
     }
 
+    //-----
     public function serialNumber(): string
     {
 

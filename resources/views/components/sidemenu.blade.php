@@ -14,7 +14,7 @@
             </div>
         </div>
         @endif
-        {{auth()->user()->name}}
+        {{user()->name}}
         </span>
     </li>
     <li>
@@ -36,12 +36,10 @@
             <li>
                 <a
                     href="{{ route('tools') }}"
-                    @class(['active' => $isActive('tools')])
-                >
+                    @class(['active' => $isActive('tools')])>
                     <x-icon.phone-link-round />Eszközök
                 </a>
             </li>
-
     </div>
     <li>
         <a href="{{ route('search') }}" @class(['active' => $isActive('search')])>

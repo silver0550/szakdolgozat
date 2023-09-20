@@ -1,6 +1,6 @@
 <x-table.row class='text-center'>
     <x-table.cell>
-        <img class="w-15 h-10 m-auto" src= "{{ $tool->getImg() }}" alt="ToolImg">
+        <img class="w-15 h-10 m-auto" src= "{{ $tool->img }}" alt="ToolImg">
     </x-table.cell>
     <x-table.cell>{{ $tool->serialNumber() }}</x-table.cell>
     <x-table.cell>{{ $tool->type() }}</x-table.cell>

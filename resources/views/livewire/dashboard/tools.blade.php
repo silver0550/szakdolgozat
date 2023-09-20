@@ -4,7 +4,10 @@
         <div class="flex  ">
             @can('create-tool')
                 <x-button.tooltip side='right' label="Hozzáad" class="ml-7">
-                    <x-button.primary wire:click="$emit('openModal','modals.new-tool-form')" class="btn-circle">+</x-button.primary>
+                    <x-button.primary
+                        wire:click="$emit('openModal','modals.new-tool-form')"
+                        class="btn-circle">+
+                    </x-button.primary>
                 </x-button.tooltip>
             @endcan
             <div class="px-10  w-96 ">
@@ -27,7 +30,7 @@
     {{-- RESULT TABLE BEGIN --}}
     <x-table class="p-2 bg-base-200 rounded-md ">
         <x-slot name="head">
-            @if (!$tools->count())
+            @if ($tools->isEmpty())
                 <x-table.head class="cursor-default">A keresésnek nincs eredménye</x-table.head>
             @else
                 <x-table.head class="cursor-default"></x-table.head>

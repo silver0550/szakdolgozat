@@ -26,8 +26,7 @@ class Notebook extends Model implements IsTool
         return $this->morphOne(Tool::class, 'owner');
     }
 
-
-    public function getImg(): string
+    public function getImgAttribute(): string
     {
         return PictureProviderEnum::NOTEBOOK->value;
     }

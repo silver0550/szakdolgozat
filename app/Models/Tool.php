@@ -25,6 +25,14 @@ class Tool extends Model
         'status' => StatusEnum::class,
     ];
 
+    public static function getTypes(): array
+    {
+        return [
+            Phone::class,
+            Notebook::class,
+        ];
+    }
+
     public function owner(): MorphTo
     {
         return $this->morphTo();
