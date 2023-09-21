@@ -11,6 +11,6 @@ if (!function_exists('user')) {
 
 if (!function_exists('user_id')) {
     function user_id(): ?int {
-        return optional(Auth::user())->id;
+        return Auth::user()?->id;
     }
 }

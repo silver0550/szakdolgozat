@@ -10,7 +10,7 @@
                 @if ($user->avatar_path && Storage::disk('public')->exists($user->avatar_path))
                     <img src='storage/{{$user->avatar_path}}' alt="avatar">
                 @else
-                    <img src={{\App\Enum\Avatar::DEFAULT_AVATAR}} alt="avatar">
+                    <img src={{\App\Enum\PictureProviderEnum::DEFAULT_AVATAR}} alt="avatar">
                 @endif
             @endif
         </div>

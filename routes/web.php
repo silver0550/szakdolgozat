@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Tool;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Livewire\Login\Login;
@@ -43,5 +44,5 @@ Route::middleware('admin')->group(function(){
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 
 Route::get('/test', function(){
-    dd(Permission::pluck('name')->toArray());
+    dd(Tool::first()->status->getReadableText());
 });

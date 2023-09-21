@@ -2,15 +2,14 @@
 
 namespace App\Http\Livewire\Dashboard;
 
+use App\Models\BaseTool;
 use Livewire\Component;
-use App\Contracts\Services\IsTool;
 
 class ToolsList extends Component
 {
+    public BaseTool $tool;
 
-    public IsTool $tool;
-
-    public function mount( IsTool $tool)
+    public function mount(BaseTool $tool)
     {
         //
     }

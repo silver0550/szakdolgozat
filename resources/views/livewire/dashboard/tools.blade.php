@@ -4,7 +4,10 @@
         <div class="flex  ">
             @can('create-tool')
                 <x-button.tooltip side='right' label="Hozzáad" class="ml-7">
-                    <x-button.primary wire:click="$emit('openModal','modals.new-tool-form')" class="btn-circle">+</x-button.primary>
+                    <x-button.primary
+                        wire:click="$emit('openModal','modals.new-tool-form')"
+                        class="btn-circle">+
+                    </x-button.primary>
                 </x-button.tooltip>
             @endcan
             <div class="px-10  w-96 ">
@@ -13,9 +16,9 @@
             <div class="flex">
                 <x-button.tooltip label="Eszközök">
                     <x-selector wire:model='typeFilter'>
-                        <option selected value="{{null}}">Összes</option>
-                        @foreach (\App\Service\ToolService::getClasses() as $class => $name)
-                            <option value={{$class}}>{{$name}}</option>
+                        <option selected value="{{ null }}">Összes</option>
+                        @foreach (\App\Models\Tool::getTypes() as $class )
+                            <option value={{ $class }}>{{ (new $class)->myName }}</option>
                         @endforeach
                     </x-selector>
                 </x-button.tooltip>
@@ -27,12 +30,14 @@
     {{-- RESULT TABLE BEGIN --}}
     <x-table class="p-2 bg-base-200 rounded-md ">
         <x-slot name="head">
-            @if (!$tools->count())
+            @if ($tools->isEmpty())
                 <x-table.head class="cursor-default">A keresésnek nincs eredménye</x-table.head>
             @else
+                <x-table.head class="cursor-default"></x-table.head>
                 <x-table.head class="cursor-default">Azonosító</x-table.head>
                 <x-table.head class="cursor-default" >Típus</x-table.head>
                 <x-table.head class="cursor-default">Tulajdonosa</x-table.head>
+                <x-table.head class="cursor-default">Státus</x-table.head>
                 <x-table.head class="cursor-default" >Létrehozva</x-table.head>
             @endif
         </x-slot>
