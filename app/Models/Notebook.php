@@ -2,17 +2,13 @@
 
 namespace App\Models;
 
-use App\Contracts\Services\IsTool;
 use App\Enum\PictureProviderEnum;
-use App\Http\Traits\BaseTool;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Illuminate\Support\Facades\Validator;
 
-class Notebook extends Model implements IsTool
+class Notebook extends BaseTool
 {
-    use HasFactory, BaseTool;
+    use HasFactory;
 
     const LANG = 'notebook';
 

@@ -2,15 +2,12 @@
 
 namespace App\Models;
 
-use App\Contracts\Services\IsTool;
 use App\Enum\PictureProviderEnum;
-use App\Http\Traits\BaseTool;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Phone extends Model implements IsTool
+class Phone extends BaseTool
 {
-    use HasFactory, BaseTool; //TODO: leszármaztatni trait helyett
+    use HasFactory;
 
     const LANG = 'phone';
 
