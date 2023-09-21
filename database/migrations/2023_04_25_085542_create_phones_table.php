@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('phones', function (Blueprint $table) {
             $table->id();
-            $table->string('IMEI')->unique();
+            $table->string('imei')->unique();
             $table->string('manufacturer');
             $table->string('model_type');
             $table->text('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

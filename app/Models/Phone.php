@@ -7,12 +7,14 @@ use App\Enum\PictureProviderEnum;
 use App\Http\Traits\BaseTool;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Validator;
 
 class Phone extends Model implements IsTool
 {
-    use HasFactory, BaseTool;
+    use HasFactory, BaseTool; //TODO: leszármaztatni trait helyett
 
+    const LANG = 'phone';
+
+    protected $guarded = ['id'];
     protected $fillable = [
         'IMEI',
         'manufacturer',
@@ -20,10 +22,9 @@ class Phone extends Model implements IsTool
         'description',
     ];
 
-    public function tool()
+    public function getMyNameAttribute(): string
     {
-
-        return $this->morphOne(Tool::class, 'owner');
+        return __(self::LANG . '.phone');
     }
 
     public function getImgAttribute(): string
@@ -31,43 +32,18 @@ class Phone extends Model implements IsTool
         return PictureProviderEnum::PHONE->value;
     }
 
-    //-----
-    public function serialNumber(): string
+    public static function getInputFields(): array
     {
-
-        return $this->IMEI;
-    }
-
-    public static function getInputs(): array
-    {
-
         return [
-            'IMEI' => 'IMEI',
-            'manufacturer' => 'Gyártó',
-            'model_type' => 'Típus',
-            'description' => 'Leírás',
+            'imei',
+            'manufacturer',
+            'model_type',
+            'description',
         ];
     }
 
-    public static function getValidator(array $validate)
+    public function serialNumber(): string
     {
-
-        return Validator::make(
-            $validate,
-            [
-                'IMEI' => ['required', 'digits:12'],
-                'manufacturer' => ['required'],
-                'model_type' => ['required'],
-                '.description' => ['nullable'],
-            ],
-            [
-                'IMEI.required' => 'Egyedi azonosító kitöltése kötelező',
-                'IMEI.digits' => 'Az IMEI számnak 12 számjegyű számnak kell lennie.',
-                'serial_number.number' => 'Egyedi azonosító kitöltése kötelezp',
-                'manufacturer.required' => 'Gyártó megnevezése kötelező',
-                'model_type.required' => 'Típus megnevezése kötelező',
-            ]);
-
+        return $this->imei;
     }
-
 }

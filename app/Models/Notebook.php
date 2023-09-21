@@ -14,6 +14,8 @@ class Notebook extends Model implements IsTool
 {
     use HasFactory, BaseTool;
 
+    const LANG = 'notebook';
+
     protected $fillable = [
         'serial_number',
         'manufacturer',
@@ -31,40 +33,23 @@ class Notebook extends Model implements IsTool
         return PictureProviderEnum::NOTEBOOK->value;
     }
 
-//    ---------
     public function serialNumber(): string
     {
-
         return $this->serial_number;
     }
 
-    public static function getInputs(): array
+    public static function getInputFields(): array
     {
-
         return [
-            'serial_number' => 'Sorozatszám',
-            'manufacturer' => 'Gyártó',
-            'model_type' => 'Típus',
-            'description' => 'Leírás',
+            'serial_number',
+            'manufacturer',
+            'model_type',
+            'description',
         ];
     }
 
-    public static function getValidator(array $validate)
+    public function getMyNameAttribute(): string
     {
-
-        return Validator::make(
-            $validate,
-            [
-                'serial_number' => ['required'],
-                'manufacturer' => ['required'],
-                'model_type' => ['required'],
-                'description' => ['nullable'],
-            ], [
-                'serial_number.required' => 'Egyedi azonosító kitöltése kötelező',
-                'manufacturer.required' => 'Gyártó megnevezése kötelező',
-                'model_type.required' => 'Model megnevezése kötelező',
-
-            ]
-        );
+        return __('notebook.notebook');
     }
 }

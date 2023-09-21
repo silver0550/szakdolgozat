@@ -16,9 +16,9 @@
             <div class="flex">
                 <x-button.tooltip label="Eszközök">
                     <x-selector wire:model='typeFilter'>
-                        <option selected value="{{null}}">Összes</option>
-                        @foreach (\App\Service\ToolService::getClasses() as $class => $name)
-                            <option value={{$class}}>{{$name}}</option>
+                        <option selected value="{{ null }}">Összes</option>
+                        @foreach (\App\Models\Tool::getTypes() as $class )
+                            <option value={{ $class }}>{{ (new $class)->myName }}</option>
                         @endforeach
                     </x-selector>
                 </x-button.tooltip>

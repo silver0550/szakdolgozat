@@ -3,7 +3,7 @@
         <img class="w-15 h-10 m-auto" src= "{{ $tool->img }}" alt="ToolImg">
     </x-table.cell>
     <x-table.cell>{{ $tool->serialNumber() }}</x-table.cell>
-    <x-table.cell>{{ $tool->type() }}</x-table.cell>
+    <x-table.cell>{{ $tool->myName }}</x-table.cell>
     <x-table.cell>{{ $tool->keeper() }}</x-table.cell>
     <x-table.cell>{{ $tool->tool->status->getReadableText() }} </x-table.cell>
     <x-table.cell>{{ $tool->created_at->format('Y.m.d.') }}</x-table.cell>
