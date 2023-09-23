@@ -27,6 +27,6 @@ abstract class BaseTool extends Model
 
     public abstract function getImgAttribute(): string;
 
-    public abstract static function getInputFields(): array;
+//    public abstract static function getInputFields(): array;
 
 }

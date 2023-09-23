@@ -31,7 +31,7 @@ class Tool extends Model
             Phone::class,
             Notebook::class,
             Display::class,
-//            Printer::class,
+            Printer::class,
 //            SimCard::class,
 //            Tablet::class,
 //            WorkStation::class,

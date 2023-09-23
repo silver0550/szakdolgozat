@@ -3,7 +3,7 @@
         <div class="flex mb-2">
             <ul class="menu menu-horizontal menu-lg bg-base-200 rounded-box">
                 @foreach(\App\Models\Tool::getTypes() as $model)
-                    <li wire:click="$set('classType','{{addslashes($model)}}')">
+                    <li wire:click="$set('classType','{{ addslashes($model) }}')">
                         <img class="h-20 @if($classType == $model) active @endif"
                              src="{{ (new $model)->img }}" alt="Tool">
                     </li>
@@ -25,9 +25,9 @@
                 @case(\App\Models\Display::class)
                     @livewire('tool-view.' . $classType::LANG)
                     @break
-{{--                @case(\App\Models\Printer::class)--}}
-{{--                    @livewire('tool-view.' . $classType::LANG)--}}
-{{--                    @break--}}
+                @case(\App\Models\Printer::class)
+                    @livewire('tool-view.' . $classType::LANG)
+                    @break
 {{--                @case(\App\Models\SimCard::class)--}}
 {{--                    @livewire('tool-view.' . $classType::LANG)--}}
 {{--                    @break--}}

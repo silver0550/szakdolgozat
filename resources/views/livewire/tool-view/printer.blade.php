@@ -1,0 +1,3 @@
+<div>
+    PRINTER VIEW
+</div>
