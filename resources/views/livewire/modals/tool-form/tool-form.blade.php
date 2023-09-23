@@ -15,21 +15,43 @@
         </div>
         <hr>
         <div class="pt-5 ">
-
-            @foreach ($classType::getInputFields() as $index =>$input)
-                @if($index %2 == 0)
-                    <div class="flex justify-between pl-5 ">
-                @endif
-                <x-input.form-control
-                    class="w-3/5 pr-3"
-                    label="{{ __($classType::LANG . '.' . $input) }}"
-                    :error="$errors->first($input)" >
-                        <x-input.text wire:model.lazy='modelData.{{$input}}'/>
-                </x-input.form-control>
-                @if($index %2 != 0)
-                    </div>
-                @endif
-            @endforeach
+            @switch($classType)
+                @case(\App\Models\Phone::class)
+                    @livewire('tool-view.' . $classType::LANG)
+                    @break
+                @case(\App\Models\Notebook::class)
+                    @livewire('tool-view.' . $classType::LANG)
+                    @break
+                @case(\App\Models\Display::class)
+                    @livewire('tool-view.' . $classType::LANG)
+                    @break
+{{--                @case(\App\Models\Printer::class)--}}
+{{--                    @livewire('tool-view.' . $classType::LANG)--}}
+{{--                    @break--}}
+{{--                @case(\App\Models\SimCard::class)--}}
+{{--                    @livewire('tool-view.' . $classType::LANG)--}}
+{{--                    @break--}}
+{{--                @case(\App\Models\Tablet::class)--}}
+{{--                    @livewire('tool-view.' . $classType::LANG)--}}
+{{--                    @break--}}
+{{--                @case(\App\Models\WorkStation::class)--}}
+{{--                    @livewire('tool-view.' . $classType::LANG)--}}
+{{--                    @break--}}
+            @endswitch
+{{--            @foreach ($classType::getInputFields() as $index =>$input)--}}
+{{--                @if($index %2 == 0)--}}
+{{--                    <div class="flex justify-between pl-5 ">--}}
+{{--                @endif--}}
+{{--                <x-input.form-control--}}
+{{--                    class="w-3/5 pr-3"--}}
+{{--                    label="{{ __($classType::LANG . '.' . $input) }}"--}}
+{{--                    :error="$errors->first($input)" >--}}
+{{--                        <x-input.text wire:model.lazy='modelData.{{$input}}'/>--}}
+{{--                </x-input.form-control>--}}
+{{--                @if($index %2 != 0)--}}
+{{--                    </div>--}}
+{{--                @endif--}}
+{{--            @endforeach--}}
         </div>
     </x-modals.body>
     <x-modals.control>

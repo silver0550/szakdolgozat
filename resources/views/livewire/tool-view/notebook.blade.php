@@ -1,0 +1,3 @@
+<div>
+    NOTEBOOK VIEW
+</div>

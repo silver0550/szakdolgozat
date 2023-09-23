@@ -30,7 +30,7 @@ class Tool extends Model
         return [
             Phone::class,
             Notebook::class,
-//            Display::class,
+            Display::class,
 //            Printer::class,
 //            SimCard::class,
 //            Tablet::class,
