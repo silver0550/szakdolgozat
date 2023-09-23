@@ -2,13 +2,20 @@
 
 namespace App\Providers;
 
+use App\Models\Notebook;
+use App\Models\Phone;
+use App\Observers\BaseToolObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
+
+    protected $observers = [
+        Phone::class => [BaseToolObserver::class],
+        Notebook::class => [BaseToolObserver::class],
+    ];
     /**
      * The event to listener mappings for the application.
      *
