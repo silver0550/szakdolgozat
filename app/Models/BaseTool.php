@@ -21,14 +21,6 @@ abstract class BaseTool extends Model
         return $this->tool->user->name;
     }
 
-    public function saveToTools(): void
-    {
-        Tool::create([
-            'owner_type' => get_class($this),
-            'owner_id' => $this->id,
-        ]);
-    }
-
     public abstract function serialNumber(): string;
 
     public abstract function getMyNameAttribute(): string;

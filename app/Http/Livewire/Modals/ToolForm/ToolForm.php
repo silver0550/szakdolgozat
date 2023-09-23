@@ -6,6 +6,7 @@ use App\Http\Requests\PhoneRequest;
 use App\Http\Traits\WithNotification;
 use App\Models\Phone;
 use App\Providers\ClassRequestProvider;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 use Livewire\Component;
@@ -26,7 +27,6 @@ class ToolForm extends Component
     public function store(): void
     {
         $request = new $this->classRequest;
-
         $validated = Validator::make(
             $this->modelData,
             $request->rules(),
@@ -35,15 +35,13 @@ class ToolForm extends Component
 
         $this->errorBag = $validated->messages();
 
-//        if ($validated->passes()) { TODO
-//
-//            $this->classType::create($this->modelData)->saveToTools();
-//
-//            $this->alertSuccess('Az eszköz hozzáadása sikeresen megtörtént.');
-//
-//            $this->emitUp('close');
-//
-//        }
+        if ($validated->passes()) {
+
+            $this->classType::create($this->modelData);
+            $this->alertSuccess('Az eszköz hozzáadása sikeresen megtörtént.');
+            $this->emitUp('close');
+
+        }
 
 
     }

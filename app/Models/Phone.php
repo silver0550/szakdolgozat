@@ -13,7 +13,7 @@ class Phone extends BaseTool
 
     protected $guarded = ['id'];
     protected $fillable = [
-        'IMEI',
+        'imei',
         'manufacturer',
         'model_type',
         'description',
