@@ -31,9 +31,9 @@
                 @case(\App\Models\SimCard::class)
                     @livewire('tool-view.' . lineLifter($classType::LANG))
                     @break
-{{--                @case(\App\Models\Tablet::class)--}}
-{{--                    @livewire('tool-view.' . $classType::LANG)--}}
-{{--                    @break--}}
+                @case(\App\Models\Tablet::class)
+                    @livewire('tool-view.' . $classType::LANG)
+                    @break
 {{--                @case(\App\Models\WorkStation::class)--}}
 {{--                    @livewire('tool-view.' . $classType::LANG)--}}
 {{--                    @break--}}

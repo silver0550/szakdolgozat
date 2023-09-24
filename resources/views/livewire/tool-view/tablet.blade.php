@@ -1,0 +1,3 @@
+<div>
+    TABLET VIEW
+</div>

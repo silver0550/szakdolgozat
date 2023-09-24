@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -13,11 +12,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notebooks', function (Blueprint $table) {
+        Schema::create('tablet', function (Blueprint $table) {
             $table->id();
             $table->string('serial_number')->unique();
             $table->string('manufacturer');
             $table->string('model_type');
+            $table->unsignedTinyInteger('display_size');
+            $table->unsignedTinyInteger('color');
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('notebook');
+        Schema::dropIfExists('tablet');
     }
 };
