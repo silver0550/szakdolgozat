@@ -14,7 +14,7 @@ class PhoneRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'imei' => ['required', 'digits:12'],
+            'imei' => ['required', 'digits:12', 'unique:phones'],
             'manufacturer' => ['required'],
             'model_type' => ['required'],
             'description' => ['nullable'],

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enum\PictureProviderEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
@@ -27,13 +26,14 @@ abstract class BaseTool extends Model
 
         return $this->tool->user->name;
     }
+
     public abstract function serialNumber(): string;
 
     public abstract function getMyNameAttribute(): string;
 
     public abstract function getImgAttribute(): string;
 
-    public abstract static function getInputFields(): array;
+//    public abstract static function getInputFields(): array;
 
     /*
     |--------------------------------------------------------------------------
@@ -63,9 +63,4 @@ abstract class BaseTool extends Model
     |--------------------------------------------------------------------------
     */
 
-    /*
-    |--------------------------------------------------------------------------
-    | CUSTOM NON-BACKPACK METHODS
-    |--------------------------------------------------------------------------
-    */
 }

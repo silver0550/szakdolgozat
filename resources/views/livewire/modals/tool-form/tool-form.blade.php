@@ -38,6 +38,8 @@
                     @livewire('tool-view.' . lineLifter($classType::LANG))
                     @break
             @endswitch
+
+
 {{--            @foreach ($classType::getInputFields() as $index =>$input)--}}
 {{--                @if($index %2 == 0)--}}
 {{--                    <div class="flex justify-between pl-5 ">--}}
@@ -54,7 +56,7 @@
 {{--            @endforeach--}}
         </div>
     </x-modals.body>
-    <x-modals.control>
-        <x-button.primary :disabled="!$classType" wire:click="store">Mentés</x-button.primary>
-    </x-modals.control>
+{{--    <x-modals.control>--}}
+{{--        <x-button.primary :disabled="!$classType" wire:click="store">Mentés</x-button.primary>--}}
+{{--    </x-modals.control>--}}
 </div>
