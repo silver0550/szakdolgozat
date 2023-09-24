@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use App\Enum\PictureProviderEnum;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-abstract class BaseTool extends Model
+class WorkStation extends BaseTool
 {
+    use HasFactory;
+
+    const LANG = 'work_station';
+
     /*
    |--------------------------------------------------------------------------
    | GLOBAL VARIABLES
@@ -19,31 +22,20 @@ abstract class BaseTool extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-    public function keeper(): string  //TODO: attrib jobb lenne
+    public function serialNumber(): string
     {
-        if (!$this->tool->user_id) {
-            return 'Raktár';
-        }
-
-        return $this->tool->user->name;
+        return $this->serial_number;
     }
-    public abstract function serialNumber(): string;
-
-    public abstract function getMyNameAttribute(): string;
-
-    public abstract function getImgAttribute(): string;
-
-    public abstract static function getInputFields(): array;
+    public static function getInputFields(): array
+    {
+        return [];
+    }
 
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function tool(): MorphOne
-    {
-        return $this->morphOne(Tool::class, 'owner');
-    }
 
     /*
     |--------------------------------------------------------------------------
@@ -56,6 +48,15 @@ abstract class BaseTool extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+    public function getMyNameAttribute(): string
+    {
+        return __(self::LANG . '.work_station');
+    }
+
+    public function getImgAttribute(): string
+    {
+        return PictureProviderEnum::WORK_STATION->value;
+    }
 
     /*
     |--------------------------------------------------------------------------

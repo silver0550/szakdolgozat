@@ -34,9 +34,9 @@
                 @case(\App\Models\Tablet::class)
                     @livewire('tool-view.' . $classType::LANG)
                     @break
-{{--                @case(\App\Models\WorkStation::class)--}}
-{{--                    @livewire('tool-view.' . $classType::LANG)--}}
-{{--                    @break--}}
+                @case(\App\Models\WorkStation::class)
+                    @livewire('tool-view.' . lineLifter($classType::LANG))
+                    @break
             @endswitch
 {{--            @foreach ($classType::getInputFields() as $index =>$input)--}}
 {{--                @if($index %2 == 0)--}}

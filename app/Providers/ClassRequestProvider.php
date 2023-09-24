@@ -8,12 +8,14 @@ use App\Http\Requests\PhoneRequest;
 use App\Http\Requests\PrinterRequest;
 use App\Http\Requests\SimCardRequest;
 use App\Http\Requests\TabletRequest;
+use App\Http\Requests\WorkStationRequest;
 use App\Models\Display;
 use App\Models\Notebook;
 use App\Models\Phone;
 use App\Models\Printer;
 use App\Models\SimCard;
 use App\Models\Tablet;
+use App\Models\WorkStation;
 
 class ClassRequestProvider
 {
@@ -26,6 +28,7 @@ class ClassRequestProvider
             Printer::class => PrinterRequest::class,
             SimCard::class => SimCardRequest::class,
             Tablet::class => TabletRequest::class,
+            WorkStation::class => WorkStationRequest::class,
             default => null,
         };
 
