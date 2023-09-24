@@ -6,20 +6,23 @@ use App\Http\Requests\DisplayRequest;
 use App\Http\Requests\NotebookRequest;
 use App\Http\Requests\PhoneRequest;
 use App\Http\Requests\PrinterRequest;
+use App\Http\Requests\SimCardRequest;
 use App\Models\Display;
 use App\Models\Notebook;
 use App\Models\Phone;
 use App\Models\Printer;
+use App\Models\SimCard;
 
 class ClassRequestProvider
 {
     public static function get($class): string
     {
-        return match($class){
+        return match ($class) {
             Phone::class => PhoneRequest::class,
             Notebook::class => NotebookRequest::class,
             Display::class => DisplayRequest::class,
             Printer::class => PrinterRequest::class,
+            SimCard::class => SimCardRequest::class,
             default => null,
         };
 

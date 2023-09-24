@@ -32,7 +32,7 @@ class Tool extends Model
             Notebook::class,
             Display::class,
             Printer::class,
-//            SimCard::class,
+            SimCard::class,
 //            Tablet::class,
 //            WorkStation::class,
         ];

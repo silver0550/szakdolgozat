@@ -18,7 +18,7 @@
 @endphp
 
 <input
-    
+
     type = "{{ $password ? 'password' : 'text' }}"
     placeholder = "{{ $placeholder }}"
     @disabled($readonly)
