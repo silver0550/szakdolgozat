@@ -14,7 +14,7 @@ class NotebookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'serial_number' => ['required','unique'],
+            'serial_number' => ['required','unique:notebooks'],
             'manufacturer' => ['required'],
             'model_type' => ['required'],
             'description' => ['nullable'],

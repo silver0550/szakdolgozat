@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use App\Enum\PictureProviderEnum;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Support\Str;
 
 class Notebook extends BaseTool
 {
@@ -34,6 +36,12 @@ class Notebook extends BaseTool
         return $this->serial_number;
     }
 
+    public function serial_number(): Attribute
+    {
+        return Attribute::make(
+            set: fn($value) => Str::upper($value), //TODO: Nem működik
+        );
+    }
     public static function getInputFields(): array
     {
         return [

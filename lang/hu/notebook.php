@@ -6,4 +6,5 @@ return [
     'manufacturer' => 'Gyártó',
     'model_type' => 'Model típus',
     'description' => 'Leírás',
+    'create_success' => 'A laptop felvétele sikeresen megtörtént',
 ];
