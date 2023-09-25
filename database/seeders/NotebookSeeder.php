@@ -2,12 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Notebook;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Phone;
-use App\Models\Tool;
 
-class PhoneSeeder extends Seeder
+class NotebookSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,6 +15,6 @@ class PhoneSeeder extends Seeder
      */
     public function run(): void
     {
-        Phone::factory(10)->create();
+        Notebook::factory(10)->create();
     }
 }

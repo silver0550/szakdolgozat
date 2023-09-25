@@ -2,9 +2,9 @@
     <div class="flex">
         <x-input.form-control
             class="w-3/6 pr-3"
-            label="{{ __('phone.imei') }}"
-            :error="$errors->first('imei')" >
-            <x-input.text wire:model.lazy='data.imei'/>
+            label="{{ __('phone.serial_number') }}"
+            :error="$errors->first('serial_number')" >
+            <x-input.text wire:model.lazy='data.serial_number'/>
         </x-input.form-control>
 
         <x-input.form-control

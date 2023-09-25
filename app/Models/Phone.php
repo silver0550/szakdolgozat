@@ -12,12 +12,6 @@ class Phone extends BaseTool
     const LANG = 'phone';
 
     protected $guarded = ['id'];
-    protected $fillable = [
-        'imei',
-        'manufacturer',
-        'model_type',
-        'description',
-    ];
 
     /*
     |--------------------------------------------------------------------------
@@ -30,14 +24,7 @@ class Phone extends BaseTool
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-    public static function getInputFields(): array
-    {
-        return [];
-    }
-    public function serialNumber(): string
-    {
-        return $this->imei;
-    }
+
 
     /*
     |--------------------------------------------------------------------------

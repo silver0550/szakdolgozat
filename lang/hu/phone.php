@@ -2,7 +2,7 @@
 
 return [
     'phone' => 'Mobiltelefon',
-    'imei' => 'IMEI szám',
+    'serial_number' => 'IMEI szám',
     'manufacturer' => 'Gyártó',
     'model_type' => 'Model típus',
     'description' => 'Leírás',

@@ -14,7 +14,7 @@ class PhoneRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'imei' => ['required', 'digits:12', 'unique:phones'],
+            'serial_number' => ['required', 'digits:12', 'unique:phones'],
             'manufacturer' => ['required'],
             'model_type' => ['required'],
             'description' => ['nullable'],
@@ -25,7 +25,7 @@ class PhoneRequest extends FormRequest
     {
         return
             [
-                'imei' => __('phone.imei'),
+                'serial_number' => __('phone.serial_number'),
                 'manufacturer' => __('phone.manufacturer'),
                 'model_type' => __('phone.model_type'),
                 'description' => __('phone.description'),

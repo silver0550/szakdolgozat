@@ -11,24 +11,12 @@ use App\Models\User;
 
 class ToolSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    public function run(): void
     {
-        Tool::factory(20)->create([
-            'owner_type' => Phone::class,
-            'owner_id' => Phone::factory(),
-            'user_id' => User::factory(),
+        $this->call([
+            PhoneSeeder::class,
+            NotebookSeeder::class,
         ]);
 
-        Tool::factory(20)->create([
-            'owner_type' => Notebook::class,
-            'owner_id' =>Notebook::factory(),
-            'user_id' => User::factory(),
-
-        ]);
     }
 }

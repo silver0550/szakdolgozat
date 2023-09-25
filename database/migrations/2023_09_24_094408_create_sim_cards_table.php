@@ -12,7 +12,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('sim_card', function (Blueprint $table) {
+        Schema::create('sim_cards', function (Blueprint $table) {
             $table->id();
             $table->string('serial_number')->unique();
             $table->unsignedTinyInteger('provider');
@@ -29,6 +29,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('sim_card');
+        Schema::dropIfExists('sim_cards');
     }
 };

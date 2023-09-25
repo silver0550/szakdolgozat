@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Support\Str;
 
 abstract class BaseTool extends Model
 {
@@ -18,16 +20,18 @@ abstract class BaseTool extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-    public function keeper(): string  //TODO: attrib jobb lenne
+    public function getKeeperAttribute(): string|null
     {
-        if (!$this->tool->user_id) {
-            return 'Raktár';
-        }
-
-        return $this->tool->user->name;
+        return $this->tool?->user?->name;
     }
 
-    public abstract function serialNumber(): string;
+    public function serialNumber(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => $value,
+            set: fn($value) => Str::upper($value),
+        );
+    }
 
     public abstract function getMyNameAttribute(): string;
 
