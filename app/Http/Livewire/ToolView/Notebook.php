@@ -14,6 +14,9 @@ class Notebook extends Component
 
     public array $data = [];
     public string $request = NotebookRequest::class;
+    protected $listeners = [
+        'store'
+    ];
 
     public function store(): void
     {

@@ -56,7 +56,10 @@
 {{--            @endforeach--}}
         </div>
     </x-modals.body>
-{{--    <x-modals.control>--}}
-{{--        <x-button.primary :disabled="!$classType" wire:click="store">Mentés</x-button.primary>--}}
-{{--    </x-modals.control>--}}
+    <x-modals.control>
+        <x-button.primary
+            wire:click="$emitTo('{{'tool-view.' . lineLifter($classType::LANG)}}', 'store')"
+            :disabled="!$classType">
+            {{ __('global.save') }}</x-button.primary>
+    </x-modals.control>
 </div>

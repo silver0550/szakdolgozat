@@ -16,6 +16,10 @@ class Phone extends Component
     public array $data = [];
     public string $request = PhoneRequest::class;
 
+    protected $listeners = [
+        'store'
+    ];
+
     public function store(): void
     {
         $request = new $this->request;

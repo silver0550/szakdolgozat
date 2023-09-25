@@ -28,7 +28,4 @@
             <x-input.text wire:model.lazy='data.description'/>
         </x-input.form-control>
     </div>
-    <x-modals.control>
-        <x-button.primary wire:click="store">Mentés</x-button.primary>
-    </x-modals.control>
 </div>

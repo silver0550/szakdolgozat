@@ -51,7 +51,4 @@
                 wire:model="data.is_flexible"/>
         </div>
     </div>
-    <x-modals.control>
-        <x-button.primary wire:click="store">{{ __('global.save') }}</x-button.primary>
-    </x-modals.control>
 </div>

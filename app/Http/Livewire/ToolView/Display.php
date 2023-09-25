@@ -15,6 +15,10 @@ class Display extends Component
     public array $data = [];
     public string $request = DisplayRequest::class;
 
+    protected $listeners = [
+        'store'
+    ];
+
     public function store(): void
     {
         $request = new $this->request;

@@ -24,27 +24,25 @@ class ToolForm extends Component
         return view('livewire.modals.tool-form.tool-form');
     }
 
-    public function store(): void
-    {
-        $request = new $this->classRequest;
-        $validated = Validator::make(
-            $this->modelData,
-            $request->rules(),
-            customAttributes: $request->attributes(),
-        );
-
-        $this->errorBag = $validated->messages();
-
-        if ($validated->passes()) {
-
-            $this->classType::create($this->modelData);
-            $this->alertSuccess('Az eszköz hozzáadása sikeresen megtörtént.');
-            $this->emitUp('close');
-
-        }
-
-
-    }
+//    public function store(): void
+//    {
+//        $request = new $this->classRequest;
+//        $validated = Validator::make(
+//            $this->modelData,
+//            $request->rules(),
+//            customAttributes: $request->attributes(),
+//        );
+//
+//        $this->errorBag = $validated->messages();
+//
+//        if ($validated->passes()) {
+//
+//            $this->classType::create($this->modelData);
+//            $this->alertSuccess('Az eszköz hozzáadása sikeresen megtörtént.');
+//            $this->emitUp('close');
+//
+//        }
+//    }
 
     public function updatedClassType()
     {
