@@ -17,10 +17,12 @@
 
 <div class="inline-block">
     @if ($label)
-        <label class="" for={{$for}}>{{$label}}:</label>
+        <label class="label" for={{ $for }}>
+            <span class="label-text">{{ $label }}</span>
+        </label>
     @endif
-    
-    <select 
+
+    <select
         @disabled($disabled)
         {{ $attributes->whereDoesntStartWith('wire:key')->merge(['class' => $style]) }}
     >
