@@ -7,6 +7,8 @@ use App\Models\Notebook;
 use App\Models\Phone;
 use App\Models\Printer;
 use App\Models\SimCard;
+use App\Models\Tablet;
+use App\Models\WorkStation;
 use App\Observers\BaseToolObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -14,13 +16,14 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 
 class EventServiceProvider extends ServiceProvider
 {
-
     protected $observers = [
         Phone::class => [BaseToolObserver::class],
         Notebook::class => [BaseToolObserver::class],
         Display::class => [BaseToolObserver::class],
         Printer::class => [BaseToolObserver::class],
         SimCard::class => [BaseToolObserver::class],
+        Tablet::class => [BaseToolObserver::class],
+        WorkStation::class => [BaseToolObserver::class],
     ];
 
     protected $listen = [

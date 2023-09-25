@@ -2,11 +2,19 @@
 
 namespace App\Http\Livewire\ToolView;
 
-use Livewire\Component;
+use App\Http\Requests\SimCardRequest;
+use App\Models\SimCard as SimCardModel;
+use Illuminate\View\View;
 
-class SimCard extends Component
+class SimCard extends BaseToolView
 {
-    public function render()
+    public function mount(): void
+    {
+        $this->model = SimCardModel::class;
+        $this->request = SimCardRequest::class;
+    }
+
+    public function render(): View
     {
         return view('livewire.tool-view.sim-card');
     }
