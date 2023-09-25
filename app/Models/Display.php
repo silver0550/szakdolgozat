@@ -13,6 +13,7 @@ class Display extends BaseTool
     use HasFactory;
     const LANG = 'display';
 
+    protected $guarded = ['id'];
     protected $casts = [
         'size' => SizeEnum::class,
     ];

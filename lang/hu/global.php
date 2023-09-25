@@ -4,5 +4,5 @@ return [
     'yes' => 'Igen',
     'no' => 'Nem',
     'save' => 'Mentés',
-    'check_data' => 'Ellenőrizza a megadott adatokat',
+    'check_data' => 'Ellenőrizze a megadott adatokat',
 ];

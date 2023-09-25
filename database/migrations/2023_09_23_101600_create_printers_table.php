@@ -12,13 +12,13 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('tablet', function (Blueprint $table) {
+        Schema::create('printers', function (Blueprint $table) {
             $table->id();
             $table->string('serial_number')->unique();
             $table->string('manufacturer');
             $table->string('model_type');
-            $table->unsignedTinyInteger('display_size');
-            $table->unsignedTinyInteger('color');
+            $table->boolean('is_colorful')->default(false);
+            $table->unsignedTinyInteger('type')->default(1);
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -32,6 +32,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('tablet');
+        Schema::dropIfExists('printers');
     }
 };

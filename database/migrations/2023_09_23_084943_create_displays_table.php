@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -12,13 +13,14 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('printer', function (Blueprint $table) {
+        Schema::create('displays', function (Blueprint $table) {
             $table->id();
             $table->string('serial_number')->unique();
             $table->string('manufacturer');
             $table->string('model_type');
-            $table->boolean('is_colorful')->default(false);
-            $table->unsignedTinyInteger('type')->default(1);
+            $table->unsignedTinyInteger('size')->nullable();
+            $table->unsignedBigInteger('resolution')->nullable();
+            $table->boolean('is_flexible')->default(false);
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -32,6 +34,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('printer');
+        Schema::dropIfExists('displays');
     }
 };

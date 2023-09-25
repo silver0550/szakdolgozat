@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Enum\PictureProviderEnum;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Str;
 
 class Notebook extends BaseTool
@@ -14,17 +13,7 @@ class Notebook extends BaseTool
 
     const LANG = 'notebook';
 
-    protected $fillable = [
-        'serial_number',
-        'manufacturer',
-        'model_type',
-        'description'
-    ];
-
-    public function tool(): MorphOne
-    {
-        return $this->morphOne(Tool::class, 'owner');
-    }
+    protected $guarded = ['id'];
 
     public function getImgAttribute(): string
     {
@@ -36,21 +25,13 @@ class Notebook extends BaseTool
         return $this->serial_number;
     }
 
-    public function serial_number(): Attribute
-    {
-        return Attribute::make(
-            set: fn($value) => Str::upper($value), //TODO: Nem működik
-        );
-    }
-    public static function getInputFields(): array
-    {
-        return [
-            'serial_number',
-            'manufacturer',
-            'model_type',
-            'description',
-        ];
-    }
+//    public function serialNumber(): Attribute
+//    {
+//        return Attribute::make(
+//            get: fn($value) => $value,
+//            set: fn($value) => Str::upper($value), //TODO: Nem működik
+//        );
+//    }
 
     public function getMyNameAttribute(): string
     {

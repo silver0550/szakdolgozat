@@ -6,25 +6,16 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class DisplayRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
+
     public function authorize(): bool
     {
         return auth()->check();
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
     public function rules(): array
     {
         return [
-            'serial_number' => ['required', 'unique'],
+            'serial_number' => ['required', 'unique:displays'],
             'manufacturer' => ['required','string'],
             'model_type' => ['required','string'],
             'size' => ['nullable', 'int'],
