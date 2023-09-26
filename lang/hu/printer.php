@@ -7,5 +7,7 @@ return [
     'model_type' => 'Model típus',
     'description' => 'Leírás',
     'is_colorful' => 'Színes',
-    'type' => 'Típus,'
+    'type' => 'Típus',
+    'laser' => 'Lézer ',
+    'inkjet' => 'Tintasugaras '
 ];

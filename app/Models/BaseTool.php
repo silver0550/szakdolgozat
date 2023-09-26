@@ -20,24 +20,6 @@ abstract class BaseTool extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-    public function getKeeperAttribute(): string|null
-    {
-        return $this->tool?->user?->name;
-    }
-
-    public function serialNumber(): Attribute
-    {
-        return Attribute::make(
-            get: fn($value) => $value,
-            set: fn($value) => Str::upper($value),
-        );
-    }
-
-    public abstract function getMyNameAttribute(): string;
-
-    public abstract function getImgAttribute(): string;
-
-//    public abstract static function getInputFields(): array;
 
     /*
     |--------------------------------------------------------------------------
@@ -60,6 +42,22 @@ abstract class BaseTool extends Model
     | ACCESSORS
     |--------------------------------------------------------------------------
     */
+    public function getKeeperAttribute(): string|null
+    {
+        return $this->tool?->user?->name;
+    }
+
+    public function serialNumber(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => $value,
+            set: fn($value) => Str::upper($value),
+        );
+    }
+
+    public abstract function getMyNameAttribute(): string;
+
+    public abstract function getImgAttribute(): string;
 
     /*
     |--------------------------------------------------------------------------
