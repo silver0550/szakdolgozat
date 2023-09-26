@@ -63,13 +63,14 @@ class PwResetRequest extends ModalComponent
 
                 $this->closeModal();
 
-                return $this->alertSuccess(Notification::PASSWORD_RESET_REQUEST_SUCCES);
+                $this->alertSuccess(__('alert.password_reset_success'));
+
+                return;
             }
 
         }
 
-        return $this->alertError(Notification::PASSWORD_RESET_REQUEST_FAILD);
-
+        $this->alertError(__('alert.password_reset_fail'));
     }
 
     public function store(Collection $data): Void
