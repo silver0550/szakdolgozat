@@ -8,13 +8,12 @@ use App\Models\PasswordReset as PasswordResetModel;
 use App\Filters\Builder\Active;
 use App\Filters\Builder\HasProperty;
 use App\Http\Traits\WithNotification;
+use Illuminate\View\View;
 use LivewireUI\Modal\ModalComponent;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Collection;
-use App\Enum\Notification;
 class PwResetRequest extends ModalComponent
 {
-
     use WithNotification;
 
     public $name;
@@ -34,9 +33,8 @@ class PwResetRequest extends ModalComponent
         'entryCard.required' => 'A belépő kártya számát kötelező megadni!'
     ];
 
-    public function send()
+    public function send(): void
     {
-
         $this->validate();
 
         $isExist = (new Pipeline(app()))
@@ -59,7 +57,7 @@ class PwResetRequest extends ModalComponent
 
             if ( $isExist ) {
 
-                $this->store(collect(Array('user_id' => $isExist->id)));
+                $this->store(collect(array('user_id' => $isExist->id)));
 
                 $this->closeModal();
 
@@ -67,15 +65,12 @@ class PwResetRequest extends ModalComponent
 
                 return;
             }
-
         }
-
         $this->alertError(__('alert.password_reset_fail'));
     }
 
-    public function store(Collection $data): Void
+    public function store(Collection $data): void
     {
-
         if ($data->has('user_id')){
 
             $hasRequest = (new Pipeline(app()))
@@ -89,10 +84,9 @@ class PwResetRequest extends ModalComponent
             if ($hasRequest) { PasswordResetModel::find($hasRequest->id)->touch(); }
             else { PasswordResetModel::create(['user_id' => $data['user_id']]); }
         }
-
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.login.pw-reset-request');
     }

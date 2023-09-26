@@ -3,13 +3,13 @@
     {{-- CONTROLL BLOCK BEGIN --}}
     <div class ='flex justify-between w-full p-2 bg-base-200 rounded-md mb-2'>
         <div class="flex  ">
-            @can('create', App\Models\User::class)
-            <x-button.tooltip label="Visszaállítás" class="ml-7">
-                <x-button.primary wire:click="resetAll" class="btn-circle">
-                    <x-icon.passwordReset/>
-                </x-button.primary>
-            </x-button.tooltip>
-        @endcan
+            @role('admin|system')
+                <x-button.tooltip label="Visszaállítás" class="ml-7">
+                    <x-button.primary wire:click="resetAll" class="btn-circle">
+                        <x-icon.passwordReset/>
+                    </x-button.primary>
+                </x-button.tooltip>
+            @endrole
             <div class="px-10  w-96 ">
                 <x-input.text wire:model="search"  placeholder="Keresés..."/>
             </div>
@@ -20,7 +20,7 @@
                         @foreach (\App\Enum\Department::cases() as $department)
                             <option value={{$department}}>{{$department}}</option>
                         @endforeach
-                    </x-selector>    
+                    </x-selector>
                 </x-button.tooltip>
             </div>
 
@@ -32,9 +32,9 @@
     <x-table class="p-2 bg-base-200 rounded-md ">
         <x-slot name="head">
             @if ($users->isEmpty())
-                <x-table.head class="cursor-default">Nics aktív kérés</x-table.head> 
+                <x-table.head class="cursor-default">Nics aktív kérés</x-table.head>
             @else
-                <x-table.head class="cursor-default">#</x-table.head> 
+                <x-table.head class="cursor-default">#</x-table.head>
                 <x-table.head wire:click="sort('name')" class="cursor-pointer">Név</x-table.head>
                 <x-table.head wire:click="sort('email')" class="cursor-pointer">Email</x-table.head>
                 <x-table.head wire:click="sort('id')" class="cursor-pointer">Létrehozva</x-table.head>
@@ -48,6 +48,6 @@
     </x-table>
 
     <x-pagination.info :paginator="$users" class=" mt-2 mr-2"/>
-    
+
     {{-- RESULT TABLE END --}}
 </div>

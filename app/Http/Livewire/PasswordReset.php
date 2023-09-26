@@ -39,7 +39,6 @@ class PasswordReset extends Component
 
     public function resetAll(){
 
-
             $this->chackedRequests->each(function ($id){
 
                 User::find($id)->update(['password' => Hash::make('password')]);
@@ -51,7 +50,7 @@ class PasswordReset extends Component
                     'completed_at' => now(),
                 ]);
 
-                $this->alertSuccess(Notification::PASSWORD_RESET_SUCCESS);
+                $this->alertSuccess(__('alert.password_reset_success'));
 
             });
     }
