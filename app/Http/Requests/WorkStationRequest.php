@@ -14,7 +14,7 @@ class WorkStationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'serial_number' => ['required','unique'],
+            'serial_number' => ['required','unique:work_stations'],
             'manufacturer' => ['required'],
             'model_type' => ['required'],
             'description' => ['nullable'],
