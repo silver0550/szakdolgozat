@@ -14,7 +14,7 @@ class SimCardRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'serial_number' => ['required', 'unique'],
+            'serial_number' => ['required', 'unique:sim_cards'],
             'provider' => ['required','int'],
             'size' => ['required', 'int'],
             'description' => ['nullable'],

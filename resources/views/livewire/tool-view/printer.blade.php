@@ -28,11 +28,12 @@
         </x-input.form-control>
     </div>
     <div class="flex justify-between">
-        <x-selector wire:model="data.is_colorful"
-                    label="{{ __('printer.is_colorful') }}">
-            <option selected value="{{false}}">{{ __('global.no') }}</option>
-            <option value={{true}}>{{ __('global.yes') }}</option>
-        </x-selector>
+        <div class="flex items-center pt-6">
+            <label for="toggle" class="label">
+                <span class="label-text">{{ __('printer.is_colorful') }}:</span>
+            </label>
+            <x-button.toggle class="ml-2" wire:model="data.is_colorful"/>
+        </div>
         <x-selector wire:model="data.type"
                     label="{{ __('printer.type') }}">
             <option selected value="{{null}}">Nincs</option>

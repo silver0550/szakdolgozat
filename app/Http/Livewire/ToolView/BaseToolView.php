@@ -37,7 +37,7 @@ abstract class BaseToolView extends Component
         }
 
         $this->model::create($this->data);
-        $this->alertSuccess(__($this->model::LANG . '.create_success'));
+        $this->alertSuccess(__('global.create_success'));
         $this->emitUp('close');
     }
 

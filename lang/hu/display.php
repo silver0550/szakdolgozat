@@ -9,5 +9,4 @@ return [
     'resolution' => 'Felbontás',
     'is_flexible' => 'Állítható',
     'description' => 'Leírás',
-    'create_success' => 'A monitor felvétele sikeresen megtörtént',
 ];

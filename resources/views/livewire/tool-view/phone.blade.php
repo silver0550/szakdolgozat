@@ -26,6 +26,6 @@
                 label="{{ __('phone.description') }}"
                 :error="$errors->first('description')" >
                 <x-input.text wire:model.lazy='data.description'/>
-            </x-input.form-control>
+        </x-input.form-control>
     </div>
 </div>
