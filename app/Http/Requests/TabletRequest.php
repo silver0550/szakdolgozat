@@ -14,7 +14,7 @@ class TabletRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'serial_number' => ['required','unique'],
+            'serial_number' => ['required','unique:tablets'],
             'manufacturer' => ['required'],
             'model_type' => ['required'],
             'display_size' =>['required','int'],
