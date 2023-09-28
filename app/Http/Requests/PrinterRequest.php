@@ -19,7 +19,7 @@ class PrinterRequest extends FormRequest
             'model_type' => ['required'],
             'description' => ['nullable'],
             'is_colorful' => ['nullable', 'boolean'],
-            'type' => ['nullable', 'int'],
+            'type' => ['required','int'],
         ];
     }
 

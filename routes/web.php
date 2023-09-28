@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function(){
 });
 
 Route::middleware('admin')->group(function(){
-    Route::get('/password-reset', PasswordReset::class)->name('password-reset'); //TODO: password reset létrehozása
+    Route::get('/password-reset', PasswordReset::class)->name('password-reset');
 
 });
 

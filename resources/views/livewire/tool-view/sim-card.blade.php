@@ -7,16 +7,18 @@
             <x-input.text wire:model.lazy='data.serial_number'/>
         </x-input.form-control>
         <x-selector wire:model="data.provider"
-                    label="{{ __('sim_card.provider') }}">
-            <option selected value="{{null}}">Nincs</option>
+                    label="{{ __('sim_card.provider') }}"
+                    :error="$errors->first('provider')">
+            <option selected value="{{null}}">{{ __('global.select') }}</option>
             @foreach(\App\Enum\Tools\SimCArd\ProviderEnum::cases() as $provider)
                 <option value={{$provider}}>{{ $provider->getReadableText() }}</option>
             @endforeach
         </x-selector>
         <x-selector wire:model="data.size"
-                    label="{{ __('sim_card.size') }}">
-            <option selected value="{{ null }}">Nincs</option>
-            @foreach(\App\Enum\Tools\SimCard\SizeEnum::cases() as $size)
+                    label="{{ __('sim_card.size') }}"
+                    :error="$errors->first('size')">
+            <option selected value="{{null}}">{{ __('global.select') }}</option>
+            @foreach(\App\Enum\Tools\SimCard\SizeEnum::cases() as $index => $size)
                 <option value={{$size}}>{{ $size->getReadableText() }}</option>
             @endforeach
         </x-selector>
