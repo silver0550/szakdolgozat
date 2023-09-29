@@ -3,15 +3,17 @@
 namespace App\Http\Livewire\Dashboard;
 
 use App\Models\BaseTool;
+use App\Models\ToolsView;
 use Livewire\Component;
 
 class ToolsList extends Component
 {
-    public BaseTool $tool;
+    public ToolsView $tool;
+    public BaseTool $model;
 
-    public function mount(BaseTool $tool)
+    public function mount(ToolsView $tool): void
     {
-        //
+        $this->model = $tool->owner;
     }
 
     public function render()

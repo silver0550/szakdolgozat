@@ -44,5 +44,8 @@ Route::middleware('admin')->group(function(){
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 
 Route::get('/test', function(){
-    dd(\App\Models\Notebook::find(21)->keeper);
+    $var = 'valami';
+    $test = '0';
+    $test = $var ?? $test;
+    dd($test);
 });

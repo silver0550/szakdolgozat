@@ -4,8 +4,10 @@
             <x-icon.phone-link-round/>
         </x-slot>
         <x-slot name='label'>
-            <span>Új Eszköz</span>
+            <span>Laptop</span>
         </x-slot>
     </x-modals.header>
-    @livewire('modals.tool-form.tool-form')
+    VAR1:{{$tool}}
+    VAR2: {{$class}}
+{{--    @livewire('modals.tool-form.tool-form', ['classId' => 1, 'classType' => 'App\Models\Display', 'readonly' => false])--}}
 </div>

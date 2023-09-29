@@ -43,7 +43,7 @@
         </x-slot>
         <x-slot name='body'>
             @foreach ($tools as $tool)
-                @livewire('dashboard.tools-list', ['tool' => $tool->owner], key($tool->id))
+                @livewire('dashboard.tools-list', ['tool' => $tool], key($tool->id))
             @endforeach
         </x-slot>
     </x-table>

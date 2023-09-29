@@ -10,6 +10,7 @@
                 @endforeach
             </ul>
         </div>
+        {{$classType}}
         <div class="flex cursor-default text-2xl py-2 pl-3 font-bold  ">
             <div class="inline-block pl-3">{{ (new $classType)->myName }} hozzáadása</div>
         </div>
