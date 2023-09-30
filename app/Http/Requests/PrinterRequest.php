@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class PrinterRequest extends FormRequest
 {
@@ -11,10 +12,10 @@ class PrinterRequest extends FormRequest
         return auth()->check();
     }
 
-    public function rules(): array
+    public function rules(?int $updatedId = null): array
     {
         return [
-            'serial_number' => ['required', 'unique:printers'],
+            'serial_number' => ['required', Rule::unique('printers')->ignore($updatedId)],
             'manufacturer' => ['required'],
             'model_type' => ['required'],
             'description' => ['nullable'],

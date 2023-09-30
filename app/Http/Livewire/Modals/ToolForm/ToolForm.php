@@ -3,28 +3,29 @@
 namespace App\Http\Livewire\Modals\ToolForm;
 
 use App\Models\Phone;
+use App\Models\Tool;
 use Illuminate\View\View;
 use Livewire\Component;
 
 class ToolForm extends Component
 {
+    const CREATE = 1;
+    const EDIT = 2;
 
-    public ?int $classId;
+    public ?Tool $tool;
     public string $classType = Phone::class;
-    public ?bool $readonly;
+    private int $target = self::CREATE;
 
-    public function mount(
-        ?int $classId = null,
-        ?string $classType = null,
-        ?bool $readonly = null
-        ): void
+    public function mount(?Tool $tool = null): void
     {
-        $this->classId = $classId;
-        $this->classType = $classType ?? $this->classType;
-        $this->readonly = $readonly;
+        if($tool->owner) {
+            $this->classType = $tool->owner::class;
+            $this->target = self::EDIT;
+        }
     }
+
     public function render(): View
     {
-        return view('livewire.modals.tool-form.tool-form');
+        return view('livewire.modals.tool-form.tool-form', ['target' => $this->target]);
     }
 }

@@ -29,20 +29,34 @@
         </x-input.form-control>
     </div>
     <div class="flex w-2/6 justify-between">
-        <x-selector wire:model="data.display_size"
+        <x-selector wire:model.defer="data.display_size"
                     label="{{ __('tablet.display_size') }}"
                     :error="$errors->first('display_size')" >
-            <option selected value="{{null}}">{{ __('global.select') }}</option>
+            @if(!array_key_exists('display_size', $data))
+                <option selected value="{{null}}">{{ __('global.select') }}</option>
+            @endif
             @foreach(\App\Enum\Tools\Tablet\DisplaySizeEnum::cases() as $size)
-                <option value={{$size}}>{{ $size->getReadableText() }}</option>
+                <option {{ array_key_exists('display_size', $data) && $data['display_size'] == $size
+                        ? 'selected'
+                        : '' }}
+                    value={{$size}}>
+                    {{ $size->getReadableText() }}
+                </option>
             @endforeach
         </x-selector>
-        <x-selector wire:model="data.color"
+        <x-selector wire:model.defer="data.color"
                     label="{{ __('tablet.color') }}"
                     :error="$errors->first('color')" >
-            <option selected value="{{null}}">{{ __('global.select') }}</option>
+            @if(!array_key_exists('color', $data))
+                <option selected value="{{null}}">{{ __('global.select') }}</option>
+            @endif
             @foreach(\App\Enum\ColorEnum::cases() as $color)
-                <option value={{$color}}>{{ $color->getReadableText() }}</option>
+                <option {{ array_key_exists('color', $data) && $data['color'] == $color
+                        ? 'selected'
+                        : '' }}
+                    value={{$color}}>
+                    {{ $color->getReadableText() }}
+                </option>
             @endforeach
         </x-selector>
     </div>

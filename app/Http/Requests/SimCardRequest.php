@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class SimCardRequest extends FormRequest
 {
@@ -11,10 +12,10 @@ class SimCardRequest extends FormRequest
         return auth()->check();
     }
 
-    public function rules(): array
+    public function rules(?int $updatedId = null): array
     {
         return [
-            'serial_number' => ['required', 'unique:sim_cards'],
+            'serial_number' => ['required', Rule::unique('sim_cards')->ignore($updatedId)],
             'provider' => ['required','int'],
             'size' => ['required', 'int'],
             'description' => ['nullable'],

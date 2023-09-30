@@ -44,8 +44,6 @@ Route::middleware('admin')->group(function(){
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 
 Route::get('/test', function(){
-    $var = 'valami';
-    $test = '0';
-    $test = $var ?? $test;
-    dd($test);
+
+    dd(array_keys( (new \App\Http\Requests\PhoneRequest)->attributes()));
 });

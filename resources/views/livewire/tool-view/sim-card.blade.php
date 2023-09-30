@@ -4,28 +4,42 @@
             class="w-3/6 pr-3"
             label="{{ __('sim_card.serial_number') }}"
             :error="$errors->first('serial_number')" >
-            <x-input.text wire:model.lazy='data.serial_number'/>
+            <x-input.text wire:model.defer='data.serial_number'/>
         </x-input.form-control>
-        <x-selector wire:model="data.provider"
+        <x-selector wire:model.defer="data.provider"
                     label="{{ __('sim_card.provider') }}"
                     :error="$errors->first('provider')">
-            <option selected value="{{null}}">{{ __('global.select') }}</option>
+            @if(!array_key_exists('size', $data))
+                <option selected value="{{null}}">{{ __('global.select') }}</option>
+            @endif
             @foreach(\App\Enum\Tools\SimCArd\ProviderEnum::cases() as $provider)
-                <option value={{$provider}}>{{ $provider->getReadableText() }}</option>
+                <option {{ array_key_exists('provider', $data) && $data['provider'] == $provider
+                        ? 'selected'
+                        : '' }}
+                    value={{$provider}}>
+                    {{ $provider->getReadableText() }}
+                </option>
             @endforeach
         </x-selector>
-        <x-selector wire:model="data.size"
+        <x-selector wire:model.defer="data.size"
                     label="{{ __('sim_card.size') }}"
                     :error="$errors->first('size')">
-            <option selected value="{{null}}">{{ __('global.select') }}</option>
-            @foreach(\App\Enum\Tools\SimCard\SizeEnum::cases() as $index => $size)
-                <option value={{$size}}>{{ $size->getReadableText() }}</option>
+            @if(!array_key_exists('size', $data))
+                <option selected value="{{null}}">{{ __('global.select') }}</option>
+            @endif
+            @foreach(\App\Enum\Tools\SimCard\SizeEnum::cases() as $size)
+                <option {{ array_key_exists('size', $data) && $data['size'] == $size
+                        ? 'selected'
+                        : '' }}
+                    value={{$size}}>
+                    {{ $size->getReadableText() }}
+                </option>
             @endforeach
         </x-selector>
     </div>
     <x-input.form-control
         label="{{ __('sim_card.description') }}"
         :error="$errors->first('description')" >
-        <x-input.text wire:model.lazy='data.description'/>
+        <x-input.text wire:model.defer='data.description'/>
     </x-input.form-control>
 </div>

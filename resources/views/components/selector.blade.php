@@ -28,6 +28,7 @@
             'disabled:text-xl',
             ($error ? 'select-error': ''),
         ])
+        wire:key="{{ $key }}"
     >
         {{ $slot }}
     </select>

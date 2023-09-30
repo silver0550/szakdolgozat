@@ -15,9 +15,9 @@ class ToolInfo extends ModalComponent
         'close',
     ];
 
-    public function mount(int $tool, string $class){
+    public function mount(int $tool): void
+    {
         $this->tool = Tool::find($tool);
-        $this->class = $class;
     }
     public function render(): View
     {
