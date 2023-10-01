@@ -2,45 +2,30 @@
 
 namespace App\Http\Livewire\Modals\ToolForm;
 
-use App\Http\Traits\WithNotification;
+use App\Models\Phone;
+use App\Models\Tool;
+use Illuminate\View\View;
 use Livewire\Component;
-// use Illuminate\Support\MessageBag;
+
 class ToolForm extends Component
 {
+    const CREATE = 1;
+    const EDIT = 2;
 
-    use WithNotification;
+    public ?Tool $tool;
+    public string $classType = Phone::class;
+    private int $target = self::CREATE;
 
-    public $classType;
-    public $modelData = [];
-
-    public function render()
+    public function mount(?Tool $tool = null): void
     {
-        return view('livewire.modals.tool-form.tool-form');
-    }
-
-    public function store(){
-
-        $validated = $this->classType::getValidator($this->modelData);
-
-        $this->errorBag = $validated->messages();
-
-        if($validated->passes()){
-
-            $this->classType::create($this->modelData)->saveToTools();
-            
-            $this->sendSuccessResponse('Az eszköz hozzáadása sikeresen megtörtént.');
-            
-            $this->emitUp('close');
-
+        if($tool->owner) {
+            $this->classType = $tool->owner::class;
+            $this->target = self::EDIT;
         }
-
-        
     }
 
-    public function updatedClassType(){
-        
-       $this->reset('modelData');
-       $this->resetErrorBag();
+    public function render(): View
+    {
+        return view('livewire.modals.tool-form.tool-form', ['target' => $this->target]);
     }
-
 }

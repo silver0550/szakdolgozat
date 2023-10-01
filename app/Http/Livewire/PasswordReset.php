@@ -6,14 +6,16 @@ use App\Http\Traits\WithControlledTable;
 use App\Http\Traits\WithNotification;
 use App\Http\Traits\WithSelfPagination;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
 use Livewire\Component;
 use App\Models\PasswordReset as PwResetModel;
 use App\Models\User;
-use App\Enum\Notification;
 
 class PasswordReset extends Component
 {
-    use WithSelfPagination, WithControlledTable, WithNotification;
+    use WithSelfPagination;
+    use WithControlledTable;
+    use WithNotification;
 
     public $chackedRequests = [];
 
@@ -21,15 +23,13 @@ class PasswordReset extends Component
         'statusChange'
     ];
 
-    public function mount(){
-
+    public function mount(): void
+    {
         $this->chackedRequests = collect($this->chackedRequests);
-
     }
 
-    public function render()
+    public function render(): View
     {
-
         $users = $this->setUsersFilters()
                     ->filteredData( User::whereRelation('pwReset','isActive',1) )
                     ->paginate($this->pageSize);
@@ -37,9 +37,8 @@ class PasswordReset extends Component
         return view('livewire.password-reset',['users' => $users])->layout('components.layouts.index');
     }
 
-    public function resetAll(){
-
-
+    public function resetAll(): void
+    {
             $this->chackedRequests->each(function ($id){
 
                 User::find($id)->update(['password' => Hash::make('password')]);
@@ -51,13 +50,13 @@ class PasswordReset extends Component
                     'completed_at' => now(),
                 ]);
 
-                $this->alertSuccess(Notification::PASSWORD_RESET_SUCCESS);
+                $this->alertSuccess(__('alert.password_reset_success'));
 
             });
     }
 
-    public function statusChange($id){
-
+    public function statusChange($id): void
+    {
         $this->chackedRequests = !$this->chackedRequests->contains($id) ?
                                 $this->chackedRequests->push($id) :
                                 $this->chackedRequests->reject(function($value) use($id){

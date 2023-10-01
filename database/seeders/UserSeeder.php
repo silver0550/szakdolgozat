@@ -11,14 +11,8 @@ use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    public function run(): void
     {
-
         UserProperty::factory()->create([
             'user_id' => User::factory()->create([
                             'name' => 'Super Admin',
@@ -37,7 +31,5 @@ class UserSeeder extends Seeder
         User::find(2)->assignRole('admin');
 
         UserProperty::factory(50)->create();
-
-
     }
 }

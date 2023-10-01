@@ -14,11 +14,8 @@ class PhoneSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-        Tool::factory(10)->create([
-            'owner_type' => Phone::class,
-            'owner_id' =>Phone::factory(),
-        ]);
+        Phone::factory(10)->create();
     }
 }

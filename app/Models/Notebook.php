@@ -2,70 +2,61 @@
 
 namespace App\Models;
 
-use App\Contracts\Services\IsTool;
 use App\Enum\PictureProviderEnum;
-use App\Http\Traits\BaseTool;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
-class Notebook extends Model implements IsTool
+class Notebook extends BaseTool
 {
-    use HasFactory, BaseTool;
+    use HasFactory;
 
-    protected $fillable = [
-        'serial_number',
-        'manufacturer',
-        'model_type',
-        'description'
-    ];
+    const LANG = 'notebook';
 
-    public function tool(): MorphOne
-    {
-        return $this->morphOne(Tool::class, 'owner');
-    }
+    protected $guarded = ['id'];
 
+    /*
+    |--------------------------------------------------------------------------
+    | GLOBAL VARIABLES
+    |--------------------------------------------------------------------------
+    */
 
-    public function getImg(): string
+    /*
+    |--------------------------------------------------------------------------
+    | FUNCTIONS
+    |--------------------------------------------------------------------------
+    */
+
+    /*
+    |--------------------------------------------------------------------------
+    | RELATIONS
+    |--------------------------------------------------------------------------
+    */
+
+    /*
+    |--------------------------------------------------------------------------
+    | SCOPES
+    |--------------------------------------------------------------------------
+    */
+
+    /*
+    |--------------------------------------------------------------------------
+    | ACCESSORS
+    |--------------------------------------------------------------------------
+    */
+    public function getImgAttribute(): string
     {
         return PictureProviderEnum::NOTEBOOK->value;
     }
 
-//    ---------
-    public function serialNumber(): string
+    public function getMyNameAttribute(): string
     {
-
-        return $this->serial_number;
+        return __('notebook.notebook');
     }
 
-    public static function getInputs(): array
-    {
-
-        return [
-            'serial_number' => 'Sorozatszám',
-            'manufacturer' => 'Gyártó',
-            'model_type' => 'Típus',
-            'description' => 'Leírás',
-        ];
-    }
-
-    public static function getValidator(array $validate)
-    {
-
-        return Validator::make(
-            $validate,
-            [
-                'serial_number' => ['required'],
-                'manufacturer' => ['required'],
-                'model_type' => ['required'],
-                'description' => ['nullable'],
-            ], [
-                'serial_number.required' => 'Egyedi azonosító kitöltése kötelező',
-                'manufacturer.required' => 'Gyártó megnevezése kötelező',
-                'model_type.required' => 'Model megnevezése kötelező',
-
-            ]
-        );
-    }
+    /*
+    |--------------------------------------------------------------------------
+    | MUTATORS
+    |--------------------------------------------------------------------------
+    */
 }

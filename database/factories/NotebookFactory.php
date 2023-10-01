@@ -14,7 +14,7 @@ class NotebookFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'serial_number' =>fake()->unique()->regexify('[A-Z0-9]{10}'),
@@ -24,7 +24,7 @@ class NotebookFactory extends Factory
                 'DELL',
             ]),
             'model_type' =>fake()->randomElement([
-                'Model1', 'Model2', 'Model3'   
+                'Model1', 'Model2', 'Model3'
                ])
 
         ];

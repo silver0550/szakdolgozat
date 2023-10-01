@@ -10,23 +10,17 @@ use Illuminate\Support\Str;
  */
 class PhoneFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition()
+    public function definition(): array
     {
-
         return [
-            'IMEI' => fake()->unique()->numberBetween(100000000000000,999999999999999),
+            'serial_number' => fake()->unique()->numberBetween(100000000000000,999999999999999),
             'manufacturer' => fake()->randomElement([
                     'Samsung',
                     'Huawei',
                     'LG',
                 ]),
             'model_type' =>fake()->randomElement([
-                 'Model1', 'Model2', 'Model3'   
+                 'Model1', 'Model2', 'Model3'
                 ])
         ];
     }

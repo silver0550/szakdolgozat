@@ -11,15 +11,16 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('phones', function (Blueprint $table) {
             $table->id();
-            $table->string('IMEI')->unique();
+            $table->string('serial_number')->unique();
             $table->string('manufacturer');
             $table->string('model_type');
             $table->text('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -28,7 +29,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('phones');
     }

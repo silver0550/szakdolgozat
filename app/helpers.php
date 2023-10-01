@@ -10,7 +10,19 @@ if (!function_exists('user')) {
 }
 
 if (!function_exists('user_id')) {
-    function user_id(): ?int {
-        return optional(Auth::user())->id;
+    function user_id(): ?int
+    {
+        return Auth::user()?->id;
+    }
+}
+
+if (!function_exists('lineLifter')) {
+    function lineLifter(string $text): string {
+
+        if (str_contains($text, '_')) {
+            return str_replace('_', '-', $text);
+        }
+
+        return $text;
     }
 }

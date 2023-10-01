@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function(){
 });
 
 Route::middleware('admin')->group(function(){
-    Route::get('/password-reset', PasswordReset::class)->name('password-reset'); //TODO: password reset létrehozása
+    Route::get('/password-reset', PasswordReset::class)->name('password-reset');
 
 });
 
@@ -44,5 +44,6 @@ Route::middleware('admin')->group(function(){
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 
 Route::get('/test', function(){
-    dd(Tool::first()->status->getReadableText());
+
+    dd(array_keys( (new \App\Http\Requests\PhoneRequest)->attributes()));
 });

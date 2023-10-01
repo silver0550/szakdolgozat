@@ -2,17 +2,23 @@
 
 namespace App\Http\Livewire\Dashboard;
 
+use App\Models\BaseTool;
+use App\Models\ToolsView;
 use Livewire\Component;
-use App\Contracts\Services\IsTool;
 
 class ToolsList extends Component
 {
+    public ToolsView $tool;
+    public BaseTool $model;
 
-    public IsTool $tool;
-
-    public function mount( IsTool $tool)
+    protected $listeners = [];
+    public function booted(): void
     {
-        //
+        $this->listeners = array_merge($this->listeners, ['toolRefresh'.$this->tool->id => '$refresh']);
+    }
+    public function mount(ToolsView $tool): void
+    {
+        $this->model = $tool->owner;
     }
 
     public function render()
