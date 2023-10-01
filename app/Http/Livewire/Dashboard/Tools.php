@@ -21,6 +21,8 @@ class Tools extends Component
     {
         $tools = $this->setToolsFilters()
             ->filteredData(ToolsView::with('owner', 'user'))
+            ->when(!user()->hasRole('system|admin'),
+                fn($query) => $query->where('user_id', user_id()))
             ->paginate($this->pageSize);
 
         return view('livewire.dashboard.tools', ['tools' => $tools])->layout('components.layouts.index');

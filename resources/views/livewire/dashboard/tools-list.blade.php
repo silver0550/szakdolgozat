@@ -9,10 +9,16 @@
     <x-table.cell>{{ $model->created_at->format('Y.m.d.') }}</x-table.cell>
 
     <x-table.cell>
-    <x-icon.edit
-        class="hover:text-blue-500 cursor-pointer"
-        wire:click="$emit('openModal','modals.tool-info',
+        @role('system|admin')
+        <x-icon.edit
+            class="hover:text-blue-500 cursor-pointer"
+            wire:click="$emit('openModal','modals.tool-info',
             { tool: {{ $tool->id }} })"/>
+        @else
+            <x-icon.info
+                class="hover:text-blue-500 cursor-pointer"
+                wire:click="$emit('openModal','modals.tool-info',
+            { tool: {{ $tool->id }} })"/>
+        @endrole
     </x-table.cell>
-
 </x-table.row>

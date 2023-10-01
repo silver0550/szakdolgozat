@@ -16,21 +16,22 @@ class UsersList extends Component
 
     protected $listeners = [];
 
-    public function booted(){
+    public function booted(): void
+    {
         $this->listeners = array_merge($this->listeners, ['userRefresh'.$this->user->id => '$refresh']);
     }
 
 
     public function mount(User $user, Int $index){
-        
+
         $this->isAdmin = $this->user->isAdmin ? true : false;
-        
+
     }
 
     public function setAdmin(){
-        
+
         if(auth()->user()->can('SuperAdmin')){
-            $this->isAdmin ? 
+            $this->isAdmin ?
                         Admin::create(['user_id' => $this->user->id]) :
                         Admin::whereRelation('user', 'user_id', $this->user->id)->delete();
         }

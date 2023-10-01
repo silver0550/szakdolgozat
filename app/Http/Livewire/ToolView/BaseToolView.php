@@ -13,6 +13,7 @@ abstract class BaseToolView extends Component
     public array $data = [];
     public string $request;
     public string $model;
+    public bool $readOnly;
 
     protected $listeners = [
         'store',
@@ -79,5 +80,9 @@ abstract class BaseToolView extends Component
         }
     }
 
+    public function booted(): void
+    {
+        $this->readOnly = !user()->hasRole('system|admin');
+    }
 
 }

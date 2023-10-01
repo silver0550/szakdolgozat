@@ -4,11 +4,12 @@
             class="w-3/6 pr-3"
             label="{{ __('sim_card.serial_number') }}"
             :error="$errors->first('serial_number')" >
-            <x-input.text wire:model.defer='data.serial_number'/>
+            <x-input.text :readonly="$readOnly" wire:model.defer='data.serial_number'/>
         </x-input.form-control>
         <x-selector wire:model.defer="data.provider"
                     label="{{ __('sim_card.provider') }}"
-                    :error="$errors->first('provider')">
+                    :error="$errors->first('provider')"
+                    :disabled="$readOnly">
             @if(!array_key_exists('size', $data))
                 <option selected value="{{null}}">{{ __('global.select') }}</option>
             @endif
@@ -23,7 +24,8 @@
         </x-selector>
         <x-selector wire:model.defer="data.size"
                     label="{{ __('sim_card.size') }}"
-                    :error="$errors->first('size')">
+                    :error="$errors->first('size')"
+                    :disabled="$readOnly">
             @if(!array_key_exists('size', $data))
                 <option selected value="{{null}}">{{ __('global.select') }}</option>
             @endif
@@ -40,6 +42,6 @@
     <x-input.form-control
         label="{{ __('sim_card.description') }}"
         :error="$errors->first('description')" >
-        <x-input.text wire:model.defer='data.description'/>
+        <x-input.text :readonly="$readOnly" wire:model.defer='data.description'/>
     </x-input.form-control>
 </div>
