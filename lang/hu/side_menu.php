@@ -2,7 +2,7 @@
 
 return [
     'home' => 'Kezdőlap',
-    'dashboard' => 'Admin',
+    'database' => 'Adatbázis',
     'users' => 'Felhasználók',
     'tools' => 'Eszközök',
     'assignment' => 'Eszköz kiadás',

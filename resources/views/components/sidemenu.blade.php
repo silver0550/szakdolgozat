@@ -24,7 +24,7 @@
     <div class="collapse collapse-arrow overflow-hidden rounded-box">
         <input type="checkbox" class="peer" @checked($isActive('users','tools'))/>
         <span class="collapse-title peer-checked:bg-base-300">
-            <x-icon.settings/> <span class="p-2">{{ __('side_menu.dashboard') }}</span>
+            <x-icon.settings/> <span class="p-2">{{ __('side_menu.database') }}</span>
         </span>
         <ul class="menu collapse-content peer-checked:bg-base-300">
             <li>
