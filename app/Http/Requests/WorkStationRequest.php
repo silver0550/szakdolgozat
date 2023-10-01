@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class WorkStationRequest extends FormRequest
 {
@@ -11,10 +12,10 @@ class WorkStationRequest extends FormRequest
         return auth()->check();
     }
 
-    public function rules(): array
+    public function rules(?int $updatedId = null): array
     {
         return [
-            'serial_number' => ['required','unique:work_stations'],
+            'serial_number' => ['required',Rule::unique('work_stations')->ignore($updatedId)],
             'manufacturer' => ['required'],
             'model_type' => ['required'],
             'description' => ['nullable'],

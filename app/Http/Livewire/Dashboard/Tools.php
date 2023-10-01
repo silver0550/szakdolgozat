@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Dashboard;
 use App\Http\Traits\WithControlledTable;
 use App\Http\Traits\WithSelfPagination;
 use App\Models\ToolsView;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class Tools extends Component
@@ -16,10 +17,12 @@ class Tools extends Component
         'refresh' => '$refresh',
     ];
 
-    public function render()
+    public function render(): View
     {
         $tools = $this->setToolsFilters()
             ->filteredData(ToolsView::with('owner', 'user'))
+            ->when(!user()->hasRole('system|admin'),
+                fn($query) => $query->where('user_id', user_id()))
             ->paginate($this->pageSize);
 
         return view('livewire.dashboard.tools', ['tools' => $tools])->layout('components.layouts.index');

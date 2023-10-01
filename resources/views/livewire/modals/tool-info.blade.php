@@ -4,8 +4,8 @@
             <x-icon.phone-link-round/>
         </x-slot>
         <x-slot name='label'>
-            <span>Új Eszköz</span>
+            <span>{{$tool->owner->myName}}</span>
         </x-slot>
     </x-modals.header>
-    @livewire('modals.tool-form.tool-form')
+    @livewire('modals.tool-form.tool-form', ['tool' => $tool])
 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class DisplayRequest extends FormRequest
 {
@@ -12,10 +13,10 @@ class DisplayRequest extends FormRequest
         return auth()->check();
     }
 
-    public function rules(): array
+    public function rules(?int $updatedId = null): array
     {
         return [
-            'serial_number' => ['required', 'unique:displays'],
+            'serial_number' => ['required', Rule::unique('displays')->ignore($updatedId)],
             'manufacturer' => ['required','string'],
             'model_type' => ['required','string'],
             'size' => ['nullable', 'int'],

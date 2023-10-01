@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class TabletRequest extends FormRequest
 {
@@ -11,10 +12,10 @@ class TabletRequest extends FormRequest
         return auth()->check();
     }
 
-    public function rules(): array
+    public function rules(?int $updatedId = null): array
     {
         return [
-            'serial_number' => ['required','unique:tablets'],
+            'serial_number' => ['required', Rule::unique('tablets')->ignore($updatedId)],
             'manufacturer' => ['required'],
             'model_type' => ['required'],
             'display_size' =>['required','int'],

@@ -8,10 +8,15 @@ use Illuminate\View\View;
 
 class SimCard extends BaseToolView
 {
-    public function mount(): void
+    public function mount($tool): void
     {
         $this->model = SimCardModel::class;
         $this->request = SimCardRequest::class;
+
+        if($tool) {
+            $this->tool = $tool;
+            $this->setData();
+        }
     }
 
     public function render(): View

@@ -12,4 +12,6 @@ return [
     'green' => 'Zöld',
     'yellow' => 'Sárga',
     'gray' => 'Szürke',
+    'select' => 'Válasszon',
+    'store' => 'Raktár',
 ];

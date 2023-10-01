@@ -8,10 +8,15 @@ use Illuminate\View\View;
 
 class WorkStation extends BaseToolView
 {
-    public function mount(): void
+    public function mount($tool): void
     {
         $this->model = WorkStationModel::class;
         $this->request = WorkStationRequest::class;
+
+        if($tool) {
+            $this->tool = $tool;
+            $this->setData();
+        }
     }
     public function render(): View
     {

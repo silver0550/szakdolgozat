@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class PhoneRequest extends FormRequest
 {
@@ -11,10 +12,10 @@ class PhoneRequest extends FormRequest
         return auth()->check();
     }
 
-    public function rules(): array
+    public function rules(?int $updatedId = null): array
     {
         return [
-            'serial_number' => ['required', 'digits:12', 'unique:phones'],
+            'serial_number' => ['required', 'digits:12', Rule::unique('phones')->ignore($updatedId)],
             'manufacturer' => ['required'],
             'model_type' => ['required'],
             'description' => ['nullable'],
