@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Livewire\Assignment;
+use App\Http\Livewire\History;
+use App\Http\Livewire\Roles;
 use App\Models\Tool;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +36,9 @@ Route::middleware('auth')->group(function(){
     Route::get('/users', Users::class)->name('users');
     Route::get('/tools', Tools::class)->name('tools');
     Route::get('/search', Home::class)->name('search');
+    Route::get('/assignment', Assignment::class)->name('assignment');
+    Route::get('/roles', Roles::class)->name('roles');
+    Route::get('/history', History::class)->name('history');
 });
 
 Route::middleware('admin')->group(function(){
