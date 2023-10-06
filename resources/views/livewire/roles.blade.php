@@ -1,4 +1,7 @@
 <div>
+    @if($title)
+        <x-title label="{{ $title }}"/>
+    @endif
     <div class="flex justify-between w-full p-2 bg-base-200 rounded-md">
         <div class="ml-4 mb-4 w-1/2">
             <x-selector

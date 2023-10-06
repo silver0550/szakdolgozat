@@ -8,6 +8,7 @@ class Assignment extends Component
 {
     public function render()
     {
-        return view('livewire.assignment')->layout('components.layouts.index');
+        $title = __('assignment.title');
+        return view('livewire.assignment',['title' => $title])->layout('components.layouts.index');
     }
 }
