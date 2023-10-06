@@ -24,4 +24,5 @@ return [
     'read_self_tool' => 'Sajnád eszközök megtekintése',
     'read_group_tool' => 'Csoport eszközeinek megtekintése',
     'reset_password' => 'Jelszó újragenerálás',
+    'set_permission' => 'Jogok módosítása',
 ];

@@ -22,13 +22,10 @@ class UserSeeder extends Seeder
 
         UserProperty::factory()->create([
             'user_id' => User::factory()->create([
-                            'name' => 'Admin',
+                            'name' => 'Admin Bácsi',
                             'email' => 'admin@admin.com',
                         ]),
         ]);
-
-        User::find(1)->assignRole('system');
-        User::find(2)->assignRole('admin');
 
         UserProperty::factory(50)->create();
     }

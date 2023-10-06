@@ -59,7 +59,7 @@ class Roles extends Component
 
     public function store(): void
     {
-        if (!user()->hasRole('admin')) {
+        if (user()->cannot('set-permission')) {
             $this->alertError(__('alert.access_denied'));
 
             return;

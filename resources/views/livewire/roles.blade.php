@@ -14,7 +14,8 @@
             <x-selector
                 wire:model="role"
                 :label=" __('permissions.role') "
-                :disabled="$userId ? false : true">
+                :disabled="($userId ? false : true)
+                            || !user()->hasPermissionTo('set-permission')">
                 @if(!$role)
                     <option selected > - </option>
                 @endif
@@ -34,16 +35,20 @@
                     <x-input.checkbox
                         wire:model="permissions.{{ $key }}"
                         :label="__('permissions.' . lineLifter($key,false))"
-                        :disabled="$this->belongsToRole($key) || ($userId ? false : true)"
+                        :disabled="$this->belongsToRole($key)
+                                    || ($userId ? false : true)
+                                    || !user()->hasPermissionTo('set-permission')"
                     />
                 </div>
         @endforeach
-        <div class="flex justify-end w-11/12 ">
-            <x-button.primary class="btn-sm"
-                wire:click="store"
-                :disabled="$userId ? false : true">
-                {{ __('global.save') }}
-            </x-button.primary>
-        </div>
+        @can('set-permission')
+            <div class="flex justify-end w-11/12 ">
+                <x-button.primary class="btn-sm"
+                    wire:click="store"
+                    :disabled="$userId ? false : true">
+                    {{ __('global.save') }}
+                </x-button.primary>
+            </div>
+        @endcan
     </div>
 </div>

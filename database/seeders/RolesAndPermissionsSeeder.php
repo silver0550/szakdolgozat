@@ -5,36 +5,47 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Collection;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RolesAndPermissionsSeeder extends Seeder
 {
-    public function run(): void
+
+        private Collection $allPermissions;
+        private Collection $adminsPermissions;
+        private Collection $leaderPermissions;
+        private Collection $userPermissions;
+
+
+    public function __construct()
     {
-        //admin permissions
-        $adminRole = Role::find(Role::ADMIN);
-
-        $allPermissions = Permission::pluck('name')->toArray();
-
-        $adminRole->givePermissionTo($allPermissions);
-
-        //lieder permissions
-        $leaderRole = Role::find(Role::LEADER);
-        $leaderPermissions = [
+        $this->allPermissions = Permission::query()->pluck('name');
+        $this->adminsPermissions = $this->allPermissions->reject(fn ($item) => $item == 'set-permission');
+        $this->leaderPermissions = collect([
             'read-group-tool',
             'read-group-user',
-        ];
-
-        $leaderRole->givePermissionTo($leaderPermissions);
-
-        //user permissions
-        $leaderRole = Role::find(Role::USER);
-        $leaderPermissions = [
             'read-self-tool',
             'read-self-user',
-        ];
+        ]);
+        $this->userPermissions = collect([
+            'read-self-tool',
+            'read-self-user',
+        ]);
+    }
 
-        $leaderRole->givePermissionTo($leaderPermissions);
+    public function run(): void
+    {
+        //system permissions
+        Role::find(Role::SYSTEM)->syncPermissions($this->allPermissions);
+
+        //admin permissions
+        Role::find(Role::ADMIN)->syncPermissions($this->adminsPermissions);
+
+        //lieder permissions
+        Role::find(Role::LEADER)->syncPermissions($this->leaderPermissions);
+
+        //user permissions
+        Role::find(Role::USER)->syncPermissions($this->userPermissions);
     }
 }

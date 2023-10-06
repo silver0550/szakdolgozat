@@ -12,22 +12,22 @@ class PermissionsTableSeeder extends Seeder
         ['name' => 'read-all-user'],
         ['name' => 'read-self-user'],
         ['name' => 'read-group-user'],
+        ['name' => 'read-all-tool'],
+        ['name' => 'read-self-tool'],
+        ['name' => 'read-group-tool'],
         ['name' => 'create-user'],
         ['name' => 'edit-user'],
         ['name' => 'delete-user'],
         ['name' => 'create-tool'],
         ['name' => 'edit-tool'],
         ['name' => 'delete-tool'],
-        ['name' => 'read-all-tool'],
-        ['name' => 'read-self-tool'],
-        ['name' => 'read-group-tool'],
-
-
-        ];
+        ['name' => 'reset_password'],
+        ['name' => 'set-permission'],
+    ];
     public function run(): void
     {
         foreach ($this->permissions as $permission) {
-            Permission::create($permission);
+            Permission::firstOrcreate($permission);
         }
     }
 }
