@@ -15,4 +15,6 @@ return [
     'invalid_img' => 'A kép formátuma vagy mérete nem felel meg az elvárásoknak',
     'password_reset_success' => 'A jelszó megváltoztatása sikeres',
     'password_reset_fail' => 'A jelszó változtatás sikertelen',
+    'update_permission_success' => 'A jgosultásgok változtatása sikeres',
+    'update_permission_fail' => 'A jgosultásgok változtatása sikertelen',
 ];
