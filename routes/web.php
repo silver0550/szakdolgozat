@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Livewire\Assignment;
+use App\Http\Livewire\History;
+use App\Http\Livewire\Roles;
 use App\Models\Tool;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Livewire\Login\Login;
@@ -12,6 +16,7 @@ use App\Http\Controllers\AuthController;
 use Spatie\Permission\Models\Permission;
 
 use App\Http\Livewire\Dashboard\Tools;
+use Spatie\Permission\Models\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +38,9 @@ Route::middleware('auth')->group(function(){
     Route::get('/users', Users::class)->name('users');
     Route::get('/tools', Tools::class)->name('tools');
     Route::get('/search', Home::class)->name('search');
+    Route::get('/assignment', Assignment::class)->name('assignment');
+    Route::get('/roles', Roles::class)->name('roles');
+    Route::get('/history', History::class)->name('history');
 });
 
 Route::middleware('admin')->group(function(){
@@ -44,6 +52,6 @@ Route::middleware('admin')->group(function(){
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 
 Route::get('/test', function(){
-
-    dd(array_keys( (new \App\Http\Requests\PhoneRequest)->attributes()));
+    User::find(2)->syncPermissions(['create-user']);
+    dd(User::find(2)->getDirectPermissions());
 });

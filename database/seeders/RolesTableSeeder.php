@@ -7,7 +7,7 @@ use Spatie\Permission\Models\Role;
 
 class RolesTableSeeder extends Seeder
 {
-    const DEFAULT_ROLES = [
+    private array $roles = [
         'system',
         'admin',
         'leader',
@@ -16,7 +16,7 @@ class RolesTableSeeder extends Seeder
 
     public function run(): void
     {
-        foreach (self::DEFAULT_ROLES as $role) {
+        foreach ($this->roles as $role) {
             Role::query()->firstOrCreate([
                 'name' => $role,
             ]);
