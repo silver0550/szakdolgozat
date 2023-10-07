@@ -6,6 +6,7 @@ use Livewire\Component;
 
 class Assignment extends Component
 {
+//    Todo: wireable modul
     public function render()
     {
         $title = __('assignment.title');
