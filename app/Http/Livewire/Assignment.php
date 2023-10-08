@@ -2,14 +2,27 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Tool;
+use App\Models\User;
 use Livewire\Component;
 
 class Assignment extends Component
 {
-//    Todo: wireable modul
+    public ?int $userId = null;
     public function render()
     {
+        $tools = Tool::all();
+        $userHasTools = $this->userId ? User::find($this->userId)->tools : null;
+
         $title = __('assignment.title');
-        return view('livewire.assignment',['title' => $title])->layout('components.layouts.index');
+        return view('livewire.assignment',[
+            'title' => $title,
+            'tools' => $tools,
+            'userHasTools' => $userHasTools,
+        ])->layout('components.layouts.index');
     }
+
+
+
+
 }

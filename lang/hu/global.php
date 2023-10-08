@@ -14,4 +14,5 @@ return [
     'gray' => 'Szürke',
     'select' => 'Válasszon',
     'store' => 'Raktár',
+    'search' => 'Keresés',
 ];
