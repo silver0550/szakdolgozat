@@ -17,4 +17,6 @@ return [
     'password_reset_fail' => 'A jelszó változtatás sikertelen',
     'update_permission_success' => 'A jgosultásgok változtatása sikeres',
     'update_permission_fail' => 'A jgosultásgok változtatása sikertelen',
+    'missing_user' => 'Nincs felhasználó kiválasztva',
+    'missing_tool' => 'Nincs eszköz kiválasztva',
 ];
