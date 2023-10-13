@@ -16,7 +16,6 @@ class Assignment extends Component
     public ?string $search = null;
     public array $storagePuffer = [];
     public array $userPuffer = [];
-    public bool $allUserCheckboxesSelected = false;
 
     public function render()
     {
@@ -46,7 +45,7 @@ class Assignment extends Component
 
     public function captureTool(): void
     {
-        if (!user()->hasRole('system|admin')) {              //TODO tool assign
+        if (!user()->hasRole('system|admin')) {
             $this->alertError(__('alert.access_denied'));
 
             return;
@@ -75,7 +74,7 @@ class Assignment extends Component
 
     public function releaseTool(): void
     {
-        if (!user()->hasRole('system|admin')) {              //TODO tool assign
+        if (!user()->hasRole('system|admin')) {
             $this->alertError(__('alert.access_denied'));
 
             return;
@@ -131,7 +130,5 @@ class Assignment extends Component
             ]);
 
         $this->reset('userPuffer');
-
     }
-
 }
