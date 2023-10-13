@@ -5,7 +5,7 @@ return [
     'database' => 'Adatbázis',
     'users' => 'Felhasználók',
     'tools' => 'Eszközök',
-    'assignment' => 'Eszköz kiadás',
+    'assignment' => 'Eszköz kiosztás',
     'search' => 'keresés',
     'exit' => 'Kilépés',
     'roles' => 'Szerepkörök',

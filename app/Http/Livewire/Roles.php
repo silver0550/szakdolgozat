@@ -20,7 +20,8 @@ class Roles extends Component
 
     public function render(): View
     {
-        return view('livewire.roles')->layout('components.layouts.index');
+        $title = __('permissions.title');
+        return view('livewire.roles',['title' => $title])->layout('components.layouts.index');
     }
 
     public function mount(): void

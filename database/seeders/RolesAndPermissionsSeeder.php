@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enum\RoleEnum;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Seeder;
@@ -37,15 +38,15 @@ class RolesAndPermissionsSeeder extends Seeder
     public function run(): void
     {
         //system permissions
-        Role::find(Role::SYSTEM)->syncPermissions($this->allPermissions);
+        Role::find(RoleEnum::SYSTEM)->syncPermissions($this->allPermissions);
 
         //admin permissions
-        Role::find(Role::ADMIN)->syncPermissions($this->adminsPermissions);
+        Role::find(RoleEnum::ADMIN)->syncPermissions($this->adminsPermissions);
 
         //lieder permissions
-        Role::find(Role::LEADER)->syncPermissions($this->leaderPermissions);
+        Role::find(RoleEnum::LEADER)->syncPermissions($this->leaderPermissions);
 
         //user permissions
-        Role::find(Role::USER)->syncPermissions($this->userPermissions);
+        Role::find(RoleEnum::USER)->syncPermissions($this->userPermissions);
     }
 }

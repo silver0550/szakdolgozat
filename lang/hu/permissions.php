@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'title' => 'Szerepkörök',
     'role' => 'Szerepkör',
     'permission' => 'Jogosultság',
 
