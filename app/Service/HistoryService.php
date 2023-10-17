@@ -20,9 +20,7 @@ class HistoryService implements HistoryInterface
             ->when($filters->get('causerId'),
                 fn(Builder $query) => $query->where('causer_id', $filters->get('causerId')))
             ->when($filters->get('userId'),
-                fn(Builder $query) => $query->where(
-                    fn(Builder $subQuery) => $subQuery->where('causer_type', User::class)
-                        ->where('subject_id', $filters->get('userId'))))
+                fn(Builder $query) => $query->where('subject_id', $filters->get('userId')))
             ->when($filters->get('type'),
                 fn(Builder $query) => $query->where('subject_type', $filters->get('type')))
             ->when($filters->get('action'),
