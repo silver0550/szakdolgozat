@@ -5,9 +5,9 @@ return [
     'database' => 'Adatbázis',
     'users' => 'Felhasználók',
     'tools' => 'Eszközök',
-    'assignment' => 'Eszköz kiosztás',
+    'assignment' => 'Eszköz Mozgatás',
     'search' => 'keresés',
     'exit' => 'Kilépés',
     'roles' => 'Szerepkörök',
-    'history' => 'Történések',
+    'history' => 'Események',
 ];

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enum\PictureProviderEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -84,6 +84,13 @@ class User extends Authenticatable
         return Attribute::make(
             set: fn($value) => Str::title($value),
         );
+    }
+
+    public function getImgAttribute(): string
+    {
+        return $this->avatar_path
+                ? 'storage/' . $this->avatar_path
+                : PictureProviderEnum::DEFAULT_AVATAR->value;
     }
 
     protected $casts = [
