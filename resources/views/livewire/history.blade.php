@@ -90,5 +90,6 @@
                 @endforeach
             </x-slot>
         </x-table>
+{{--        TODO: bejelentkezés és kijelentkezés icon hozzáadáas--}}
     </div>
 </div>

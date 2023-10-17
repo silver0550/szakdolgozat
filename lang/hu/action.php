@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'create' => 'Új felvétel',
+    'create' => 'Létrehozás',
     'update' => 'Módosítás',
     'delete' => 'Törlés',
     'sing_in' => 'Bejelentkezés',
