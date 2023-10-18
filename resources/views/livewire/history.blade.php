@@ -4,8 +4,8 @@
     @endisset
 
     <Label class="label label-lg font-bold pr-10"> {{ __('history.filters') }}</Label>
-    <div class="bg-base-200 rounded-md py-2 px-4">
-        <div class="flex mb-5 w-full">
+    <x-card>
+        <x-row>
             <x-selector
                 class="w-1/3"
                 wire:model="filters.type"
@@ -35,8 +35,8 @@
                     <option value={{ $user->id }}>{{ $user->name }} </option>
                 @endforeach
             </x-selector>
-        </div>
-        <div class="flex">
+        </x-row>
+        <x-row>
             <x-selector
                 class="w-1/4"
                 wire:model="filters.action"
@@ -58,12 +58,14 @@
                 label="{{ __('history.to_date') }}">
                 <x-input.date/>
             </x-input.form-control>
-        </div>
-    </div>
-    <div class="flex justify-end mt-5">
-        {{$activities->links()}}
-    </div>
-    <div class="mt-5">
+        </x-row>
+    </x-card>
+    <x-card class="my-2">
+        <x-row class="justify-end">
+            {{ $activities->links() }}
+        </x-row>
+    </x-card>
+    <x-card>
         <x-table class="p-2 bg-base-200 rounded-md w-full h-full">
             <x-slot name="head">
                 <x-table.head class="cursor-default"></x-table.head>
@@ -91,5 +93,5 @@
             </x-slot>
         </x-table>
 {{--        TODO: bejelentkezés és kijelentkezés icon hozzáadáas--}}
-    </div>
+    </x-card>
 </div>
