@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Livewire\Dashboard\Users;
 use App\Http\Traits\WithSelfPagination;
 use App\Interfaces\HistoryInterface;
 use App\Models\User;
@@ -22,12 +23,13 @@ class History extends Component
     public function render()
     {
         $activities = $this->service->getActivities(collect($this->filters));
-
+        $allUser = User::all();
         $title = __('side_menu.history');
 
         return view('livewire.history',[
             'title' => $title,
             'activities' => $activities,
+            'allUser' => $allUser,
         ])->layout('components.layouts.index');
     }
 

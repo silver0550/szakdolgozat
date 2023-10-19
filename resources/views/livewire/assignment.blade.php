@@ -3,7 +3,7 @@
         <x-title label="{{ $title }}"/>
     @endisset
 
-    <div class="flex">
+    <x-row>
         <div class="!w-[47%] h-[490px]">
             <div class="flex justify-between mb-5 w-full">
                 <Label class="label label-lg font-bold pr-10">{{ __('user.user') }}</Label>
@@ -74,5 +74,5 @@
             </x-table>
 
         </div>
-    </div>
+    </x-row>
 </div>

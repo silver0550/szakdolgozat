@@ -29,6 +29,7 @@ class HistoryService implements HistoryInterface
                 fn(Builder $query) => $query->where('created_at', '>', $filters->get('from_date')))
             ->when($filters->get('to_date'),
                 fn(Builder $query) => $query->where('created_at', '<', $filters->get('to_date')))
+            ->orderByDesc('id')
             ->paginate($this->pageSize);
     }
 }

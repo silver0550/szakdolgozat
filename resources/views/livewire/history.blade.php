@@ -10,30 +10,30 @@
                 class="w-1/3"
                 wire:model="filters.type"
                 label="{{ __('history.type') }}">
-                <option selected value="{{ null }}">{{ __('global.select') }}</option>
-                <option value="{{ \App\Models\User::class }}">{{ __('user.user') }}</option>
-                @foreach(\App\Models\Tool::getTypes() as $tool)
-                    <option value={{ $tool }}>{{  (new $tool)->myName}} </option>
-                @endforeach
+                    <option selected value="{{ null }}">{{ __('global.select') }}</option>
+                    <option value="{{ $allUser->first()::class }}">{{ __('user.user') }}</option>
+                    @foreach(\App\Models\Tool::getTypes() as $tool)
+                        <option value={{ $tool }}>{{  (new $tool)->myName}} </option>
+                    @endforeach
             </x-selector>
             <x-selector
                 class="w-1/3"
                 wire:model="filters.userId"
                 label="{{ __('user.user') }}"
                 :disabled='$this->isNotUser()'>
-                <option selected value="{{ null }}">{{ __('-') }}</option>
-                @foreach(\App\Models\User::all() as $user)
-                    <option value={{ $user->id }}>{{ $user->name }} </option>
-                @endforeach
+                    <option selected value="{{ null }}">{{ __('-') }}</option>
+                    @foreach($allUser as $user)
+                        <option value={{ $user->id }}>{{ $user->name }} </option>
+                    @endforeach
             </x-selector>
             <x-selector
                 class="w-1/3"
                 wire:model="filters.causerId"
                 label="{{ __('history.causer') }}">
-                <option selected value="{{ null }}">{{ __('global.select') }}</option>
-                @foreach(\App\Models\User::all() as $user)
-                    <option value={{ $user->id }}>{{ $user->name }} </option>
-                @endforeach
+                    <option selected value="{{ null }}">{{ __('global.select') }}</option>
+                    @foreach($allUser as $user)
+                        <option value={{ $user->id }}>{{ $user->name }} </option>
+                    @endforeach
             </x-selector>
         </x-row>
         <x-row>
@@ -41,22 +41,22 @@
                 class="w-1/4"
                 wire:model="filters.action"
                 label="{{ __('history.action') }}">
-                <option selected value="{{ null }}">{{ __('global.all') }}</option>
-                @foreach(\App\Enum\ActionEnum::cases() as $actionEnum)
-                    <option value={{ $actionEnum->value }}>{{ $actionEnum->getReadableText() }} </option>
-                @endforeach
+                    <option selected value="{{ null }}">{{ __('global.all') }}</option>
+                    @foreach(\App\Enum\ActionEnum::cases() as $actionEnum)
+                        <option value={{ $actionEnum->value }}>{{ $actionEnum->getReadableText() }} </option>
+                    @endforeach
             </x-selector>
             <x-input.form-control
                 class="w-1/4 mx-10"
                 wire:model.lazy="filters.from_date"
                 label="{{ __('history.from_date') }}">
-                <x-input.date/>
+                    <x-input.date/>
             </x-input.form-control>
             <x-input.form-control
                 class="w-1/4"
                 wire:model.lazy="filters.to_date"
                 label="{{ __('history.to_date') }}">
-                <x-input.date/>
+                    <x-input.date/>
             </x-input.form-control>
         </x-row>
     </x-card>
