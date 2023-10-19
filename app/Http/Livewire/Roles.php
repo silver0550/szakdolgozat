@@ -7,6 +7,7 @@ use App\Interfaces\RoleServiceInterface;
 use App\Models\User;
 use Illuminate\View\View;
 use Livewire\Component;
+use Spatie\Permission\Models\Role;
 
 class Roles extends Component
 {
@@ -20,9 +21,12 @@ class Roles extends Component
 
     public function render(): View
     {
-        $title = __('permissions.title');
-
-        return view('livewire.roles', ['title' => $title])->layout('components.layouts.index');
+        return view('livewire.roles', [
+            'title' => __('permissions.title'),
+            'allRole' => Role::all(),
+            'allUser' => User::all()
+            ])
+            ->layout('components.layouts.index');
     }
 
     public function boot(RoleServiceInterface $service): void
