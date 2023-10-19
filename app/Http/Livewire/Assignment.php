@@ -34,7 +34,7 @@ class Assignment extends Component
             })->get();
 
         $userHasTools = $this->userId ? User::find($this->userId)->tools : null;
-        $title = __('assignment.title');
+        $title = __('side_menu.assignment');
 
         return view('livewire.assignment', [
             'title' => $title,

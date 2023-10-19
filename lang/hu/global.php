@@ -15,4 +15,5 @@ return [
     'select' => 'Válasszon',
     'store' => 'Raktár',
     'search' => 'Keresés',
+    'all' => 'Összes',
 ];

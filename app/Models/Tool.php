@@ -8,13 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
-
 class Tool extends Model
 {
     use HasFactory;
-    use LogsActivity;
 
     protected $fillable = [
         'owner_type',
@@ -37,10 +33,6 @@ class Tool extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()->logAll();
-    }
 
     public static function getTypes(): array
     {
@@ -90,12 +82,6 @@ class Tool extends Model
     /*
     |--------------------------------------------------------------------------
     | MUTATORS
-    |--------------------------------------------------------------------------
-    */
-
-    /*
-    |--------------------------------------------------------------------------
-    | CUSTOM NON-BACKPACK METHODS
     |--------------------------------------------------------------------------
     */
 }

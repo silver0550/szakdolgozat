@@ -7,18 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 
 class UserProperty extends Model
 {
-    use HasFactory, LogsActivity;
+    use HasFactory;
 
     protected $fillable = [];
-
-    protected $hidden = [];
-
-    protected $guarded = [];
 
     protected $casts = [
         'language_knowledge' => 'array',
@@ -34,10 +28,5 @@ class UserProperty extends Model
         return Attribute::make(
             set: fn($value) => Str::title($value),
         );
-    }
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()->logAll();
     }
 }
