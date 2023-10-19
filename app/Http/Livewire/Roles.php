@@ -3,11 +3,10 @@
 namespace App\Http\Livewire;
 
 use App\Http\Traits\WithNotification;
+use App\Interfaces\RoleServiceInterface;
 use App\Models\User;
-use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Livewire\Component;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class Roles extends Component
@@ -18,44 +17,31 @@ class Roles extends Component
     public $permissions;
     public $role;
 
+    protected RoleServiceInterface $service;
+
     public function render(): View
     {
-        $title = __('permissions.title');
-        return view('livewire.roles',['title' => $title])->layout('components.layouts.index');
+        return view('livewire.roles', [
+            'title' => __('permissions.title'),
+            'allRole' => Role::all(),
+            'allUser' => User::all()
+            ])
+            ->layout('components.layouts.index');
+    }
+
+    public function boot(RoleServiceInterface $service): void
+    {
+        $this->service = $service;
     }
 
     public function mount(): void
     {
-        $this->permissions = $this->getAllPermission();
-    }
-
-    public function getPermissionsByRole(): ?Collection
-    {
-        return $this->getFormattedData(
-            Role::query()
-                ->whereName($this->role)
-                ->first()
-                ?->permissions
-                ->pluck('name')
-        );
-    }
-
-    public function getPermissionsByUser(): ?Collection
-    {
-        return $this->getFormattedData(
-            User::find($this->userId)
-                ?->getAllPermissions()
-                ->pluck('name'));
+        $this->permissions = $this->service->getAllPermission();
     }
 
     public function belongsToRole(string $permission): ?bool
     {
-        return Role::query()
-            ->whereName($this->role)
-            ->first()
-            ?->permissions
-            ->pluck('name')
-            ->contains($permission);
+        return $this->service->belongsToRole($this->role, $permission);
     }
 
     public function store(): void
@@ -70,40 +56,20 @@ class Roles extends Component
 
         $user->syncRoles($this->role);
         $user->syncPermissions([
-            $this->permissions->diffAssoc($this->getPermissionsByRole())->keys()
+            $this->permissions->diffAssoc($this->service->getPermissionsByRole($this->role))->keys()
         ]);
 
         $this->alertSuccess(__('alert.update_permission_success'));
     }
 
-    public function getAllPermission(): Collection
-    {
-        return Permission::all()
-            ->pluck('name')
-            ->mapWithKeys(fn($item) => [$item => false]);
-    }
-
-    public function getFormattedData($newPermissions): Collection
-    {
-        $result = $this->getAllPermission();
-
-        foreach ($result as $key => $permission) {
-            if ($newPermissions?->contains($key)) {
-                $result->put($key, true);
-            }
-        }
-
-        return $result;
-    }
-
     public function updatedUserId(): void
     {
-        $this->permissions = $this->getPermissionsByUser();
+        $this->permissions = $this->service->getPermissionsByUser($this->userId);
         $this->role = User::find($this->userId)?->getRoleNames()?->first();
     }
 
     public function updatedRole(): void
     {
-        $this->permissions = $this->getPermissionsByRole();
+        $this->permissions = $this->service->getPermissionsByRole($this->role);
     }
 }

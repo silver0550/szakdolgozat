@@ -23,13 +23,11 @@ class History extends Component
     public function render()
     {
         $activities = $this->service->getActivities(collect($this->filters));
-        $allUser = User::all();
-        $title = __('side_menu.history');
 
         return view('livewire.history',[
-            'title' => $title,
+            'title' => __('side_menu.history'),
             'activities' => $activities,
-            'allUser' => $allUser,
+            'allUser' => User::all(),
         ])->layout('components.layouts.index');
     }
 

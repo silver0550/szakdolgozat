@@ -9,7 +9,7 @@
                     :label="__('permissions.user')"
                     wire:model="userId">
                     <option selected value= {{null}} >{{ __('global.select') }}</option>
-                    @foreach (\App\Models\User::all() as $user)
+                    @foreach ($allUser as $user)
                         <option value={{ $user->id }}>{{ $user->name }}</option>
                     @endforeach
                 </x-selector>
@@ -23,7 +23,7 @@
                     @if(!$role)
                         <option selected > - </option>
                     @endif
-                    @foreach (\Spatie\Permission\Models\Role::all()->pluck('name') as $roleItem)
+                    @foreach ($allRole->pluck('name') as $roleItem)
                         <option {{ $roleItem == $role ? 'selected' : '' }}
                                 value={{ $roleItem }}>
                                     {{ __('permissions.' . lineLifter($roleItem, false)) }}
