@@ -2,16 +2,19 @@
 
 namespace App\Http\Livewire\Dashboard;
 
-use App\Http\Traits\WithControlledTable;
 use App\Http\Traits\WithSelfPagination;
-use App\Models\ToolsView;
+use App\Interfaces\ToolServiceInterface;
+use App\Service\ToolService;
 use Illuminate\View\View;
 use Livewire\Component;
 
 class Tools extends Component
 {
     use WithSelfPagination;
-    use WithControlledTable;
+
+    public array $filters = [];
+
+    private ToolService $service;
 
     protected $listeners = [
         'refresh' => '$refresh',
@@ -19,12 +22,15 @@ class Tools extends Component
 
     public function render(): View
     {
-        $tools = $this->setToolsFilters()
-            ->filteredData(ToolsView::with('owner', 'user'))
-            ->when(!user()->hasRole('system|admin'),
-                fn($query) => $query->where('user_id', user_id()))
-            ->paginate($this->pageSize);
+        $tools = $this->service->getFilteredTools($this->filters)->paginate($this->pageSize);
 
-        return view('livewire.dashboard.tools', ['tools' => $tools])->layout('components.layouts.index');
+        return view('livewire.dashboard.tools', [
+            'tools' => $tools
+        ])->layout('components.layouts.index');
+    }
+
+    public function boot(ToolServiceInterface $service): void
+    {
+        $this->service = $service;
     }
 }
