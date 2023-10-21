@@ -26,11 +26,6 @@ class User extends Authenticatable
         CausesActivity,
         HasRoles;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
@@ -38,11 +33,6 @@ class User extends Authenticatable
         'avatar_path',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
@@ -52,12 +42,32 @@ class User extends Authenticatable
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', //password
     ];
 
+    protected $casts = [
+        'created_at' => 'date',
+    ];
+    /*
+    |--------------------------------------------------------------------------
+    | GLOBAL VARIABLES
+    |--------------------------------------------------------------------------
+    */
+
+    /*
+    |--------------------------------------------------------------------------
+    | FUNCTIONS
+    |--------------------------------------------------------------------------
+    */
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()->logAll()
             ->dontLogIfAttributesChangedOnly(['remember_token']);
     }
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | RELATIONS
+    |--------------------------------------------------------------------------
+    */
     public function property(): HasOne
     {
         return $this->hasOne(UserProperty::class);
@@ -66,17 +76,27 @@ class User extends Authenticatable
     {
         return $this->hasMany(Tool::class);
     }
+    public function pwReset(): HasOne
+    {
+        return $this->hasOne(PasswordReset::class);
+    }
 
+    /*
+    |--------------------------------------------------------------------------
+    | SCOPES
+    |--------------------------------------------------------------------------
+    */
 
+    /*
+    |--------------------------------------------------------------------------
+    | ACCESSORS
+    |--------------------------------------------------------------------------
+    */
     public function getTools(): Collection //TODO:attribute
     {
         return $this->tools()
                     ->get()
                     ->map( fn($tool) => $tool->owner);
-    }
-    public function pwReset(): HasOne
-    {
-        return $this->hasOne(PasswordReset::class);
     }
 
     public function name(): Attribute
@@ -85,6 +105,14 @@ class User extends Authenticatable
             set: fn($value) => Str::title($value),
         );
     }
+    public function getPhoneNumberAttribute(): ?string
+    {
+        return Tool::query()
+            ->where('owner_id', $this->id)
+            ->where('owner_type', SimCard::class)
+            ->first()
+            ?->owner?->call_number;
+    }
 
     public function getImgAttribute(): string
     {
@@ -92,8 +120,9 @@ class User extends Authenticatable
                 ? 'storage/' . $this->avatar_path
                 : PictureProviderEnum::DEFAULT_AVATAR->value;
     }
-
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    /*
+    |--------------------------------------------------------------------------
+    | MUTATORS
+    |--------------------------------------------------------------------------
+    */
 }

@@ -3,6 +3,7 @@
 return [
     'sim_card' => 'Sim kártya',
     'serial_number' => 'Sorozatszám',
+    'call_number' => 'Hívószám',
     'provider' => 'Szolgáltató',
     'size' => 'Méret',
     'description' => 'Leírás',

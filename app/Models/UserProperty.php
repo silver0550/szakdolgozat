@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enum\DepartmentEnum;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,10 +13,9 @@ class UserProperty extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
-
     protected $casts = [
         'language_knowledge' => 'array',
+        'department' => DepartmentEnum::class,
     ];
 
     public function user(): BelongsTo

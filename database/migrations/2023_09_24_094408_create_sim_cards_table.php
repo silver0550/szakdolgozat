@@ -15,6 +15,7 @@ return new class extends Migration {
         Schema::create('sim_cards', function (Blueprint $table) {
             $table->id();
             $table->string('serial_number')->unique();
+            $table->string('call_number')->unique();
             $table->unsignedTinyInteger('provider');
             $table->unsignedTinyInteger('size');
             $table->text('description')->nullable();

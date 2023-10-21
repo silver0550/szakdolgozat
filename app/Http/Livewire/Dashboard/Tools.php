@@ -25,7 +25,8 @@ class Tools extends Component
         $tools = $this->service->getFilteredTools($this->filters)->paginate($this->pageSize);
 
         return view('livewire.dashboard.tools', [
-            'tools' => $tools
+            'tools' => $tools,
+            'title' => __('tool.tools')
         ])->layout('components.layouts.index');
     }
 
