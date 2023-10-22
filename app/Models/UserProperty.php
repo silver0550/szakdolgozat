@@ -13,6 +13,7 @@ class UserProperty extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
     protected $casts = [
         'language_knowledge' => 'array',
         'department' => DepartmentEnum::class,

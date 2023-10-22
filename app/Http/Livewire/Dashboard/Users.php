@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Dashboard;
 
 use App\Interfaces\UserServiceInterface;
+use App\Models\Tool;
 use Livewire\Component;
 use App\Models\User;
 use App\Models\UserProperty;
@@ -29,9 +30,6 @@ class Users extends Component
 
     public function render()
     {
-//        $users =  $this->setUsersFilters()
-//                    ->filteredData(User::query())
-//                    ->paginate($this->pageSize);
         $users = $this->service
             ->getFilteredUsers($this->filters, $this->sorter)
             ->paginate($this->pageSize);
@@ -57,7 +55,10 @@ class Users extends Component
     public function delete(User $user){ // delete function doesn't use
 
         if(user()->can('delete-user')){
-            $user->property()->first()->delete();
+            Tool::query()
+                ->where('user_id', $user->id)
+                ->update(['user_id' => null]);
+            $user->property?->delete();
             $user->delete();
 
             $this->alertSuccess(__('alert.delete_user_success'));

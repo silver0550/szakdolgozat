@@ -14,6 +14,10 @@
             class="hover:text-blue-500 cursor-pointer"
             wire:click="$emit('openModal','modals.tool-info',
             { tool: {{ $tool->id }} })"/>
+        <x-icon.delete
+            class="hover:text-red-500 cursor-pointer"
+            wire:click="destroy">
+        </x-icon.delete>
         @else
             <x-icon.info
                 class="hover:text-blue-500 cursor-pointer"

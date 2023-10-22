@@ -108,7 +108,7 @@ class User extends Authenticatable
     public function getPhoneNumberAttribute(): ?string
     {
         return Tool::query()
-            ->where('owner_id', $this->id)
+            ->where('user_id', $this->id)
             ->where('owner_type', SimCard::class)
             ->first()
             ?->owner?->call_number;

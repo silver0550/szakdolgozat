@@ -3,7 +3,7 @@
     <x-table.cell>{{ $user->email }}</x-table.cell>
     <x-table.cell>{{ $user->created_at->format('Y.m.d.') }}</x-table.cell>
     <x-table.cell>
-        <x-button.tooltip label="{{ formatPhoneNumber($user->phoneNumber) }}">
+        <x-button.tooltip label="{{ formatPhoneNumber($user->phoneNumber) ?? '-' }}">
             <x-icon.phone class="hover:text-blue-500 cursor-pointer"/>
         </x-button.tooltip>
     </x-table.cell>
