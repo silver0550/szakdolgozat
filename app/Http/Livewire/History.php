@@ -48,13 +48,9 @@ class History extends Component
         return true;
     }
 
-    public function getToolFromHistory(Activity $history)
+    public function getToolIdFromHistory(Activity $history): ?int
     {
-        return Tool::query()
-            ->where('owner_type', $history->subject::class)
-            ->where('owner_id', $history->subject->id)
-            ->first()
-            ->id;
+        return $this->service->getToolIdFromHistory($history);
     }
 
     public function updatedFilters()

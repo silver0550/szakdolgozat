@@ -9,10 +9,10 @@
         {{ user()->name }}
         </span>
     </li>
-    <li>
-        <a href="{{route('home')}}" @class(['active' => $isActive('home')])>
-            <x-icon.home/>{{ __('side_menu.home') }}</a>
-    </li>
+{{--    <li>--}}
+{{--        <a href="{{route('home')}}" @class(['active' => $isActive('home')])>--}}
+{{--            <x-icon.home/>{{ __('side_menu.home') }}</a>--}}
+{{--    </li>--}}
     <div class="collapse collapse-arrow overflow-hidden rounded-box">
         <input type="checkbox" class="peer" @checked($isActive('users','tools'))/>
         <span class="collapse-title peer-checked:bg-base-300">

@@ -5,8 +5,10 @@ namespace App\Service;
 use App\Enum\ActionEnum;
 use App\Http\Traits\WithSelfPagination;
 use App\Interfaces\HistoryInterface;
+use App\Models\Tool;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Models\Activity;
 
 class HistoryService implements HistoryInterface
@@ -38,12 +40,12 @@ class HistoryService implements HistoryInterface
         $action = ActionEnum::from($record->description);
 
         return match($action){
-            ActionEnum::CREATE => (new $record->subject_type)->fill($record->properties['attributes'])?->name
-                ?? (new $record->subject_type)->fill($record->properties['attributes'])?->serial_number,
-            ActionEnum::DELETE => (new $record->subject_type)->fill($record->properties['old'])?->name
-                ?? (new $record->subject_type)->fill($record->properties['old'])?->serial_number,
-            ActionEnum::UPDATE => (new $record->subject_type)->fill($record->properties['old'])?->name
-                ?? (new $record->subject_type)->fill($record->properties['old'])?->serial_number,
+            ActionEnum::CREATE => $this->buildClassByActivity('attributes', $record)?->name
+                ?? $this->buildClassByActivity('attributes', $record)?->serial_number,
+            ActionEnum::DELETE => $this->buildClassByActivity('old', $record)?->name
+                ?? $this->buildClassByActivity('old', $record)?->serial_number,
+            ActionEnum::UPDATE => $this->buildClassByActivity('old', $record)?->name
+                ?? $this->buildClassByActivity('old', $record)?->serial_number,
             ActionEnum::LOG_IN => '-',
             ActionEnum::LOG_OUT => '-',
             ACtionEnum::CAPTURE => User::withTrashed()
@@ -54,5 +56,23 @@ class HistoryService implements HistoryInterface
                     ->first()->name . '-nak',
             default => null
         };
+    }
+
+    public function buildClassByActivity(string $property, Activity $record)  : Model
+    {
+        return (new $record->subject_type)->fill($record->properties[$property]);
+    }
+    public function getToolIdFromHistory(Activity $history): ?int
+    {
+        if($history->subject) {
+
+            return Tool::query()
+                ->where('owner_type', $history->subject::class)
+                ->where('owner_id', $history->subject->id)
+                ->first()
+                ->id;
+        }
+
+        return null;
     }
 }

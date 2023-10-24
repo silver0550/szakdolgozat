@@ -2,7 +2,6 @@
     @isset($title)
         <x-title label="{{ $title }}"/>
     @endisset
-
     <Label class="label label-lg font-bold pr-10"> {{ __('history.filters') }}</Label>
     <x-card>
         <x-row>
@@ -84,10 +83,11 @@
                                      src="{{ \App\Enum\PictureProviderEnum::getImgByType('auth') }}"
                                  @else
                                      @if($activity->subject_type == \App\Models\User::class)
-                                         wire:click="$emit('openModal','modals.user-info',['{{ $activity->subject_id }}'])"
-                                     @else
+                                         wire:click="$emit('openModal','modals.user-info',['{{
+                                                $activity->subject_id }}'])"
+                                     @elseif($this->getToolIdFromHistory($activity))
                                         wire:click="$emit('openModal','modals.tool-info',
-                                            { tool: {{ $this->getToolFromHistory($activity) }} })"
+                                            { tool: {{ $this->getToolIdFromHistory($activity) }} })"
                                     @endif
                                      src="{{ $activity->subject->img
                                         ?? \App\Enum\PictureProviderEnum::getImgByType($activity->subject_type) }}"
