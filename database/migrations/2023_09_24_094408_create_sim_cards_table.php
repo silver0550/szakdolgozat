@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->unsignedTinyInteger('size');
             $table->text('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

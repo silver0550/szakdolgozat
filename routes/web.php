@@ -52,5 +52,5 @@ Route::middleware('admin')->group(function(){
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 
 Route::get('/test', function(){
-    dd(User::find(2)->whereHas('tools', fn($query) => $query->where('owner_type', \App\Models\SimCard::class) )->get());
+    dd(Tool::where('id', 5)->get()->each());
 });

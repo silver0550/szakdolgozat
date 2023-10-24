@@ -49,11 +49,11 @@
             <x-icon.history/>{{ __('side_menu.history') }}
         </a>
     </li>
-    <li>
-        <a href="{{ route('search') }}" @class(['active' => $isActive('search')])>
-            <x-icon.search/>{{ __('side_menu.search') }}
-        </a>
-    </li>
+{{--    <li>--}}
+{{--        <a href="{{ route('search') }}" @class(['active' => $isActive('search')])>--}}
+{{--            <x-icon.search/>{{ __('side_menu.search') }}--}}
+{{--        </a>--}}
+{{--    </li>--}}
     <li>
         <a href="{{ route('logout') }}">
             <x-icon.exit/>{{ __('side_menu.exit') }}</a>

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->json('language_knowledge')->nullable();
             $table->integer('entry_card')->unique();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

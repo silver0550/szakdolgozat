@@ -70,7 +70,7 @@
             <x-slot name="head">
                 <x-table.head class="cursor-default"></x-table.head>
                 <x-table.head class="cursor-default">{{ __('history.action')}}</x-table.head>
-                <x-table.head class="cursor-default">{{ __('history.name') }}</x-table.head>
+                <x-table.head class="cursor-default">{{ __('history.identifier') }}</x-table.head>
                 <x-table.head class="cursor-default">{{ __('history.causer') }}</x-table.head>
                 <x-table.head class="cursor-default">{{ __('history.date') }}</x-table.head>
                 <x-table.head class="cursor-default">{{ __('history.time') }}</x-table.head>
@@ -79,11 +79,24 @@
                 @foreach($activities as $activity)
                     <tr>
                         <td>
-                            <img class=" w-7 h-7 rounded-md" src="{{ $activity->subject?->img}}" alt="" />
+                            <img class=" w-7 h-7 rounded-md"
+                                 @if($activity->log_name == 'auth')
+                                     src="{{ \App\Enum\PictureProviderEnum::getImgByType('auth') }}"
+                                 @else
+                                     @if($activity->subject_type == \App\Models\User::class)
+                                         wire:click="$emit('openModal','modals.user-info',['{{ $activity->subject_id }}'])"
+                                     @else
+                                        wire:click="$emit('openModal','modals.tool-info',
+                                            { tool: {{ $this->getToolFromHistory($activity) }} })"
+                                    @endif
+                                     src="{{ $activity->subject->img
+                                        ?? \App\Enum\PictureProviderEnum::getImgByType($activity->subject_type) }}"
+                                 @endif
+                                 alt="" />
                         </td>
                         <td>{{ \App\Enum\ActionEnum::from($activity->description)->getReadableText() }}</td>
                         <td>
-                            {{ $activity->subject?->name ?? $activity->subject?->myName }}
+                            {{ $this->getReadableName($activity) }}
                         </td>
                         <td>{{ $activity->causer->name ?? 'Seed' }}</td>
                         <td>{{ $activity->created_at->format('Y-m-d') }}</td>
@@ -92,6 +105,5 @@
                 @endforeach
             </x-slot>
         </x-table>
-{{--        TODO: bejelentkezés és kijelentkezés icon hozzáadáas--}}
     </x-card>
 </div>

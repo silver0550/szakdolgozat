@@ -2,10 +2,10 @@
 
 namespace App\Interfaces;
 
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
+
+use Illuminate\Database\Eloquent\Builder;
 
 interface HistoryInterface
 {
-    public function getActivities(Collection $filters): LengthAwarePaginator;
+    public function getActivities(array $filters): Builder;
 }
