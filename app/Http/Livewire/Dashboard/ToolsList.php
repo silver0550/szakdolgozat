@@ -35,12 +35,12 @@ class ToolsList extends Component
         if(user()->can('delete-tool')){
 
             $this->model->delete();
-            $this->alertSuccess(__('alert.delete_user_success'));
+            $this->alertSuccess(__('alert.delete_tool_success'));
 
             $this->emitUp('refresh');
 
         } else {
-            $this->alertError(__('alert.delete_user_fail'));
+            $this->alertError(__('alert.delete_tool_fail'));
             $this->alertWarning(__('alert.access_denied'));
         }
     }
