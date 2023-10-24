@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use App\Enum\StatusEnum;
 use App\Http\Traits\WithNotification;
+use App\Interfaces\AssignmentServiceInterface;
 use App\Models\Tool;
 use App\Models\User;
 use Livewire\Component;
@@ -17,30 +17,26 @@ class Assignment extends Component
     public array $storagePuffer = [];
     public array $userPuffer = [];
 
+    private AssignmentServiceInterface $service;
+
     public function render()
     {
         $includedIds = $this->storagePuffer
             ? $this->filteredData($this->storagePuffer)
             : [];
 
-        $tools = Tool::with('view')
-            ->whereNull('user_id')
-            ->where('status', StatusEnum::ACTIVE)
-            ->where(function ($query) use ($includedIds) {
-                $query->orWhereIn('id', $includedIds)
-                    ->orWhereHas('view', function ($subquery) {
-                        $subquery->where('serial_number', 'LIKE', '%' . $this->search . '%');
-                    });
-            })->get();
-
-        $userHasTools = $this->userId ? User::find($this->userId)->tools : null;
-        $title = __('side_menu.assignment');
+        $tools = $this->service->getFilteredTools($includedIds, $this->search);
 
         return view('livewire.assignment', [
-            'title' => $title,
+            'title' => __('side_menu.assignment'),
             'tools' => $tools,
-            'userHasTools' => $userHasTools,
+            'userHasTools' => $this->userId ? User::find($this->userId)->tools : null,
         ])->layout('components.layouts.index');
+    }
+
+    public function boot(AssignmentServiceInterface $service)
+    {
+        $this->service = $service;
     }
 
     public function captureTool(): void
@@ -65,9 +61,24 @@ class Assignment extends Component
 
         Tool::query()
             ->whereIn('id', $this->filteredData($this->userPuffer))
-            ->update([
-                'user_id' => null,
-            ]);
+            ->get()
+            ->each(fn($tool) => $tool->update(['user_id' => null]));
+
+        $this->reset('userPuffer');
+    }
+
+    public function captureAllTools(): void
+    {
+        if (!user()->hasRole('system|admin')) {
+            $this->alertError(__('alert.access_denied'));
+
+            return;
+        }
+
+        Tool::query()
+            ->where('user_id', $this->userId)
+            ->get()
+            ->each(fn($tool) => $tool->update(['user_id' => null]));
 
         $this->reset('userPuffer');
     }
@@ -92,11 +103,9 @@ class Assignment extends Component
             return;
         }
 
-        Tool::query()
-            ->whereIn('id', $this->filteredData($this->storagePuffer))
-            ->update([
-                'user_id' => $this->userId,
-            ]);
+        Tool::whereIn('id', $this->filteredData($this->storagePuffer))
+            ->get()
+            ->each(fn($tool) => $tool->update(['user_id' => $this->userId]));
 
         $this->reset('storagePuffer');
     }
@@ -113,22 +122,5 @@ class Assignment extends Component
     public function filteredData(array $data): array
     {
         return array_keys(array_filter($data, fn($value) => $value));
-    }
-
-    public function captureAllTools(): void
-    {
-        if (!user()->hasRole('system|admin')) {              //TODO tool assign
-            $this->alertError(__('alert.access_denied'));
-
-            return;
-        }
-
-        Tool::query()
-            ->where('user_id', $this->userId)
-            ->update([
-                'user_id' => null,
-            ]);
-
-        $this->reset('userPuffer');
     }
 }

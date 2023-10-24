@@ -52,6 +52,5 @@ Route::middleware('admin')->group(function(){
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 
 Route::get('/test', function(){
-    User::find(2)->syncPermissions(['create-user']);
-    dd(User::find(2)->getDirectPermissions());
+    dd(Tool::where('id', 5)->get()->each());
 });

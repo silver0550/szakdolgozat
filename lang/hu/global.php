@@ -16,4 +16,5 @@ return [
     'store' => 'Raktár',
     'search' => 'Keresés',
     'all' => 'Összes',
+    'search_not_found' => 'A keresésnek nincs eredménye',
 ];

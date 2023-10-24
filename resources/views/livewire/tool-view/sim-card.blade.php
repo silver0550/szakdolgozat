@@ -1,23 +1,29 @@
 <div>
     <div class="flex justify-between" >
         <x-input.form-control
-            class="w-3/6 pr-3"
+            class="w-1/3 pr-3"
             label="{{ __('sim_card.serial_number') }}"
             :error="$errors->first('serial_number')" >
             <x-input.text :readonly="$readOnly" wire:model.defer='data.serial_number'/>
+        </x-input.form-control>
+        <x-input.form-control
+            class="w-1/4"
+            label="{{ __('sim_card.call_number') }}"
+            :error="$errors->first('call_number')" >
+            <x-input.text :readonly="$readOnly" wire:model.defer='data.call_number'/>
         </x-input.form-control>
         <x-selector wire:model.defer="data.provider"
                     label="{{ __('sim_card.provider') }}"
                     :error="$errors->first('provider')"
                     :disabled="$readOnly">
             @if(!array_key_exists('size', $data))
-                <option selected value="{{null}}">{{ __('global.select') }}</option>
+                <option selected value="{{ null }}">{{ __('global.select') }}</option>
             @endif
             @foreach(\App\Enum\Tools\SimCArd\ProviderEnum::cases() as $provider)
                 <option {{ array_key_exists('provider', $data) && $data['provider'] == $provider
                         ? 'selected'
                         : '' }}
-                    value={{$provider}}>
+                    value={{ $provider }}>
                     {{ $provider->getReadableText() }}
                 </option>
             @endforeach

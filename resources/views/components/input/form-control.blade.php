@@ -2,13 +2,14 @@
     'for' => '',
     'label' => '',
     'error' => false,
+    'required' => false,
 ])
 
-<div {{$attributes ->merge(['class' => 'form-control'])}}>
+<div {{ $attributes ->merge(['class' => 'form-control']) }}>
     @if ($label)
         <label for="{{$for}}" class="label">
             <span class="label-text">
-                {{$label}}
+                {{ $label }} {{$required ? '*' : ''}}
             </span>
         </label>
     @endif

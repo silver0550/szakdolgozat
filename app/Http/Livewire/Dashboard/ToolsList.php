@@ -2,12 +2,16 @@
 
 namespace App\Http\Livewire\Dashboard;
 
+use App\Http\Traits\WithNotification;
 use App\Models\BaseTool;
 use App\Models\ToolsView;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class ToolsList extends Component
 {
+    use WithNotification;
+
     public ToolsView $tool;
     public BaseTool $model;
 
@@ -21,8 +25,23 @@ class ToolsList extends Component
         $this->model = $tool->owner;
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.dashboard.tools-list');
+    }
+
+    public function destroy(): void
+    {
+        if(user()->can('delete-tool')){
+
+            $this->model->delete();
+            $this->alertSuccess(__('alert.delete_user_success'));
+
+            $this->emitUp('refresh');
+
+        } else {
+            $this->alertError(__('alert.delete_user_fail'));
+            $this->alertWarning(__('alert.access_denied'));
+        }
     }
 }

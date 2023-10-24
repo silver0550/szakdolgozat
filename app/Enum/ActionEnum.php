@@ -9,6 +9,8 @@ enum ActionEnum: string
     case DELETE = 'deleted';
     case LOG_IN = 'login';
     case LOG_OUT = 'logout';
+    case CAPTURE = 'capture';
+    case RELEASE = 'release';
 
     public function getReadableText(): string
     {
@@ -18,6 +20,8 @@ enum ActionEnum: string
             self::DELETE => __('action.delete'),
             self::LOG_IN => __('action.sing_in'),
             self::LOG_OUT => __('action.sing_out'),
+            self::CAPTURE => __('action.capture'),
+            self::RELEASE => __('action.release'),
         };
     }
 }

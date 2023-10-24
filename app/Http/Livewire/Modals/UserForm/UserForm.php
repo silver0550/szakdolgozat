@@ -31,32 +31,28 @@ class UserForm extends Component
         'property.entry_card' => ['required','digits:6'],
     ];
 
-    protected $messages =[
-        'user.email.required' => 'Az e-mail mező kitöltése kötelező!',
-        'user.email.email' => 'Hibás formátum!',
-        'user.email.email.unique' => 'Az e-mail cím már használatban van!',
-        'user.name.required' => 'Név mező kitöltése kötelező!',
-        'property.department' => 'A részleg kitöltése kötelező!',
-        'property.place_of_birth.required' => 'A születési hely mező kitöltése köptelező!',
-        'property.date_of_birth.required' => 'A születési idő mező kitöltése kötelező!',
-        'property.date_of_birth.before' => 'A születési idő nem haladhatja meg a mai napot!',
-        'property.entry_card.required' => 'A belépő kártya számát kötelező megadni!',
-        'property.entry_card.digits' => 'Hibás formátum, adjon meg 6 számjegyű számot',
+    protected $validationAttributes = [
+        'user.name' => 'Név',
+        'user.email' => 'Email',
+        'property.department' => 'Részleg',
+        'property.place_of_birth' => 'Születési hely',
+        'property.date_of_birth' => 'Születési idő',
+        'property.entry_card' => 'Belépőkártya',
     ];
 
     public function mount(User $user, bool $readonly, String $target){
         $this->user = $user;
         $this->target = $target;
-        $this->property = $user->property()->first() ?? new UserProperty();
+        $this->property = $user->property ?? new UserProperty();
         $this->readonly = $readonly;
     }
 
-    public function avatarUploaded(String $avatar_path): Void
+    public function avatarUploaded(string $avatar_path): Void
     {
         $this->avatar_path = $avatar_path;
     }
 
-    public function languageUpdated(Array $languages): Void
+    public function languageUpdated(array $languages): Void
     {
         $this->languages = $languages;
     }

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Livewire\Component;
 use Illuminate\Http\Request;
+use Spatie\Activitylog\Models\Activity;
 
 class Login extends Component
 {
@@ -23,7 +24,7 @@ class Login extends Component
 
         if (Auth::attempt($credentials)){
             $request->session()->regenerate();
-            activity()->log('login');
+            activity('auth')->log('login');
 
             return redirect()->route('home');
         }

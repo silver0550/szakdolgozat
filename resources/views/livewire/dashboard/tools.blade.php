@@ -1,4 +1,8 @@
 <div>
+    @isset($title)
+        <x-title label="{{ $title }}"/>
+    @endisset
+
     {{-- CONTROLL BLOCK BEGIN --}}
     <x-card class="mb-2">
         <x-row class="justify-between">

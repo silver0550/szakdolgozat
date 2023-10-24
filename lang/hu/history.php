@@ -6,7 +6,7 @@ return [
     'type' => 'Típus',
     'date' => 'Dátum',
     'time' => 'Idő',
-    'name' => 'Név',
+    'identifier' => 'Azonosító',
     'causer' => 'Kezdeményező',
     'from_date' => 'Dátumtól',
     'to_date' => 'Dátumig',

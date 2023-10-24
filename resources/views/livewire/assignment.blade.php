@@ -72,7 +72,6 @@
                     @endforeach
                 </x-slot>
             </x-table>
-
         </div>
     </x-row>
 </div>
