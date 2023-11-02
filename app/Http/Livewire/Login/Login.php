@@ -3,47 +3,37 @@
 namespace App\Http\Livewire\Login;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 use Livewire\Component;
 use Illuminate\Http\Request;
-use App\Filters\ByDateOfBirth;
-use App\Models\User;
-use Illuminate\Pipeline\Pipeline;
+use Spatie\Activitylog\Models\Activity;
 
 class Login extends Component
 {
+    public ?string $email = null;
+    public ?string $password = null;
 
-    public $email;
-    public $password;
-
-    public $result;
-
-    protected $rules =[
+    protected array $rules =[
         'email' => ['required','email'],
         'password' => ['required']
     ];
 
-    protected $messages =[
-        'email.required' => 'Az e-mail mező kitöltése kötelező!',
-        'email.email' => 'Hibás formátum!',
-        'password.required' => 'Jelszó mező kitöltése kötelező!',
-    ];
-
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $credentials = $this->validate();
-        
+
         if (Auth::attempt($credentials)){
             $request->session()->regenerate();
+            activity('auth')->log('login');
 
-            activity()->log('login');
-            
-            return redirect()->route('home');
+            return redirect()->route('users');
         }
-        $this->addError('auth','Hibás felhasználónév, vagy jelszó');
+
+        $this->addError('auth',__('login.auth_error'));
         $this->reset('password');
-        
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.login.login')->layout('components.layouts.login');
     }

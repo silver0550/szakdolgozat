@@ -1,15 +1,15 @@
 
 <div class="fixed top-0 right-0 left-60">
     <div class="navbar  justify-end bg-neutral text-neutral-content font-bold">
-        <x-menu.horizontal>
-            <x-slot name="main">
-                <a>Téma</a>
-            </x-slot>
-            <x-slot name="subs">
+{{--        <x-menu.horizontal>--}}
+{{--            <x-slot name="main">--}}
+{{--                <a>Téma</a>--}}
+{{--            </x-slot>--}}
+{{--            <x-slot name="subs">--}}
 
-            </x-slot>
-        </x-menu.horizontal>
-        @can('Admin')
+{{--            </x-slot>--}}
+{{--        </x-menu.horizontal>--}}
+        @role('system|admin')
             <x-menu.horizontal class="mx-5" >
                 <x-slot name="main">
                     <x-indicator label={{$notification}}>
@@ -28,7 +28,7 @@
                     </li>
                 </x-slot>
             </x-menu.horizontal>
-        @endcan
+        @endrole
         @livewire('navbar.self-menu', ['user' => $userId])
     </div>
 </div>

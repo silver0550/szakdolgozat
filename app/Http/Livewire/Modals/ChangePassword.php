@@ -39,10 +39,10 @@ class ChangePassword extends ModalComponent
     }
 
     public function save(){
-        
+
         $this->validate([
                 'passwords.current' => [
-                    'required', 
+                    'required',
                     function($attriute, $value, $fail){             //TODO: don't check password
                         if (!Hash::check($value, $this->user->password)){
                             $fail('Hibás jelszó!');
@@ -55,8 +55,8 @@ class ChangePassword extends ModalComponent
         $this->user->update(['password' => Hash::make($this->passwords['new'])]);
 
         $this->closeModal();
-        
-        $this->sendSuccessResponse('A jelszava megváltozott.');
+
+        $this->alertSuccess('A jelszava megváltozott.');
 
     }
     public static function modalMaxWidth(): string

@@ -18,11 +18,11 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('place_of_birth');
             $table->date('date_of_birth');
-            $table->string('department');
-            $table->boolean('isleader');
+            $table->unsignedSmallInteger('department');
             $table->json('language_knowledge')->nullable();
             $table->integer('entry_card')->unique();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('avatar_path')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

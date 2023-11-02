@@ -4,15 +4,12 @@ namespace App\Http\Livewire\Modals;
 
 use LivewireUI\Modal\ModalComponent;
 use App\Models\User;
-use App\Models\UserProperty;
 
 class UserInfo extends ModalComponent
 {
     public User $user;
-  
-    public $readonly;
 
-    // userProperty ellenőrzése
+    public bool $readonly ;
 
     protected $listeners = [
         'close',
@@ -20,24 +17,19 @@ class UserInfo extends ModalComponent
 
     public function mount(User $user){
         $this->user = $user;
-        
-        $this->readonly = !auth()->user()->can('update', $user);
-        
+        $this->readonly = user()->cannot('edit-user');
     }
 
     public function render()
     {
-        return view('livewire.modals.user-info', ['user' => $this->user, 'readonly' => $this->readonly]);
+        return view('livewire.modals.user-info');
     }
-
 
     // MODAL CONTROL
 
     public function close(): Void
     {
-
         $this->closeModal();
-    
     }
 
     public static function modalMaxWidth(): string

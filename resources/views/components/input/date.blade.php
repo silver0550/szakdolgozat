@@ -13,11 +13,9 @@
     if ($error) {
         $style = $style.' input-error';
     }
-
 @endphp
 
 <input
-    
     type = "date"
     placeholder = "{{ $placeholder }}"
     @disabled($readonly)

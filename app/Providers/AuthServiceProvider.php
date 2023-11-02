@@ -26,17 +26,15 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->registerPolicies();
 
-        Gate::define('SuperAdmin', function(User $user){
-            return $user->email === env('SUPER_ADMIN');
+        Gate::before(function ($user, $ability) {
+            if ($user->hasRole('system')) {
+                return true;
+            }
+            return false;
         });
-
-        Gate::define('Admin', function(User $user){
-            return $user->isAdmin()->first();
-        });
-        
     }
 }
