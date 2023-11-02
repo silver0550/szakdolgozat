@@ -26,7 +26,7 @@ class Login extends Component
             $request->session()->regenerate();
             activity('auth')->log('login');
 
-            return redirect()->route('home');
+            return redirect()->route('users');
         }
 
         $this->addError('auth',__('login.auth_error'));
