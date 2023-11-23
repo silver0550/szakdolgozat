@@ -34,4 +34,8 @@ class Tools extends Component
     {
         $this->service = $service;
     }
+
+    public function updatedFilters(){
+        $this->resetPage();
+    }
 }

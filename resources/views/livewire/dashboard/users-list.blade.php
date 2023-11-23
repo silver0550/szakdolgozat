@@ -8,7 +8,7 @@
         </x-button.tooltip>
     </x-table.cell>
     <x-table.cell>
-        @can('edit-user')
+        @role('system|admin')
             <x-icon.edit
                 wire:click="$emit('openModal','modals.user-info',['{{ $user->id }}'])"
                 class="hover:text-blue-500 cursor-pointer"/>
@@ -25,7 +25,7 @@
                         class="hover:text-blue-500 cursor-pointer"
                     />
             @endif
-        @endcan
+        @endrole
     </x-table.cell>
 </x-table.row>
 

@@ -15,6 +15,8 @@ class ToolService implements ToolServiceInterface
         $filters = collect($filters);
 
         return ToolsView::query()
+            ->when(!user()->hasRole('system|admin'),
+                fn($query) => $query->where('user_id', user_id()))
             ->when($filters->get('type'),
                 fn($query) => $query->where('owner_type', $filters->get('type')))
             ->when($filters->get('search'),

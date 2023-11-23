@@ -104,4 +104,8 @@ class Users extends Component
             $this->alertWarning(__('alert.access_denied'));
         }
     }
+
+    public function updatedFilters(){
+        $this->resetPage();
+    }
 }
