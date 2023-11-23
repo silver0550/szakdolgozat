@@ -34,27 +34,29 @@
             </li>
         </ul>
     </div>
-    <li>
-        <a href="{{ route('assignment') }}" @class(['active' => $isActive('assignment')])>
-            <x-icon.pencil/>{{ __('side_menu.assignment') }}
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('roles') }}" @class(['active' => $isActive('roles')])>
-            <x-icon.role/>{{ __('side_menu.roles') }}
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('history') }}" @class(['active' => $isActive('history')])>
-            <x-icon.history/>{{ __('side_menu.history') }}
-        </a>
-    </li>
-{{--    <li>--}}
-{{--        <a href="{{ route('search') }}" @class(['active' => $isActive('search')])>--}}
-{{--            <x-icon.search/>{{ __('side_menu.search') }}--}}
-{{--        </a>--}}
-{{--    </li>--}}
-    <li>
+    @role('system|admin')
+        <li>
+            <a href="{{ route('assignment') }}" @class(['active' => $isActive('assignment')])>
+                <x-icon.pencil/>{{ __('side_menu.assignment') }}
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('roles') }}" @class(['active' => $isActive('roles')])>
+                <x-icon.role/>{{ __('side_menu.roles') }}
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('history') }}" @class(['active' => $isActive('history')])>
+                <x-icon.history/>{{ __('side_menu.history') }}
+            </a>
+        </li>
+    {{--    <li>--}}
+    {{--        <a href="{{ route('search') }}" @class(['active' => $isActive('search')])>--}}
+    {{--            <x-icon.search/>{{ __('side_menu.search') }}--}}
+    {{--        </a>--}}
+    {{--    </li>--}}
+    @endrole
+        <li>
         <a href="{{ route('logout') }}">
             <x-icon.exit/>{{ __('side_menu.exit') }}</a>
     </li>
