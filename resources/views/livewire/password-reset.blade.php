@@ -17,7 +17,7 @@
                 <x-button.tooltip label="Osztályok">
                     <x-selector wire:model='departmentFilter'>
                         <option selected value="{{null}}">Összes</option>
-                        @foreach (\App\Enum\Department::cases() as $department)
+                        @foreach (\App\Enum\DepartmentEnum::cases() as $department)
                             <option value={{$department}}>{{$department}}</option>
                         @endforeach
                     </x-selector>

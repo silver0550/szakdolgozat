@@ -10,7 +10,7 @@ class Active
 
     public function handle(Builder $query, Closure $next){
 
-        return $next($query)->where('isActive', true);
+        return $next($query)->where('is_active', true);
     }
 
 

@@ -31,7 +31,7 @@ class PasswordReset extends Component
     public function render(): View
     {
         $users = $this->setUsersFilters()
-                    ->filteredData( User::whereRelation('pwReset','isActive',1) )
+                    ->filteredData( User::whereRelation('pwReset','is_active',1) )
                     ->paginate($this->pageSize);
 
         return view('livewire.password-reset',['users' => $users])->layout('components.layouts.index');
@@ -46,7 +46,7 @@ class PasswordReset extends Component
                 PwResetModel::where('user_id', $id)
                 ->first()
                 ->update([
-                    'isActive' => false,
+                    'is_active' => false,
                     'completed_at' => now(),
                 ]);
 

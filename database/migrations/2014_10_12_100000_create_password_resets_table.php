@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('password_resets', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->boolean('isActive');
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
             $table->dateTime('completed_at')->nullable();
         });

@@ -2,88 +2,93 @@
 
 namespace App\Http\Livewire\Login;
 
-use App\Models\UserProperty;
-use App\Models\User;
-use App\Models\PasswordReset as PasswordResetModel;
 use App\Filters\Builder\Active;
 use App\Filters\Builder\HasProperty;
+use App\Http\Requests\PasswordResetRequest;
 use App\Http\Traits\WithNotification;
-use Illuminate\View\View;
-use LivewireUI\Modal\ModalComponent;
+use App\Models\PasswordReset as PasswordResetModel;
+use App\Models\User;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\View\View;
+use LivewireUI\Modal\ModalComponent;
+
 class PwResetRequest extends ModalComponent
 {
     use WithNotification;
 
-    public $name;
+    public $email;
     public $dateOfBirth;
     public $entryCard;
 
-
-    protected $rules =[
-        'name' => ['required'],
-        'dateOfBirth' => ['required'],
-        'entryCard' => ['required'],
-    ];
-
-    protected $messages =[
-        'name.required' => "Név mező kitöltése kötelező!",
-        'dateOfBirth.required' => 'A születési idő mező kitöltése kötelező!',
-        'entryCard.required' => 'A belépő kártya számát kötelező megadni!'
-    ];
-
     public function send(): void
     {
-        $this->validate();
+        $request = new PasswordResetRequest;
 
-        $isExist = (new Pipeline(app()))
-                ->send(UserProperty::query())
-                ->through([
-                    (new hasProperty('date_of_birth', $this->dateOfBirth)),
-                    (new hasProperty('entry_card', $this->entryCard)),])
-                ->thenReturn()
-                ->first();
+        $validated = Validator::make(
+            [
+                'email' => $this->email,
+                'dateOfBirth' => $this->dateOfBirth,
+                'entryCard' => $this->entryCard,
+            ],
+            $request->rules(),
+            customAttributes: $request->attributes(),
+        );
 
-        if( $isExist) {
+        $this->errorBag = $validated->messages();
 
-            $isExist = (new Pipeline(app()))
-                    ->send(User::query())
-                    ->through([
-                        (new hasProperty('id', $isExist->user_id)),
-                        (new hasProperty('name', $this->name))])
-                    ->thenReturn()
-                    ->first();
-
-            if ( $isExist ) {
-
-                $this->store(collect(array('user_id' => $isExist->id)));
-
-                $this->closeModal();
-
-                $this->alertSuccess(__('alert.password_reset_success'));
-
-                return;
-            }
+        if ($validated->failed()) {
+            $this->alertError(__('global.check_data'));
         }
-        $this->alertError(__('alert.password_reset_fail'));
+
+        $user = User::query()
+            ->with('property')
+            ->where('email', $this->email)
+            ->whereHas('property',
+                fn($query) => $query->where('date_of_birth', $this->dateOfBirth))
+            ->whereHas('property',
+                fn($query) => $query->where('entry_card', $this->entryCard))
+            ->first();
+
+        if (is_null($user)) {
+            $this->alertError(__('alert.password_reset_fail'));
+
+            return;
+        }
+
+        $this->alertSuccess(__('alert.password_reset_success'));
+
+        $this->store($user->id);
+
+        $this->closeModal();
+
     }
 
-    public function store(Collection $data): void
+    public function store(int $id): void
     {
-        if ($data->has('user_id')){
+        PasswordResetModel::updateOrCreate(
+            ['user_id' => $id],
+            ['is_active' => true]
+        );
 
-            $hasRequest = (new Pipeline(app()))
-                    ->send(PasswordResetModel::query())
-                    ->through([
-                        Active::class,
-                        (new hasProperty('user_id',$data['user_id']))])
-                    ->thenReturn()
-                    ->first();
 
-            if ($hasRequest) { PasswordResetModel::find($hasRequest->id)->touch(); }
-            else { PasswordResetModel::create(['user_id' => $data['user_id']]); }
-        }
+//        if ($data->has('user_id')) {
+//
+//            $hasRequest = (new Pipeline(app()))
+//                ->send(PasswordResetModel::query())
+//                ->through([
+//                    Active::class,
+//                    (new hasProperty('user_id', $data['user_id']))])
+//                ->thenReturn()
+//                ->first();
+//
+//            if ($hasRequest) {
+//                PasswordResetModel::find($hasRequest->id)->touch();
+//            } else {
+//                PasswordResetModel::create(['user_id' => $data['user_id']]);
+//            }
+//        }
     }
 
     public function render(): View
@@ -98,6 +103,6 @@ class PwResetRequest extends ModalComponent
 
     public static function closeModalOnClickAway(): bool
     {
-            return false;
+        return false;
     }
 }

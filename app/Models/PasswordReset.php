@@ -11,10 +11,6 @@ class PasswordReset extends Model
 
     protected $hidden = [];
 
-    protected $attributes = [
-        'isActive' => 1,
-    ];
-
     protected $guarded = [];
 
     protected $casts =[];
