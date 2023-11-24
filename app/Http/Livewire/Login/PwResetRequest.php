@@ -24,6 +24,58 @@ class PwResetRequest extends ModalComponent
 
     public function send(): void
     {
+        if($this->isValid()){
+            $user = User::query()
+                ->with('property')
+                ->where('email', $this->email)
+                ->whereHas('property',
+                    fn($query) => $query->where('date_of_birth', $this->dateOfBirth))
+                ->whereHas('property',
+                    fn($query) => $query->where('entry_card', $this->entryCard))
+                ->first();
+
+            if (is_null($user)) {
+                $this->alertError(__('alert.password_reset_fail'));
+
+                return;
+            }
+
+            $this->alertSuccess(__('alert.password_reset_success'));
+
+            $this->store($user->id);
+
+            $this->closeModal();
+        }
+    }
+
+    public function store(int $id): void
+    {
+        PasswordResetModel::updateOrCreate(
+            ['user_id' => $id],
+            ['is_active' => true]
+        );
+    }
+
+    public function render(): View
+    {
+        return view('livewire.login.pw-reset-request');
+    }
+
+    public static function modalMaxWidth(): string
+    {
+        return 'xl';
+    }
+
+    public static function closeModalOnClickAway(): bool
+    {
+        return false;
+    }
+
+    /**
+     * @return void
+     */
+    public function isValid(): bool
+    {
         $request = new PasswordResetRequest;
 
         $validated = Validator::make(
@@ -40,69 +92,10 @@ class PwResetRequest extends ModalComponent
 
         if ($validated->failed()) {
             $this->alertError(__('global.check_data'));
+
+            return false;
         }
 
-        $user = User::query()
-            ->with('property')
-            ->where('email', $this->email)
-            ->whereHas('property',
-                fn($query) => $query->where('date_of_birth', $this->dateOfBirth))
-            ->whereHas('property',
-                fn($query) => $query->where('entry_card', $this->entryCard))
-            ->first();
-
-        if (is_null($user)) {
-            $this->alertError(__('alert.password_reset_fail'));
-
-            return;
-        }
-
-        $this->alertSuccess(__('alert.password_reset_success'));
-
-        $this->store($user->id);
-
-        $this->closeModal();
-
-    }
-
-    public function store(int $id): void
-    {
-        PasswordResetModel::updateOrCreate(
-            ['user_id' => $id],
-            ['is_active' => true]
-        );
-
-
-//        if ($data->has('user_id')) {
-//
-//            $hasRequest = (new Pipeline(app()))
-//                ->send(PasswordResetModel::query())
-//                ->through([
-//                    Active::class,
-//                    (new hasProperty('user_id', $data['user_id']))])
-//                ->thenReturn()
-//                ->first();
-//
-//            if ($hasRequest) {
-//                PasswordResetModel::find($hasRequest->id)->touch();
-//            } else {
-//                PasswordResetModel::create(['user_id' => $data['user_id']]);
-//            }
-//        }
-    }
-
-    public function render(): View
-    {
-        return view('livewire.login.pw-reset-request');
-    }
-
-    public static function modalMaxWidth(): string
-    {
-        return 'xl';
-    }
-
-    public static function closeModalOnClickAway(): bool
-    {
-        return false;
+        return true;
     }
 }
