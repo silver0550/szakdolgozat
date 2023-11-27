@@ -21,4 +21,5 @@ return [
     'update_permission_fail' => 'A jgosultásgok változtatása sikertelen',
     'missing_user' => 'Nincs felhasználó kiválasztva',
     'missing_tool' => 'Nincs eszköz kiválasztva',
+    'missing_request' => 'Nincs kijelölt kérés',
 ];

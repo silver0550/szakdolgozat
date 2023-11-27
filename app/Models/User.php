@@ -3,19 +3,19 @@
 namespace App\Models;
 
 use App\Enum\PictureProviderEnum;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Spatie\Activitylog\Traits\CausesActivity;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\Activitylog\LogOptions;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\CausesActivity;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -27,6 +27,8 @@ class User extends Authenticatable
         SoftDeletes,
         CausesActivity,
         HasRoles;
+
+    const BASE_PASSWORD = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; //password
 
     protected $fillable = [
         'name',
@@ -41,11 +43,12 @@ class User extends Authenticatable
     ];
 
     protected $attributes = [
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', //password
+        'password' => self::BASE_PASSWORD,
     ];
 
     protected $casts = [
         'created_at' => 'date',
+        'updated_at' => 'date',
     ];
     /*
     |--------------------------------------------------------------------------
@@ -64,7 +67,6 @@ class User extends Authenticatable
             ->dontLogIfAttributesChangedOnly(['remember_token']);
     }
 
-
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
@@ -74,10 +76,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserProperty::class);
     }
+
     public function tools(): HasMany
     {
         return $this->hasMany(Tool::class);
     }
+
     public function pwReset(): HasOne
     {
         return $this->hasOne(PasswordReset::class);
@@ -97,8 +101,8 @@ class User extends Authenticatable
     public function getTools(): Collection //TODO:attribute
     {
         return $this->tools()
-                    ->get()
-                    ->map( fn($tool) => $tool->owner);
+            ->get()
+            ->map(fn($tool) => $tool->owner);
     }
 
     public function name(): Attribute
@@ -107,20 +111,22 @@ class User extends Authenticatable
             set: fn($value) => Str::title($value),
         );
     }
+
     public function getPhoneNumberAttribute(): ?string
     {
         return Tool::query()
             ->where('user_id', $this->id)
             ->where('owner_type', SimCard::class)
             ->first()
-            ?->owner?->call_number;
+            ?->owner
+            ?->call_number;
     }
 
     public function getImgAttribute(): string
     {
         return $this->avatar_path
-                ? 'storage/' . $this->avatar_path
-                : PictureProviderEnum::DEFAULT_AVATAR->value;
+            ? 'storage/' . $this->avatar_path
+            : PictureProviderEnum::DEFAULT_AVATAR->value;
     }
     /*
     |--------------------------------------------------------------------------

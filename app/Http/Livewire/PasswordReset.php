@@ -2,66 +2,83 @@
 
 namespace App\Http\Livewire;
 
-use App\Http\Traits\WithControlledTable;
 use App\Http\Traits\WithNotification;
 use App\Http\Traits\WithSelfPagination;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\View\View;
-use Livewire\Component;
 use App\Models\PasswordReset as PwResetModel;
 use App\Models\User;
+use App\Service\PasswordResetService;
+use Illuminate\View\View;
+use Livewire\Component;
 
 class PasswordReset extends Component
 {
     use WithSelfPagination;
-    use WithControlledTable;
     use WithNotification;
 
-    public $chackedRequests = [];
+    public mixed $search = null;
+    public mixed $department = null;
+    public array $checkedRequests = [];
+    private PasswordResetService $service;
 
     protected $listeners = [
-        'statusChange'
+        'statusChanged'
     ];
-
-    public function mount(): void
-    {
-        $this->chackedRequests = collect($this->chackedRequests);
-    }
 
     public function render(): View
     {
-        $users = $this->setUsersFilters()
-                    ->filteredData( User::whereRelation('pwReset','is_active',1) )
-                    ->paginate($this->pageSize);
+        $users = $this->service->getFilteredPasswordRequest([
+            'search' => $this->search,
+            'department' => $this->department,
+        ])->paginate($this->pageSize);
 
-        return view('livewire.password-reset',['users' => $users])->layout('components.layouts.index');
+        return view('livewire.password-reset', [
+            'users' => $users,
+            'title' => __('password_reset.password_reset'),
+        ])->layout('components.layouts.index');
     }
 
     public function resetAll(): void
     {
-            $this->chackedRequests->each(function ($id){
+        if ($this->requestIsEmpty()) {
+            $this->alertWarning(__('alert.missing_request'));
 
-                User::find($id)->update(['password' => Hash::make('password')]);
+            return;
+        }
 
-                PwResetModel::where('user_id', $id)
-                ->first()
-                ->update([
-                    'is_active' => false,
-                    'completed_at' => now(),
-                ]);
+        foreach ($this->checkedRequests as $id => $is_active) {
+            if ($is_active) {
+                User::find($id)->update(['password' => User::BASE_PASSWORD]);
 
-                $this->alertSuccess(__('alert.password_reset_success'));
+                PwResetModel::query()
+                    ->where('user_id', $id)
+                    ->first()
+                    ->update([
+                        'is_active' => false,
+                        'completed_at' => now(),
+                    ]);
+            }
+        }
 
-            });
+        $this->reset('checkedRequests');
+        $this->alertSuccess(__('alert.password_reset_success'));
     }
 
-    public function statusChange($id): void
+    public function statusChanged($id): void
     {
-        $this->chackedRequests = !$this->chackedRequests->contains($id) ?
-                                $this->chackedRequests->push($id) :
-                                $this->chackedRequests->reject(function($value) use($id){
-                                    return $value == $id;
-                                });
+        if (array_key_exists($id, $this->checkedRequests)) {
+            $this->checkedRequests[$id] = !$this->checkedRequests[$id];
+        } else {
+            $this->checkedRequests[$id] = true;
+        }
     }
 
+    protected function requestIsEmpty(): bool
+    {
+        return collect($this->checkedRequests)->filter()->count() == 0;
+    }
+
+    public function boot(PasswordResetService $service): void
+    {
+        $this->service = $service;
+    }
 }
