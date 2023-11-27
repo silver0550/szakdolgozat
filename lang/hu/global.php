@@ -18,4 +18,5 @@ return [
     'all' => 'Összes',
     'search_not_found' => 'A keresésnek nincs eredménye',
     'send' => 'Küldés',
+    'classes' => 'Osztályok',
 ];

@@ -2,25 +2,17 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\View\View;
 use Livewire\Component;
-use App\Models\User;
 
 class PasswordResetList extends Component
 {
-
-    public $isActive;
-
-    public function __construct( public $user)
+    public function __construct(public $user)
     {
-        //
     }
-  
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.password-reset-list');
     }
-
-
-
 }

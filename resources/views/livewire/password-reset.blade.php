@@ -1,24 +1,26 @@
 <div>
-
+    @isset($title)
+        <x-title label="{{ $title }}"/>
+    @endisset
     {{-- CONTROLL BLOCK BEGIN --}}
-    <div class ='flex justify-between w-full p-2 bg-base-200 rounded-md mb-2'>
+    <div class='flex justify-between w-full p-2 bg-base-200 rounded-md mb-2'>
         <div class="flex  ">
             @role('admin|system')
-                <x-button.tooltip label="Visszaállítás" class="ml-7">
-                    <x-button.primary wire:click="resetAll" class="btn-circle">
-                        <x-icon.passwordReset/>
-                    </x-button.primary>
-                </x-button.tooltip>
+            <x-button.tooltip label="{{ __('password_reset.reset') }}" class="ml-7">
+                <x-button.primary wire:click="resetAll" class="btn-circle">
+                    <x-icon.passwordReset/>
+                </x-button.primary>
+            </x-button.tooltip>
             @endrole
-            <div class="px-10  w-96 ">
-                <x-input.text wire:model="search"  placeholder="Keresés..."/>
+            <div class="px-10 w-96 ">
+                <x-input.text wire:model="search" placeholder="{{ __('global.search') }}..."/>
             </div>
             <div class="flex">
-                <x-button.tooltip label="Osztályok">
-                    <x-selector wire:model='departmentFilter'>
-                        <option selected value="{{null}}">Összes</option>
+                <x-button.tooltip label="{{ __('global.classes') }}">
+                    <x-selector wire:model='department'>
+                        <option selected value="{{ null }}">{{ __('global.all') }}</option>
                         @foreach (\App\Enum\DepartmentEnum::cases() as $department)
-                            <option value={{$department}}>{{$department}}</option>
+                            <option value={{ $department }}>{{ $department->getReadableText() }}</option>
                         @endforeach
                     </x-selector>
                 </x-button.tooltip>
@@ -32,12 +34,20 @@
     <x-table class="p-2 bg-base-200 rounded-md ">
         <x-slot name="head">
             @if ($users->isEmpty())
-                <x-table.head class="cursor-default">Nics aktív kérés</x-table.head>
+                <x-table.head class="cursor-default">
+                    {{ __('password_reset.no_active_request') }}
+                </x-table.head>
             @else
                 <x-table.head class="cursor-default">#</x-table.head>
-                <x-table.head wire:click="sort('name')" class="cursor-pointer">Név</x-table.head>
-                <x-table.head wire:click="sort('email')" class="cursor-pointer">Email</x-table.head>
-                <x-table.head wire:click="sort('id')" class="cursor-pointer">Létrehozva</x-table.head>
+                <x-table.head wire:click="sort('name')" class="cursor-pointer">
+                    {{ __('password_reset.name') }}
+                </x-table.head>
+                <x-table.head wire:click="sort('email')" class="cursor-pointer">
+                    {{ __('password_reset.email') }}
+                </x-table.head>
+                <x-table.head wire:click="sort('id')" class="cursor-pointer">
+                    {{ __('password_reset.created') }}
+                </x-table.head>
             @endif
         </x-slot>
         <x-slot name='body'>
