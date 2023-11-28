@@ -16,6 +16,11 @@ class ToolSeeder extends Seeder
         $this->call([
             PhoneSeeder::class,
             NotebookSeeder::class,
+            DisplaySeeder::class,
+            PrinterSeeder::class,
+            SimCardSeeder::class,
+            TabletSeeder::class,
+            WorkStationSeeder::class,
         ]);
 
     }

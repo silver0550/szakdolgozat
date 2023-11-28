@@ -25,7 +25,7 @@ class NotebookFactory extends Factory
             ]),
             'model_type' =>fake()->randomElement([
                 'Model1', 'Model2', 'Model3'
-               ])
+            ])
 
         ];
     }
