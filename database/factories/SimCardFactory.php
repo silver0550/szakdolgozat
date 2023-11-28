@@ -20,7 +20,7 @@ class SimCardFactory extends Factory
     {
         return [
             'serial_number' => fake()->unique()->regexify('[0-9]{11}'),
-            'call_number' => fake()->unique()->regexify('^06(30|70|20)\d{5}$'),
+            'call_number' => fake()->unique()->regexify('^06(30|70|20)\d{7}$'),
             'provider' => fake()->randomElement(array_map(fn($enum) => $enum->value, ProviderEnum::cases())),
             'size' => fake()->randomElement(array_map(fn($enum) => $enum->value, SizeEnum::cases())),
             'description' => fake()->text(),

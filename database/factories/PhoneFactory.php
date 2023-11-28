@@ -13,7 +13,7 @@ class PhoneFactory extends Factory
     public function definition(): array
     {
         return [
-            'serial_number' => fake()->unique()->numberBetween(100000000000000,999999999999999),
+            'serial_number' => fake()->unique()->regexify('[0-9]{12}'),
             'manufacturer' => fake()->randomElement([
                     'Samsung',
                     'Huawei',
