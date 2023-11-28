@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\SimCard;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class RulesSeeder extends Seeder
+class SimCardSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,11 +15,6 @@ class RulesSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([
-            RolesTableSeeder::class,
-            PermissionsTableSeeder::class,
-            RolesAndPermissionsSeeder::class,
-            UserHasPermissionSeeder::class,
-        ]);
+        SimCard::factory(10)->create();
     }
 }

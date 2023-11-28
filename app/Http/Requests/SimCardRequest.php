@@ -22,7 +22,7 @@ class SimCardRequest extends FormRequest
             'call_number' => [
                 'required',
                 Rule::unique('sim_cards')->ignore($updatedId),
-                'regex:/^[0-9]{11}$/',
+                'regex:/^06(30|70|20)\d{7}$/',
             ],
             'provider' => [
                 'required',

@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Notebook>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\WorkStation>
  */
-class NotebookFactory extends Factory
+class WorkStationFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,16 +17,14 @@ class NotebookFactory extends Factory
     public function definition(): array
     {
         return [
-            'serial_number' =>fake()->unique()->regexify('[A-Z0-9]{10}'),
+            'serial_number' => fake()->unique()->regexify('[0-9]{12}'),
             'manufacturer' => fake()->randomElement([
-                'Asus',
-                'HP',
-                'DELL',
+                'Apple', 'Samsung', 'Dell',
             ]),
-            'model_type' =>fake()->randomElement([
+            'model_type' => fake()->randomElement([
                 'Model1', 'Model2', 'Model3'
-            ])
-
+            ]),
+            'description' => fake()->randomElement([null, fake()->text()]),
         ];
     }
 }
